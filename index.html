@@ -405,6 +405,123 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
 .empty { color: var(--muted); font-family: var(--f-display); font-size: 14px; }
 
 
+/* ── §-Verweise ── */
+a.lref { color: var(--brand); font-family: var(--f-display); font-weight: 700; font-size: .93em; text-decoration: underline; text-decoration-style: dotted; text-decoration-thickness: 1.5px; text-underline-offset: .18em; border-radius: 3px; }
+a.lref:hover { text-decoration-style: solid; background: var(--brand-soft); }
+.dx .nm, .nm { font-family: inherit; font-weight: inherit; font-size: inherit; color: inherit; }
+.dx .nm:not(:has(a)) { font-family: var(--f-display); font-weight: 700; font-size: .93em; color: var(--muted); }
+.chip a.lref, a.chip.lref { font-family: var(--f-mono); font-size: inherit; font-weight: 500; text-decoration: none; }
+a.chip.lref, .chip.has-ref { border-color: color-mix(in srgb, var(--brand) 45%, var(--line)); background: var(--brand-soft); }
+a.chip.lref:hover, .chip.has-ref:hover { border-color: var(--brand); }
+
+/* ── Gesetze-Tab ── */
+.lfilter { width: 100%; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 8px 11px; font-family: var(--f-display); font-size: 14px; margin-bottom: 4px; }
+.lawbtn { display: grid; grid-template-columns: 76px 1fr auto; gap: 8px; align-items: start; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 8px; border-radius: 8px; font-family: var(--f-display); font-size: 13.5px; line-height: 1.3; }
+.lawbtn:hover { background: var(--sunken); }
+.lawbtn[aria-current="true"] { background: var(--brand-soft); }
+.lawbtn .ab { font-family: var(--f-mono); font-weight: 700; font-size: 12.5px; color: var(--brand); overflow-wrap: anywhere; padding-top: 1px; }
+.lawbtn .nm2 { color: var(--ink); min-width: 0; overflow-wrap: anywhere; hyphens: auto; }
+.lawbtn .cn { font-family: var(--f-mono); font-size: 11px; background: var(--mark-soft); border-radius: 99px; padding: 1px 7px; margin-top: 1px; }
+.quick { display: grid; gap: 6px; max-width: 560px; margin-top: 4px; }
+.quick label { font-family: var(--f-display); font-weight: 700; font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+.quick .qrow { display: flex; gap: 8px; }
+.quick input { flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 9px 12px; font-family: var(--f-display); font-size: 15px; }
+.quick small { color: var(--muted); font-family: var(--f-display); min-height: 1.2em; }
+.lawgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.lawcard { min-width: 0; display: grid; gap: 4px; align-content: start; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 12px 14px; font-family: var(--f-display); }
+.lawcard:hover { border-color: var(--brand); }
+.lawcard b { font-family: var(--f-mono); font-size: 15px; color: var(--brand); }
+.lawcard span { font-size: 14px; line-height: 1.3; overflow-wrap: anywhere; hyphens: auto; }
+.lawcard small { color: var(--muted); font-size: 12.5px; }
+.lawcard small em { font-style: normal; color: var(--ink); background: var(--mark-soft); border-radius: 4px; padding: 0 4px; }
+.crumb { border: 0; background: none; padding: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.head .meta, .lp-body > .meta, #lawtext-m > .meta { margin: 0; color: var(--muted); font-family: var(--f-display); font-size: 13.5px; max-width: none; }
+.head .meta a { color: var(--brand); }
+.law-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+.ljump { display: flex; align-items: center; gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.ljump label { font-family: var(--f-display); font-weight: 800; color: var(--brand); padding: 0 4px 0 11px; }
+.ljump input { width: 76px; border: 0; background: transparent; padding: 8px 6px; font-family: var(--f-mono); font-size: 14px; }
+.ljump .btn { border: 0; border-left: 1px solid var(--line); border-radius: 0; padding: 8px 12px; font-size: 14px; }
+.lsearch { flex: 1 1 200px; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; font-family: var(--f-display); font-size: 14px; }
+.ctog.lcited { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; font-family: var(--f-display); font-weight: 700; font-size: 13.5px; color: var(--muted); }
+.ctog.lcited[aria-pressed="true"] { background: var(--mark-soft); color: var(--ink); border-color: color-mix(in srgb, var(--mark) 70%, var(--line)); }
+.gliederung { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin-top: 8px; }
+.gliederung summary { cursor: pointer; padding: 8px 12px; font-family: var(--f-display); font-weight: 700; font-size: 14px; }
+.gliederung > div { max-height: 340px; overflow: auto; padding: 4px 8px 10px; display: grid; gap: 1px; border-top: 1px solid var(--line); }
+.gliederung button { text-align: left; border: 0; background: none; border-radius: 6px; padding: 4px 8px; font-family: var(--f-display); font-size: 13.5px; line-height: 1.3; }
+.gliederung button:hover { background: var(--sunken); }
+.gliederung .gl1 { font-weight: 700; margin-top: 4px; }
+.gliederung .gl2 { padding-left: 22px; color: var(--muted); }
+.lawtext { display: grid; gap: 4px; max-width: 82ch; }
+.lg { font-family: var(--f-display); text-align: center; }
+.lg1 { font-weight: 800; font-size: 18px; margin: 22px 0 0; padding-top: 14px; border-top: 2px solid var(--line); }
+.lg2 { font-weight: 600; font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+.norm { padding: 12px 14px; border-radius: var(--r); border: 1px solid transparent; scroll-margin-top: 84px; transition: background .6s, border-color .6s; }
+.norm h3 { font-size: 15.5px; font-weight: 700; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 6px; }
+.norm h3 .no { font-family: var(--f-mono); font-size: 14px; font-weight: 700; color: var(--brand); white-space: nowrap; }
+.norm h3 .nt { color: var(--ink); }
+.nb { font-size: 16px; line-height: 1.6; display: grid; gap: 6px; }
+.nb p { margin: 0; border-radius: 6px; transition: background .6s; }
+.nb .az { font-family: var(--f-mono); font-size: .86em; color: var(--muted); font-weight: 700; margin-right: 2px; }
+.nb .sym { font-family: var(--f-mono); font-size: .9em; color: var(--muted); display: inline-block; min-width: 2.2em; }
+.nb .z1 { padding-left: 1.6em; } .nb .z2 { padding-left: 3.2em; } .nb .z3 { padding-left: 4.8em; } .nb .z4 { padding-left: 6.4em; }
+.nb .s1 { padding-left: 1.6em; } .nb .s2 { padding-left: 3.2em; }
+.nb .toc { font-size: 14px; color: var(--muted); }
+.nb .leer { color: var(--muted); font-style: italic; }
+.nb .lt { overflow-x: auto; }
+.nb .lt table { border-collapse: collapse; font-size: 14px; }
+.nb .lt td { border: 1px solid var(--line); padding: 5px 8px; vertical-align: top; }
+.nb mark, .norm h3 mark { background: var(--mark); color: #131c33; border-radius: 2px; }
+.norm.cited { border-color: var(--line); background: var(--surface); }
+.cited-by { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--f-display); font-size: 12.5px; color: var(--muted); }
+.goch { border: 1px solid var(--line); background: var(--mark-soft); border-radius: 99px; padding: 2px 9px; font-family: var(--f-display); font-weight: 700; font-size: 12px; color: var(--ink); }
+.goch:hover { border-color: var(--brand); }
+.norm.hit { background: var(--brand-soft); border-color: var(--brand); }
+.norm.hit.hit-fade { background: transparent; border-color: var(--line); }
+.norm.hit .nb p.hit { background: var(--mark-soft); box-shadow: -6px 0 0 var(--mark-soft), 6px 0 0 var(--mark-soft); }
+.loading { color: var(--muted); font-family: var(--f-display); }
+.loading::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 8px; border-radius: 50%; border: 2px solid var(--line); border-top-color: var(--brand); animation: spin .8s linear infinite; vertical-align: -1px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Lese-Leiste rechts ── */
+:root { --lpw: clamp(420px, 40vw, 640px); }
+.lawpanel { position: fixed; top: 0; right: 0; bottom: 0; width: var(--lpw); z-index: 40; background: var(--paper); border-left: 1px solid var(--line); box-shadow: -18px 0 40px rgba(10, 16, 32, .18); display: grid; grid-template-rows: auto auto minmax(0, 1fr); transform: translateX(102%); transition: transform .24s ease; padding-top: env(safe-area-inset-top, 0px); }
+.lawpanel.open { transform: none; }
+.lp-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.lp-title { flex: 1; min-width: 0; display: grid; }
+.lp-k { font-family: var(--f-mono); font-weight: 700; color: var(--brand); font-size: 16px; }
+.lp-t { font-family: var(--f-display); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp-head .btn { padding: 7px 11px; font-size: 13px; }
+.lp-x { border: 1px solid var(--line); background: var(--surface); width: 36px; height: 36px; border-radius: 8px; font-size: 16px; flex: none; }
+.lp-x:hover { border-color: var(--brand); }
+.lp-tools { padding: 10px 14px 0; }
+.lp-tools:empty { display: none; }
+.lp-tools .law-tools { margin: 0; }
+.lp-tools .gliederung { margin: 8px 0 0; }
+.lp-body { overflow-y: auto; overscroll-behavior: contain; padding: 10px 8px 40px 8px; position: relative; }
+.lp-body > .meta { padding: 0 6px 6px; }
+.lp-body .norm { scroll-margin-top: 0; }
+.lp-body .nb { font-size: 15.5px; }
+@media (min-width: 1100px) {
+  body.lp-open .wrap, body.lp-open .top-in { margin-right: var(--lpw); }
+  .wrap, .top-in { transition: margin-right .24s ease; }
+}
+@media (min-width: 1100px) and (max-width: 1599px) {
+  body.lp-open #view-learn.learn { grid-template-columns: minmax(0, 1fr); }
+  body.lp-open #view-learn .side { display: none; }
+}
+@media (max-width: 1099px) {
+  .lawpanel { width: min(100vw, 640px); }
+  body.lp-open::after { content: ""; position: fixed; inset: 0; z-index: 39; background: rgba(8, 12, 24, .45); }
+}
+@media (max-width: 640px) {
+  .lawpanel { width: 100vw; border-left: 0; }
+  .lp-head .btn { display: none; }
+  .lawbtn { grid-template-columns: 70px 1fr auto; }
+  .nb .z1, .nb .s1 { padding-left: 1em; } .nb .z2, .nb .s2 { padding-left: 2em; } .nb .z3 { padding-left: 3em; }
+  .norm { padding: 10px 6px; }
+}
+
 /* Trickfilm */
 .fwrap { position: relative; background: #eef3ff; }
 .fstage { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; font-family: var(--f-display); }
@@ -456,6 +573,7 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     <div class="brand"><span class="para">§</span><div>Privatrecht Lernwerkstatt<small>Basismodul · Rechtsstand Herbst 2026</small></div></div>
     <nav class="tabs" role="tablist" aria-label="Bereich">
       <button role="tab" id="tab-learn" aria-selected="true" data-view="learn">Lernen</button>
+      <button role="tab" id="tab-laws" aria-selected="false" data-view="laws">Gesetze</button>
       <button role="tab" id="tab-exam" aria-selected="false" data-view="exam">Klausur</button>
     </nav>
   </div>
@@ -471,8 +589,27 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     <article class="article" id="article"></article>
   </section>
 
+  <section id="view-laws" class="learn laws" hidden>
+    <aside class="side" aria-label="Gesetze">
+      <input type="search" class="lfilter" id="law-filter" placeholder="Gesetz suchen …" aria-label="Gesetz suchen">
+      <button class="btn side-toggle" id="lside-toggle" aria-expanded="false">Gesetz wählen <span aria-hidden="true">▾</span></button>
+      <div class="side-list" id="law-list"></div>
+    </aside>
+    <article class="article" id="law-main"></article>
+  </section>
+
   <section id="view-exam" class="exam" hidden></section>
 </main>
+
+<aside id="lawpanel" class="lawpanel" hidden aria-label="Gesetzestext">
+  <div class="lp-head">
+    <div class="lp-title"><span class="lp-k" id="lp-k"></span><span class="lp-t" id="lp-t"></span></div>
+    <button class="btn" id="lp-tab" title="Im Gesetze-Tab öffnen">Im Tab öffnen ↗</button>
+    <button class="lp-x" id="lp-close" aria-label="Lese-Leiste schließen">✕</button>
+  </div>
+  <div class="lp-tools" id="lp-tools"></div>
+  <div class="lp-body" id="lp-body"></div>
+</aside>
 
 <script src="content.js"></script>
 <script src="film.js"></script>
@@ -499,6 +636,8 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
 <script src="details/d18.js"></script>
 <script src="details/d19.js"></script>
 <script src="details/d20.js"></script>
+<script src="laws/index.js"></script>
+<script src="gesetze.js"></script>
 <script>
 (function () {
   "use strict";
@@ -595,9 +734,11 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
 
   /* ───────── Kompakt / Ausführlich ───────── */
   var DET = window.DETAILS || {};
+  var G = window.Gesetze, LCTX = null;
+  function lk(t, c) { return G.linkify(esc(t), G.sectionCtx(c, t)); }
   var mode = store("mode") === "long" ? "long" : "short";
   function dfmt(s) {
-    return esc(s).replace(/((?:§§?|\bArt) \d+[a-z]?(?: (?:Abs|Z|lit) (?:\d+[a-z]?|[a-z]\b))*(?:(?:, | und | bis |–)\d+[a-z]?(?: (?:Abs|Z|lit) (?:\d+[a-z]?|[a-z]\b))*)*(?: ff)?(?: (?:[A-ZÄÖÜ][A-Za-zÄÖÜäöü-]{0,12}(?:G|O|B|VO|V)\b|AEUV|ABGB))?)/g, '<span class="nm">$1</span>');
+    return G.linkify(esc(s), LCTX || (LCTX = G.ctx()));
   }
   function block(b) {
     if (typeof b === "string") return "<p>" + dfmt(b) + "</p>";
@@ -622,7 +763,7 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     var d = DET[c.id], has = !!(d && d.length), long = has && mode === "long";
     var tog = has ? '<div class="mode" role="group" aria-label="Umfang des Kapitels"><button data-mode="short" aria-pressed="' + !long + '">Kompakt</button><button data-mode="long" aria-pressed="' + long + '">Ausführlich</button></div>' : "";
     if (!long) {
-      return '<div class="study-head"><h2>Auf einen Blick <span class="k">Zusammenfassung</span></h2>' + tog + '</div><ul class="points">' + c.points.map(function (p) { return "<li><span>" + esc(p) + "</span></li>"; }).join("") + "</ul>" +
+      return '<div class="study-head"><h2>Auf einen Blick <span class="k">Zusammenfassung</span></h2>' + tog + '</div><ul class="points">' + c.points.map(function (p) { return "<li><span>" + lk(p, c) + "</span></li>"; }).join("") + "</ul>" +
         (has ? '<button class="btn more-cta" data-mode="long">Ganzes Kapitel ausführlich lesen · ' + d.length + " Abschnitte →</button>" : "");
     }
     var min = Math.max(1, Math.round(words(d) / 190));
@@ -632,7 +773,9 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     }).join("") + "</nav>";
     h += '<div class="dx">' + d.map(function (s, i) {
       var m = s.h.match(/^(\d+\.\d+)\s+(.*)$/);
-      return '<section class="dx-sec" id="dx-' + i + '"><h3>' + (m ? '<span class="no">' + m[1] + "</span><span>" + esc(m[2]) + "</span>" : esc(s.h)) + "</h3>" + s.b.map(block).join("") +
+      var secC = G.sectionCtx(c, s);
+      return '<section class="dx-sec" id="dx-' + i + '"><h3>' + (m ? '<span class="no">' + m[1] + "</span><span>" + esc(m[2]) + "</span>" : esc(s.h)) + "</h3>" +
+        s.b.map(function (b, j) { if (j === 0 || (b && b.k === "sub")) LCTX = G.sectionCtx(c, G.chunk(s.b, j), secC); return block(b); }).join("") +
         (i === d.length - 1 ? '<button class="dx-top" data-jump="study">↑ Zum Inhaltsverzeichnis</button>' : "") + "</section>";
     }).join("") + "</div>";
     return h;
@@ -648,8 +791,8 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     var c = chById[curCh];
     var nQ = QS.filter(function (q) { return q.c === c.id; }).length;
     var on = learned.indexOf(c.id) > -1;
-    var h = '<header class="head"><div class="eyebrow">Teil ' + c.teil + ' · ' + esc(TEILE[c.teil]) + ' · Kapitel ' + c.id + '</div><h1>' + esc(c.title) + '</h1><p>' + esc(c.intro) + '</p>';
-    h += '<div class="chips">' + c.norms.map(function (n) { return '<span class="chip">' + esc(n) + '</span>'; }).join("") + '</div>';
+    var h = '<header class="head"><div class="eyebrow">Teil ' + c.teil + ' · ' + esc(TEILE[c.teil]) + ' · Kapitel ' + c.id + '</div><h1>' + esc(c.title) + '</h1><p>' + lk(c.intro, c) + '</p>';
+    h += '<div class="chips">' + c.norms.map(function (n) { return G.chip(n, G.chapterCtx(c)); }).join("") + '</div>';
     h += '<div class="actions"><button class="btn' + (on ? " ok" : "") + '" id="mark-learned">' + (on ? "✓ Als gelernt markiert" : "Als gelernt markieren") + '</button><button class="btn primary" id="practice-ch">Dieses Kapitel üben · ' + nQ + ' Fragen</button></div></header>';
 
     h += '<section class="sec" id="study">' + studyHTML(c) + '</section>';
@@ -667,11 +810,11 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     figs.forEach(function (f) { var wide = (f.v.type === "table" && f.v.cols.length >= 3) || f.v.type === "tri"; h += '<figure class="fig' + (wide ? " wide" : "") + '"><figcaption>' + esc(f.cap) + '</figcaption><div class="vis">' + visual(f.v) + '</div></figure>'; });
     h += '</div></section>';
 
-    h += '<section class="sec"><div class="traps"><h3>Klausurfallen</h3><ul>' + c.fehler.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + '</ul></div></section>';
+    h += '<section class="sec"><div class="traps"><h3>Klausurfallen</h3><ul>' + c.fehler.map(function (f) { return "<li>" + lk(f, c) + "</li>"; }).join("") + '</ul></div></section>';
 
     h += '<section class="sec"><h2>Fälle zum Durchdenken <span class="k">erst selbst lösen</span></h2><div class="cases">';
     c.cases.forEach(function (cs, i) {
-      h += '<div class="case"><h3><span class="tag">FALL ' + c.id + "." + (i + 1) + '</span>' + esc(cs.t) + '</h3><p>' + esc(cs.q) + '</p><div><button class="btn sol-btn" data-i="' + i + '" aria-expanded="false">Lösung anzeigen</button></div><div class="sol" id="sol-' + i + '" hidden><strong>Lösung · </strong>' + esc(cs.a) + '</div></div>';
+      h += '<div class="case"><h3><span class="tag">FALL ' + c.id + "." + (i + 1) + '</span>' + esc(cs.t) + '</h3><p>' + lk(cs.q, c) + '</p><div><button class="btn sol-btn" data-i="' + i + '" aria-expanded="false">Lösung anzeigen</button></div><div class="sol" id="sol-' + i + '" hidden><strong>Lösung · </strong>' + lk(cs.a, c) + '</div></div>';
     });
     h += '</div></section>';
 
@@ -1005,7 +1148,7 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     }
     if (show) {
       var g = exam.score(it), p = pts(q), cl = g === p ? "ok" : g > 0 ? "part" : "bad";
-      h += '<div class="feedback ' + cl + '"><b>' + (cl === "ok" ? "Richtig! " : cl === "part" ? "Teilweise richtig. " : "Leider falsch. ") + String(g).replace(".", ",") + ' / ' + p + ' Punkte</b>' + (cl !== "ok" ? '<span>Lösung: ' + esc(correctLabel(q, it.order)) + '</span>' : "") + '<span>' + esc(q.e) + '</span></div>';
+      h += '<div class="feedback ' + cl + '"><b>' + (cl === "ok" ? "Richtig! " : cl === "part" ? "Teilweise richtig. " : "Leider falsch. ") + String(g).replace(".", ",") + ' / ' + p + ' Punkte</b>' + (cl !== "ok" ? '<span>Lösung: ' + esc(correctLabel(q, it.order)) + '</span>' : "") + '<span>' + lk(q.e, chById[q.c]) + '</span></div>';
     }
     if (r.confirm) {
       var open = r.items.filter(function (x) { return x.ans === null || x.ans === "" || (Array.isArray(x.ans) && !x.ans.length); }).length;
@@ -1058,7 +1201,7 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
       if (x.q.s) h += '<p class="ln"><span>Sachverhalt: </span>' + esc(x.q.s) + '</p>';
       h += '<p class="q">' + esc(x.q.q) + '</p><p class="ln"><span>Deine Antwort: </span>' + esc(answerLabel(x.q, x.order, x.ans)) + '</p>';
       if (st !== "ok") h += '<p class="ln"><span>Richtig: </span>' + esc(correctLabel(x.q, x.order)) + '</p>';
-      h += '<p class="ex">' + esc(x.q.e) + '</p></div>';
+      h += '<p class="ex">' + lk(x.q.e, chById[x.q.c]) + '</p></div>';
     });
     return h + '</div></div>';
   }
@@ -1103,13 +1246,20 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
   /* ───────── views ───────── */
   function setView(v) {
     document.querySelectorAll(".tabs button").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.view === v)); });
-    $("#view-learn").hidden = v !== "learn"; $("#view-exam").hidden = v !== "exam";
-    if (v === "exam") { player.stop(); filmPlayer.stop(); exam.render(); }
+    $("#view-learn").hidden = v !== "learn"; $("#view-exam").hidden = v !== "exam"; $("#view-laws").hidden = v !== "laws";
+    if (v !== "learn") { player.stop(); filmPlayer.stop(); }
+    if (v === "exam") exam.render();
+    if (v === "laws") { G.closePanel(); G.renderView(); }
+    window.scrollTo({ top: 0 });
   }
 
+  G.init({ store: store, chapters: CH, chapterById: chById, details: DET, questions: QS,
+    setView: setView, openChapter: function (n) { setView("learn"); goChapter(n); } });
   renderSide(); renderArticle();
   var hsh = (location.hash || "").slice(1);
   if (hsh === "klausur") setView("exam");
+  else if (hsh === "gesetze") setView("laws");
+  else if (/^gesetz\//.test(hsh)) { setView("laws"); G.route(hsh); }
   else if (/^kapitel-\d+$/.test(hsh)) { var n = +hsh.split("-")[1]; if (chById[n]) goChapter(n, false); }
   if (window.matchMedia("(max-width: 900px)").matches) $("#side-list").hidden = true;
 })();

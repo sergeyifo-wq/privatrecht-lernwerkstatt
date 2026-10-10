@@ -11,6 +11,7 @@ Interaktive Lernplattform zum österreichischen Privatrecht (Basismodul, Rechtss
   - **Trickfilm:** 75 gezeichnete, animierte Szenen zu den Fällen, mit Untertiteln und optionaler Sprachausgabe
   - **Schaubild-Video** und **Schaubilder** (Stufenbau, Vertretungsdreieck, Prüfschemata, Tabellen)
   - **Auf einen Blick**, **Klausurfallen** und **Fälle mit Lösung**
+- **Gesetze:** 65 Gesetze (ABGB, UGB, KSchG, GmbHG, AktG, UWG, KartG, WG, SchG, MSchG, PatG, UrhG, B-VG …) im geltenden Wortlaut aus dem RIS, mit Gliederung, Suche, Sprung zu jedem Paragraphen und Hinweis, in welchem Kapitel er vorkommt. Jeder §-Verweis im Lernstoff ist klickbar und öffnet den Gesetzestext in einer Lese-Leiste rechts.
 - **Klausur:** 149 Fragen (Single/Multiple Choice, Richtig/Falsch, Rechenaufgaben, Fallfragen), Klausur- oder Übungsmodus, Zeitlimit und eine Auswertung mit Note, Stärken/Schwächen je Kapitel und allen Lösungen
 
 ## Technik
@@ -25,9 +26,11 @@ Reines HTML/CSS/JavaScript ohne Build-Schritt. Lernfortschritt und Klausurverlau
 | `film.js` | Trickfilm-Engine (SVG-Figuren, Zeitleiste, Effekte) |
 | `films.js` | Drehbücher der Trickfilme |
 | `details/dNN.js` | Ausführliche Fassung je Kapitel |
+| `gesetze.js` | Gesetze-Tab, Lese-Leiste, Verlinkung der §-Verweise |
+| `laws/*.js` | Gesetzestexte (eine Datei je Gesetz, wird erst beim Öffnen geladen) |
 
 Lokal starten: `index.html` im Browser öffnen.
 
 ## Hinweis
 
-Lernhilfe auf Basis von Kursunterlagen. Ersetzt weder den Gesetzestext (RIS) noch das Lehrbuch.
+Lernhilfe auf Basis von Kursunterlagen. Gesetzestexte: Rechtsinformationssystem des Bundes (RIS), https://www.ris.bka.gv.at, Fassung vom 10.10.2026; amtliche Werke sind nach § 7 UrhG frei. Maßgeblich ist der jeweils aktuelle Text im RIS.
