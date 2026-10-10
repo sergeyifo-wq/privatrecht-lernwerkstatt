@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Interaktive Lernplattform zum österreichischen Privatrecht: Trickfilme, Schaubilder, Fälle und Klausursimulation.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Privatrecht Lernwerkstatt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: Gesetzbuch-Arbeitsplatz – Kapitelregister links, Lesefläche rechts; Klausur als fokussierter Prüfungsbogen.
+   Farbe: Gesetzblatt-Blau als Marke, Textmarker-Gelb als einziger Akzent. */
+:root {
+  --paper: #f4f6fa;
+  --surface: #ffffff;
+  --sunken: #eaeef5;
+  --ink: #131c33;
+  --muted: #586179;
+  --line: #d6dce8;
+  --brand: #1d3a8f;
+  --brand-ink: #ffffff;
+  --brand-soft: #e3e9f8;
+  --mark: #ffe15a;
+  --mark-soft: rgba(255, 214, 10, .42);
+  --ok: #17784a;
+  --ok-soft: #e1f3e9;
+  --bad: #b3261e;
+  --bad-soft: #fbe5e3;
+  --warn: #9a5b00;
+  --warn-soft: #fdf0d8;
+  --screen: #0e1526;
+  --screen-2: #18223a;
+  --screen-ink: #eef2fb;
+  --screen-muted: #9fb0d4;
+  --screen-line: #2b3a5c;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-text: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1220; --surface: #151c2e; --sunken: #1b2338; --ink: #e6eaf4; --muted: #9aa5bf; --line: #2a3450;
+    --brand: #8eaaff; --brand-ink: #0d1220; --brand-soft: #1f2a4a; --mark: #ffd84a; --mark-soft: rgba(255, 214, 10, .26);
+    --ok: #5fd39a; --ok-soft: #12301f; --bad: #ff8a80; --bad-soft: #3a1714; --warn: #f2b45a; --warn-soft: #36270f;
+    --screen: #070b16; --screen-2: #111a2f; --screen-ink: #eef2fb; --screen-muted: #9fb0d4; --screen-line: #263556;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1220; --surface: #151c2e; --sunken: #1b2338; --ink: #e6eaf4; --muted: #9aa5bf; --line: #2a3450;
+  --brand: #8eaaff; --brand-ink: #0d1220; --brand-soft: #1f2a4a; --mark: #ffd84a; --mark-soft: rgba(255, 214, 10, .26);
+  --ok: #5fd39a; --ok-soft: #12301f; --bad: #ff8a80; --bad-soft: #3a1714; --warn: #f2b45a; --warn-soft: #36270f;
+  --screen: #070b16; --screen-2: #111a2f; --screen-ink: #eef2fb; --screen-muted: #9fb0d4; --screen-line: #263556;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-text); font-size: 17px; line-height: 1.55; }
+h1, h2, h3, h4 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+mark, .hl { background: linear-gradient(transparent 55%, var(--mark-soft) 55%); color: inherit; padding: 0 .1em; }
+
+/* ── top bar ── */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 1280px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 800; font-size: 19px; letter-spacing: -.01em; }
+.brand .para { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: var(--brand); color: var(--brand-ink); font-size: 20px; }
+.brand small { display: block; font-weight: 500; font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+.tabs { display: flex; gap: 4px; margin-left: auto; background: var(--sunken); padding: 4px; border-radius: 999px; }
+.tabs button { border: 0; background: transparent; padding: 7px 16px; border-radius: 999px; font-family: var(--f-display); font-weight: 700; font-size: 15px; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 60px; }
+
+/* ── learn layout ── */
+.learn { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 28px; align-items: start; }
+.side { position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow: auto; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; }
+.prog { font-family: var(--f-display); font-size: 13px; color: var(--muted); display: grid; gap: 6px; margin-bottom: 12px; }
+.bar { height: 6px; background: var(--sunken); border-radius: 99px; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--brand); border-radius: 99px; transition: width .4s; }
+.side h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin: 14px 4px 6px; font-weight: 700; }
+.side h4 span { color: var(--brand); }
+.chap { display: grid; grid-template-columns: 28px 1fr auto; gap: 6px; align-items: start; width: 100%; text-align: left; border: 0; background: transparent; padding: 7px 8px; border-radius: 8px; font-family: var(--f-display); font-size: 14px; font-weight: 500; line-height: 1.3; }
+.chap:hover { background: var(--sunken); }
+.chap[aria-current="true"] { background: var(--brand-soft); color: var(--ink); font-weight: 700; }
+.chap .n { font-family: var(--f-mono); font-size: 12px; color: var(--muted); padding-top: 2px; }
+.chap .ck { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--line); margin-top: 1px; display: grid; place-items: center; font-size: 10px; }
+.chap .ck.on { background: var(--ok); border-color: var(--ok); color: var(--surface); }
+.btn.side-toggle { display: none; }
+
+.article { min-width: 0; display: grid; gap: 26px; }
+.head { display: grid; gap: 10px; }
+.eyebrow { font-family: var(--f-display); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--brand); }
+.head h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -.02em; }
+.head p { margin: 0; color: var(--muted); max-width: 65ch; font-size: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-family: var(--f-mono); font-size: 12.5px; padding: 3px 9px; border-radius: 6px; background: var(--sunken); border: 1px solid var(--line); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 9px 16px; border-radius: 8px; font-family: var(--f-display); font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px; }
+.btn:hover { border-color: var(--brand); }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: var(--brand-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ok { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.sec { display: grid; gap: 14px; }
+.sec > h2 { font-size: 22px; font-weight: 700; display: flex; align-items: baseline; gap: 10px; }
+.sec > h2 .k { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+.points { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; max-width: 75ch; }
+.points li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+.points li::before { content: "§"; font-family: var(--f-display); font-weight: 800; color: var(--brand); }
+.traps { background: var(--warn-soft); border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 8px; }
+.traps h3 { font-size: 15px; color: var(--warn); text-transform: uppercase; letter-spacing: .07em; }
+.traps ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+
+/* ── diagrams / visuals ── */
+.figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; gap: 16px; }
+figure.fig.wide { grid-column: 1 / -1; }
+figure.fig { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-size: 14px; color: var(--muted); }
+.vis { --v-ink: var(--ink); --v-muted: var(--muted); --v-line: var(--line); --v-box: var(--sunken); --v-accent: var(--brand); --v-mark: var(--mark); font-family: var(--f-display); color: var(--v-ink); min-width: 0; }
+.screen .vis { --v-ink: var(--screen-ink); --v-muted: var(--screen-muted); --v-line: var(--screen-line); --v-box: var(--screen-2); --v-accent: #8eaaff; --v-mark: #ffd84a; }
+.vbox { background: var(--v-box); border: 1px solid var(--v-line); border-radius: 9px; padding: 10px 12px; min-width: 0; }
+.vbox b { display: block; font-size: 1.02em; hyphens: auto; overflow-wrap: break-word; }
+.vis { hyphens: auto; }
+.vbox small { display: block; color: var(--v-muted); font-size: .84em; font-weight: 500; line-height: 1.35; margin-top: 2px; }
+.v-flow { display: flex; align-items: stretch; gap: 8px; }
+.v-flow .vbox { flex: 1; text-align: center; display: grid; align-content: center; }
+.v-arrow { align-self: center; color: var(--v-accent); font-size: 1.4em; font-weight: 800; }
+.v-pyr { display: grid; gap: 6px; justify-items: center; }
+.v-pyr .vbox { text-align: center; font-weight: 700; }
+.v-cmp { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
+.v-cmp .col { display: grid; gap: 6px; align-content: start; }
+.v-cmp .col h5 { margin: 0 0 2px; font-size: 1.05em; padding: 6px 10px; border-radius: 7px; background: var(--v-accent); color: var(--surface); text-align: center; }
+.screen .v-cmp .col h5 { color: var(--screen); }
+.v-cmp .col.r h5 { background: var(--v-mark); color: #131c33; }
+.v-cmp .col.r div { border-left-color: var(--v-mark); }
+.v-cmp .col:not(.r) div { border-left-color: var(--v-accent); }
+.v-cmp .col div { font-size: .92em; padding: 6px 10px; border-left: 3px solid var(--v-line); }
+.v-vs { align-self: center; display: grid; place-items: center; min-width: 34px; height: 34px; padding: 0 6px; border-radius: 99px; border: 1.5px solid var(--v-line); background: var(--v-box); font-weight: 800; font-size: .95em; color: var(--v-muted); }
+.v-scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; }
+.v-scale .seg { border-top: 6px solid var(--v-accent); padding: 8px 8px 0; position: relative; }
+.v-scale .seg:nth-child(even) { border-top-color: var(--v-mark); }
+.v-scale .seg::before { content: attr(data-from); position: absolute; top: -26px; left: 0; font-family: var(--f-mono); font-size: .75em; color: var(--v-muted); }
+.v-scale .seg b { display: block; }
+.v-scale .seg small { color: var(--v-muted); font-size: .84em; display: block; line-height: 1.35; }
+.v-scale { padding-top: 22px; }
+.v-tree { display: grid; gap: 12px; justify-items: center; }
+.v-tree .root { background: var(--v-accent); color: var(--surface); border-color: transparent; font-weight: 700; text-align: center; }
+.screen .v-tree .root { color: var(--screen); }
+.v-tree .kids { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; border-top: 2px solid var(--v-line); padding-top: 12px; }
+.v-tree .kids .vbox { font-size: .92em; font-weight: 500; }
+.v-steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 8px; }
+.v-steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: center; }
+.v-steps li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--v-accent); color: var(--surface); font-weight: 800; font-size: .9em; }
+.screen .v-steps li::before { color: var(--screen); }
+.v-big { text-align: center; display: grid; gap: 8px; padding: 12px 0; }
+.v-big .val { font-size: clamp(30px, 5.4vw, 52px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
+.v-big .val.long { font-size: clamp(24px, 3.4vw, 34px); }
+.v-big .val span { text-decoration: underline; text-decoration-color: var(--v-mark); text-decoration-thickness: .14em; text-underline-offset: .16em; text-decoration-skip-ink: none; }
+.v-big .sub { color: var(--v-muted); font-size: 1em; max-width: 46ch; margin: 0 auto; }
+.v-tbl { overflow-x: auto; }
+.v-tbl table { border-collapse: collapse; width: 100%; font-size: .92em; }
+.v-tbl th { hyphens: auto; overflow-wrap: break-word; text-align: left; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; color: var(--v-muted); border-bottom: 2px solid var(--v-accent); padding: 6px 8px; }
+.v-tbl td { border-bottom: 1px solid var(--v-line); padding: 7px 8px; vertical-align: top; }
+.v-tbl td:first-child { font-weight: 700; }
+.v-cards { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 8px; }
+.v-cards .vbox { border-top: 4px solid var(--v-accent); }
+.v-tri { position: relative; width: 100%; max-width: 560px; margin: 0 auto; aspect-ratio: 16 / 10; }
+.v-tri svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.v-tri .node { position: absolute; transform: translate(-50%, -50%); width: 34%; text-align: center; font-weight: 700; background: var(--v-box); border: 2px solid var(--v-accent); border-radius: 9px; padding: 6px 6px; font-size: .9em; line-height: 1.2; }
+.v-tri .lbl { position: absolute; transform: translate(-50%, -50%); font-size: .74em; color: var(--v-ink); text-align: center; max-width: 34%; line-height: 1.2; font-weight: 600; background: var(--v-box); border: 1px solid var(--v-accent); border-radius: 99px; padding: 3px 9px; }
+.screen .v-tri .lbl { background: var(--screen); }
+.v-tri .node { z-index: 1; }
+
+/* animation for video scenes */
+.anim .rv { animation: rise .55s cubic-bezier(.2,.7,.2,1) both; animation-delay: var(--d, 0s); }
+@keyframes rise { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+.anim .v-tri svg line { stroke-dasharray: 400; animation: draw 1.2s ease both; animation-delay: var(--d, 0s); }
+@keyframes draw { from { stroke-dashoffset: 400; } to { stroke-dashoffset: 0; } }
+
+/* ── video player ── */
+.player { background: var(--screen); color: var(--screen-ink); border-radius: 14px; overflow: hidden; border: 1px solid var(--screen-line); }
+.screen { position: relative; min-height: 470px; padding: 22px 26px 18px; display: grid; grid-template-rows: auto 1fr auto; gap: 14px; }
+.screen .meta { display: flex; justify-content: space-between; gap: 10px; font-family: var(--f-mono); font-size: 12px; color: var(--screen-muted); letter-spacing: .05em; }
+.screen .meta .live { color: #ffd84a; }
+.screen h3 { font-size: clamp(20px, 3vw, 28px); font-weight: 800; color: var(--screen-ink); margin-top: 4px; }
+.stage { display: grid; align-content: center; justify-items: center; font-size: 17px; min-width: 0; }
+.stage > h3 { justify-self: start; }
+.stage .stage-vis { width: 100%; max-width: 780px; margin-top: 18px; }
+.caption { font-family: var(--f-text); font-size: 16px; line-height: 1.5; color: var(--screen-ink); background: rgba(0,0,0,.35); border-radius: 8px; padding: 10px 14px; min-height: 3.2em; }
+.caption .spoken { color: var(--screen-ink); }
+.caption .rest { color: var(--screen-muted); }
+.caption[hidden] { display: none; }
+.cover { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; text-align: center; background: radial-gradient(circle at 30% 20%, #1d3a8f 0%, var(--screen) 60%); padding: 20px; }
+.cover .inner { display: grid; gap: 14px; justify-items: center; max-width: 520px; }
+.cover .para-big { font-family: var(--f-display); font-size: 64px; font-weight: 800; line-height: 1; color: #ffd84a; }
+.cover h3 { font-size: clamp(22px, 3.4vw, 32px); }
+.cover p { margin: 0; color: var(--screen-muted); font-family: var(--f-display); }
+.playbig { width: 72px; height: 72px; border-radius: 50%; border: 0; background: #ffd84a; color: #0e1526; font-size: 28px; display: grid; place-items: center; box-shadow: 0 6px 30px rgba(255,216,74,.35); }
+.controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 10px 14px; background: var(--screen-2); border-top: 1px solid var(--screen-line); }
+.cbtn { border: 0; background: transparent; color: var(--screen-ink); width: 38px; height: 38px; border-radius: 8px; font-size: 16px; display: grid; place-items: center; }
+.cbtn:hover { background: rgba(255,255,255,.08); }
+.segs { flex: 1; display: flex; gap: 4px; min-width: 120px; }
+.segs button { flex: 1; height: 8px; border: 0; padding: 0; background: var(--screen-line); border-radius: 4px; overflow: hidden; position: relative; }
+.segs button i { position: absolute; inset: 0; width: 0; background: #ffd84a; }
+.ctog { border: 1px solid var(--screen-line); background: transparent; color: var(--screen-muted); font-family: var(--f-display); font-size: 13px; font-weight: 700; padding: 6px 10px; border-radius: 7px; }
+.ctog[aria-pressed="true"] { color: #0e1526; background: #ffd84a; border-color: #ffd84a; }
+.cspeed { background: transparent; border: 1px solid var(--screen-line); color: var(--screen-ink); border-radius: 7px; padding: 5px 6px; font-family: var(--f-mono); font-size: 13px; }
+.cspeed option { color: #000; }
+.player-note { font-family: var(--f-display); font-size: 13px; color: var(--muted); }
+
+/* cases */
+.cases { display: grid; gap: 10px; }
+.case { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 10px; }
+.case h3 { font-size: 17px; display: flex; gap: 10px; align-items: baseline; }
+.case h3 .tag { font-family: var(--f-mono); font-size: 12px; color: var(--brand); font-weight: 700; }
+.case p { margin: 0; max-width: 75ch; }
+.sol { border-left: 4px solid var(--ok); background: var(--ok-soft); padding: 10px 14px; border-radius: 0 8px 8px 0; }
+.sol strong { font-family: var(--f-display); color: var(--ok); }
+.pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; }
+.pager .btn { max-width: 100%; }
+
+/* ── exam ── */
+.exam { max-width: 920px; margin: 0 auto; display: grid; gap: 22px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 18px; min-width: 0; }
+.panel h2 { font-size: 24px; font-weight: 800; }
+.panel h3 { font-size: 16px; font-weight: 700; }
+.lede { margin: 0; color: var(--muted); max-width: 65ch; }
+.pick { display: grid; gap: 14px; }
+.pick-teil { display: grid; gap: 6px; }
+.pick-teil .tl { font-family: var(--f-display); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.pick-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tick { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-family: var(--f-display); font-size: 14px; background: var(--paper); cursor: pointer; user-select: none; }
+.tick input { accent-color: var(--brand); width: 16px; height: 16px; margin: 0; }
+.tick:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); }
+.tick .cnt { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.seg-ctl { display: inline-flex; background: var(--sunken); border-radius: 9px; padding: 3px; gap: 3px; flex-wrap: wrap; }
+.seg-ctl button { border: 0; background: transparent; padding: 7px 14px; border-radius: 7px; font-family: var(--f-display); font-weight: 700; font-size: 14px; color: var(--muted); }
+.seg-ctl button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.opts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 18px; }
+.opt-block { display: grid; gap: 8px; align-content: start; }
+.opt-block .lbl { font-family: var(--f-display); font-weight: 700; font-size: 14px; }
+.opt-block .hint { font-family: var(--f-display); font-size: 13px; color: var(--muted); }
+.startbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 16px; }
+.startbar .sum { font-family: var(--f-display); color: var(--muted); font-size: 14px; }
+.scale-tbl { display: flex; flex-wrap: wrap; gap: 6px; font-family: var(--f-display); font-size: 13px; }
+.scale-tbl span { background: var(--sunken); border-radius: 6px; padding: 3px 8px; }
+
+.qhead { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--f-display); }
+.qhead .qn { font-weight: 800; font-size: 15px; }
+.qhead .timer { margin-left: auto; font-family: var(--f-mono); font-weight: 700; padding: 4px 10px; border-radius: 7px; background: var(--sunken); }
+.qhead .timer.low { background: var(--bad-soft); color: var(--bad); }
+.qtag { font-family: var(--f-display); font-size: 12.5px; font-weight: 700; padding: 3px 9px; border-radius: 99px; background: var(--brand-soft); color: var(--brand); }
+.qtype { font-family: var(--f-display); font-size: 13px; color: var(--muted); }
+.sv { background: var(--paper); border: 1px dashed var(--line); border-radius: 10px; padding: 12px 16px; }
+.sv b { font-family: var(--f-display); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); display: block; margin-bottom: 4px; }
+.qtext { font-size: 20px; font-weight: 600; line-height: 1.4; margin: 0; max-width: 70ch; }
+.answers { display: grid; gap: 8px; }
+.ans { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: center; text-align: left; width: 100%; border: 1.5px solid var(--line); background: var(--surface); border-radius: 10px; padding: 11px 14px; font-family: var(--f-text); font-size: 17px; line-height: 1.4; }
+.ans:hover:not(:disabled) { border-color: var(--brand); }
+.ans .key { width: 30px; height: 30px; border-radius: 7px; display: grid; place-items: center; background: var(--sunken); font-family: var(--f-display); font-weight: 800; font-size: 14px; }
+.ans.multi .key { border-radius: 50%; }
+.ans[aria-pressed="true"] { border-color: var(--brand); background: var(--brand-soft); }
+.ans[aria-pressed="true"] .key { background: var(--brand); color: var(--brand-ink); }
+.ans.right { border-color: var(--ok); background: var(--ok-soft); }
+.ans.right .key { background: var(--ok); color: var(--surface); }
+.ans.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.ans.wrong .key { background: var(--bad); color: var(--surface); }
+.ans .mk { font-family: var(--f-display); font-weight: 700; font-size: 13px; }
+.ans:disabled { cursor: default; }
+.numin { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.numin input { font-family: var(--f-mono); font-size: 20px; padding: 10px 12px; width: 220px; max-width: 100%; border: 1.5px solid var(--line); border-radius: 10px; background: var(--surface); }
+.numin .unit { font-family: var(--f-display); font-weight: 700; color: var(--muted); }
+.feedback { border-radius: 10px; padding: 12px 16px; display: grid; gap: 4px; }
+.feedback.ok { background: var(--ok-soft); border: 1px solid var(--ok); }
+.feedback.bad { background: var(--bad-soft); border: 1px solid var(--bad); }
+.feedback.part { background: var(--warn-soft); border: 1px solid var(--warn); }
+.feedback b { font-family: var(--f-display); }
+.qnav { display: flex; gap: 10px; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+.qnav .grp { display: flex; gap: 8px; flex-wrap: wrap; }
+.grid-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 6px; }
+.grid-map button { height: 38px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); font-family: var(--f-mono); font-size: 13px; font-weight: 700; position: relative; }
+.grid-map button.done { background: var(--brand-soft); border-color: var(--brand); }
+.grid-map button.cur { outline: 3px solid var(--mark); outline-offset: 1px; }
+.grid-map button.flag::after { content: ""; position: absolute; top: 3px; right: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--warn); }
+.confirm { border: 2px solid var(--warn); background: var(--warn-soft); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; }
+
+/* results */
+.res-hero { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; }
+.ring { width: 150px; height: 150px; }
+.ring text { font-family: var(--f-display); }
+.grade { display: grid; gap: 6px; }
+.grade .g { font-family: var(--f-display); font-size: clamp(30px, 5vw, 44px); font-weight: 800; letter-spacing: -.02em; }
+.grade .g span { background: linear-gradient(transparent 60%, var(--mark-soft) 60%); }
+.stats { display: flex; flex-wrap: wrap; gap: 10px; }
+.stat { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-family: var(--f-display); }
+.stat b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat small { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.chbars { display: grid; gap: 10px; }
+.chbar { display: grid; grid-template-columns: minmax(0, 1fr) 120px 52px auto; gap: 12px; align-items: center; font-family: var(--f-display); font-size: 14px; }
+.chbar .nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chbar .nm b { font-family: var(--f-mono); color: var(--muted); font-weight: 500; margin-right: 6px; }
+.chbar .tr { height: 10px; background: var(--sunken); border-radius: 99px; overflow: hidden; }
+.chbar .tr i { display: block; height: 100%; border-radius: 99px; }
+.chbar .pc { font-family: var(--f-mono); text-align: right; font-size: 13px; }
+.chbar .lnk { border: 0; background: none; color: var(--brand); font-family: var(--f-display); font-weight: 700; font-size: 13px; padding: 4px; }
+.review { display: grid; gap: 12px; }
+.rv-item { border: 1px solid var(--line); border-left-width: 5px; border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; background: var(--surface); }
+.rv-item.ok { border-left-color: var(--ok); }
+.rv-item.bad { border-left-color: var(--bad); }
+.rv-item.part { border-left-color: var(--warn); }
+.rv-item .top-line { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-family: var(--f-display); font-size: 13px; }
+.pill { font-weight: 800; padding: 2px 9px; border-radius: 99px; font-size: 12px; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.part { background: var(--warn-soft); color: var(--warn); }
+.rv-item .q { font-weight: 600; margin: 0; }
+.rv-item .ln { font-size: 15px; margin: 0; }
+.rv-item .ln span { font-family: var(--f-display); font-weight: 700; color: var(--muted); font-size: 13px; }
+.rv-item .ex { font-size: 15px; color: var(--muted); margin: 0; }
+.hist { display: grid; gap: 8px; }
+.hrow { display: grid; grid-template-columns: 110px 1fr 70px 110px; gap: 10px; align-items: center; font-family: var(--f-display); font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.hrow .d { color: var(--muted); font-family: var(--f-mono); font-size: 12.5px; }
+.hrow .tr { height: 8px; background: var(--sunken); border-radius: 99px; overflow: hidden; }
+.hrow .tr i { display: block; height: 100%; background: var(--brand); }
+.empty { color: var(--muted); font-family: var(--f-display); font-size: 14px; }
+
+
+/* Trickfilm */
+.fwrap { position: relative; background: #eef3ff; }
+.fstage { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; font-family: var(--f-display); }
+.fscene { position: absolute; right: 10px; top: 10px; font-family: var(--f-mono); font-size: 12px; background: rgba(14,21,38,.78); color: #fff; padding: 4px 9px; border-radius: 6px; max-width: calc(100% - 20px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fcover { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; text-align: center; padding: 16px; background: linear-gradient(180deg, rgba(14,21,38,.35), rgba(14,21,38,.82)); color: #fff; }
+.fcover .inner { display: grid; gap: 12px; justify-items: center; max-width: 520px; }
+.fcover h3 { font-size: clamp(20px, 3.4vw, 32px); color: #fff; }
+.fcover p { margin: 0; font-family: var(--f-display); color: #dfe7ff; }
+.fbadge { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; background: #ffd84a; color: #0e1526; padding: 3px 10px; border-radius: 99px; font-weight: 700; }
+.fcap { margin: 12px 14px 0; }
+@media (max-width: 900px) {
+  .learn { grid-template-columns: minmax(0, 1fr); }
+  .figs { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; max-height: none; }
+  .side-list[hidden] { display: none; }
+  .btn.side-toggle { display: flex; width: 100%; justify-content: space-between; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .tabs { margin-left: 0; width: 100%; }
+  .tabs button { flex: 1; }
+  .v-flow { flex-direction: column; }
+  .v-arrow { transform: rotate(90deg); }
+  .v-cmp { grid-template-columns: 1fr; }
+  .v-vs { justify-self: center; }
+  .v-scale { grid-auto-flow: row; padding-top: 0; gap: 8px; }
+  .v-scale .seg { border-top: 0; border-left: 6px solid var(--v-accent); padding: 2px 0 2px 10px; }
+  .v-scale .seg:nth-child(even) { border-left-color: var(--v-mark); }
+  .v-scale .seg::before { position: static; display: block; }
+  .v-tri .node { font-size: .78em; width: 38%; }
+  .v-cards { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+  .v-tri .lbl { font-size: .66em; }
+  .screen { padding: 16px; min-height: 420px; }
+  .res-hero { grid-template-columns: 1fr; justify-items: start; }
+  .chbar { grid-template-columns: minmax(0, 1fr) 70px 44px; }
+  .chbar .lnk { grid-column: 1 / -1; justify-self: start; padding: 0; }
+  .hrow { grid-template-columns: 80px 1fr 56px; }
+  .hrow .g { grid-column: 1 / -1; }
+  .qtext { font-size: 18px; }
+  .panel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim .rv, .anim .v-tri svg line { animation: none; }
+}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="para">§</span><div>Privatrecht Lernwerkstatt<small>Basismodul · Rechtsstand Herbst 2026</small></div></div>
+    <nav class="tabs" role="tablist" aria-label="Bereich">
+      <button role="tab" id="tab-learn" aria-selected="true" data-view="learn">Lernen</button>
+      <button role="tab" id="tab-exam" aria-selected="false" data-view="exam">Klausur</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="view-learn" class="learn">
+    <aside class="side" aria-label="Kapitel">
+      <div class="prog"><span id="prog-txt">0 von 20 Kapiteln gelernt</span><div class="bar"><i id="prog-bar" style="width:0%"></i></div></div>
+      <button class="btn side-toggle" id="side-toggle" aria-expanded="false">Kapitel wählen <span aria-hidden="true">▾</span></button>
+      <div class="side-list" id="side-list"></div>
+    </aside>
+    <article class="article" id="article"></article>
+  </section>
+
+  <section id="view-exam" class="exam" hidden></section>
+</main>
+
+<script src="content.js"></script>
+<script src="film.js"></script>
+<script src="films.js"></script>
+<script src="questions.js"></script>
+<script>
+(function () {
+  "use strict";
+  document.documentElement.lang = "de";
+  var CH = window.CHAPTERS, QS = window.QUESTIONS, TEILE = window.TEILE;
+  QS.forEach(function (q, i) { q.id = i; });
+  var chById = {}; CH.forEach(function (c) { chById[c.id] = c; });
+
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
+  function $(s, r) { return (r || document).querySelector(s); }
+  function store(k, v) { try { if (v === undefined) { var x = localStorage.getItem("prl." + k); return x ? JSON.parse(x) : null; } localStorage.setItem("prl." + k, JSON.stringify(v)); } catch (e) { return null; } }
+
+  /* ───────── visuals ───────── */
+  function rv(i, step) { return ' class="rv" style="--d:' + (i * step).toFixed(2) + 's"'; }
+  function rvc(cls, i, step) { return ' class="rv ' + cls + '" style="--d:' + (i * step).toFixed(2) + 's"'; }
+  function visual(v, step) {
+    step = step || 0;
+    var h = "", k = 0;
+    switch (v.type) {
+      case "flow":
+        h = '<div class="v-flow">';
+        v.items.forEach(function (it, i) {
+          if (i) h += '<span' + rvc("v-arrow", k++, step) + ' aria-hidden="true">→</span>';
+          h += '<div' + rvc("vbox", k++, step) + '><b>' + esc(it.t) + '</b>' + (it.s ? '<small>' + esc(it.s) + '</small>' : "") + '</div>';
+        });
+        return h + "</div>";
+      case "pyramid":
+        h = '<div class="v-pyr">';
+        var n = v.items.length;
+        v.items.forEach(function (t, i) { var w = n > 1 ? 38 + i * (62 / (n - 1)) : 100; h += '<div class="rv vbox" style="width:' + w.toFixed(1) + '%;--d:' + (i * step).toFixed(2) + 's">' + esc(t) + '</div>'; });
+        return h + "</div>";
+      case "compare":
+        h = '<div class="v-cmp"><div class="col"><h5' + rv(k++, step) + '>' + esc(v.left.h) + '</h5>';
+        v.left.items.forEach(function (t) { h += '<div' + rv(k++, step) + '>' + esc(t) + '</div>'; });
+        h += '</div><span' + rvc("v-vs", k++, step) + '>' + esc(v.vs || "vs.") + '</span><div class="col r"><h5' + rv(k++, step) + '>' + esc(v.right.h) + '</h5>';
+        v.right.items.forEach(function (t) { h += '<div' + rv(k++, step) + '>' + esc(t) + '</div>'; });
+        return h + "</div></div>";
+      case "scale":
+        h = '<div class="v-scale">';
+        v.items.forEach(function (it, i) { h += '<div' + rvc("seg", i, step) + ' data-from="' + esc(it.from) + '"><b>' + esc(it.label) + '</b><small>' + esc(it.t) + '</small></div>'; });
+        return h + "</div>";
+      case "tree":
+        h = '<div class="v-tree"><div' + rvc("vbox root", k++, step) + '>' + esc(v.root) + '</div><div class="kids">';
+        v.items.forEach(function (t) { h += '<div' + rvc("vbox", k++, step) + '>' + esc(t) + '</div>'; });
+        return h + "</div></div>";
+      case "steps":
+        h = '<ol class="v-steps">';
+        v.items.forEach(function (t, i) { h += '<li' + rv(i, step) + '><div class="vbox">' + esc(t) + '</div></li>'; });
+        return h + "</ol>";
+      case "big":
+        return '<div class="v-big"><div' + rvc(v.value.length > 14 ? "val long" : "val", 0, step) + '><span>' + esc(v.value) + '</span></div><div' + rvc("sub", 1, step * 2) + '>' + esc(v.sub) + '</div></div>';
+      case "table":
+        h = '<div class="v-tbl"><table><thead><tr' + rv(k++, step) + '>';
+        v.cols.forEach(function (c) { h += "<th>" + esc(c) + "</th>"; });
+        h += "</tr></thead><tbody>";
+        v.rows.forEach(function (r) { h += "<tr" + rv(k++, step) + ">"; r.forEach(function (c) { h += "<td>" + esc(c) + "</td>"; }); h += "</tr>"; });
+        return h + "</tbody></table></div>";
+      case "cards":
+        var nc = v.items.length <= 3 ? v.items.length : v.items.length === 4 ? 2 : 3;
+        h = '<div class="v-cards" style="--cols:' + nc + '">';
+        v.items.forEach(function (it, i) { h += '<div' + rvc("vbox", i, step) + '><b>' + esc(it.h) + '</b><small>' + esc(it.t) + '</small></div>'; });
+        return h + "</div>";
+      case "tri":
+        var P = { a: [50, 13], b: [17, 84], c: [83, 84] };
+        h = '<div class="v-tri"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">';
+        [["a", "b"], ["b", "c"], ["c", "a"]].forEach(function (e, i) {
+          h += '<line x1="' + P[e[0]][0] + '" y1="' + P[e[0]][1] + '" x2="' + P[e[1]][0] + '" y2="' + P[e[1]][1] + '" stroke="var(--v-accent)" stroke-width="0.8" vector-effect="non-scaling-stroke" style="stroke-width:2px;--d:' + ((i + 3) * step).toFixed(2) + 's" fill="none"/>';
+        });
+        h += "</svg>";
+        ["a", "b", "c"].forEach(function (n, i) { h += '<div class="rv node" style="left:' + P[n][0] + '%;top:' + P[n][1] + '%;--d:' + (i * step).toFixed(2) + 's">' + esc(v[n]) + '</div>'; });
+        var L = { ab: [33.5, 48.5], bc: [50, 84], ca: [66.5, 48.5] };
+        ["ab", "bc", "ca"].forEach(function (e, i) { h += '<div class="rv lbl" style="left:' + L[e][0] + '%;top:' + L[e][1] + '%;--d:' + ((i + 3.5) * step).toFixed(2) + 's">' + esc(v[e]) + '</div>'; });
+        return h + "</div>";
+    }
+    return "";
+  }
+
+  /* ───────── learn view ───────── */
+  var learned = store("learned") || [];
+  var curCh = store("lastChapter") || 1;
+
+  function renderSide() {
+    var h = "", lastTeil = "";
+    CH.forEach(function (c) {
+      if (c.teil !== lastTeil) { h += '<h4><span>Teil ' + c.teil + '</span> · ' + esc(TEILE[c.teil]) + '</h4>'; lastTeil = c.teil; }
+      var on = learned.indexOf(c.id) > -1;
+      h += '<button class="chap" data-ch="' + c.id + '"' + (c.id === curCh ? ' aria-current="true"' : "") + '><span class="n">' + String(c.id).padStart(2, "0") + '</span><span>' + esc(c.title) + '</span><span class="ck' + (on ? " on" : "") + '" aria-label="' + (on ? "gelernt" : "offen") + '">' + (on ? "✓" : "") + '</span></button>';
+    });
+    $("#side-list").innerHTML = h;
+    $("#prog-txt").textContent = learned.length + " von " + CH.length + " Kapiteln gelernt";
+    $("#prog-bar").style.width = (learned.length / CH.length * 100) + "%";
+    $("#side-toggle").firstChild.textContent = "Kapitel " + curCh + ": " + chById[curCh].title.split(":")[0] + " ";
+  }
+
+  function renderArticle() {
+    var c = chById[curCh];
+    var nQ = QS.filter(function (q) { return q.c === c.id; }).length;
+    var on = learned.indexOf(c.id) > -1;
+    var h = '<header class="head"><div class="eyebrow">Teil ' + c.teil + ' · ' + esc(TEILE[c.teil]) + ' · Kapitel ' + c.id + '</div><h1>' + esc(c.title) + '</h1><p>' + esc(c.intro) + '</p>';
+    h += '<div class="chips">' + c.norms.map(function (n) { return '<span class="chip">' + esc(n) + '</span>'; }).join("") + '</div>';
+    h += '<div class="actions"><button class="btn' + (on ? " ok" : "") + '" id="mark-learned">' + (on ? "✓ Als gelernt markiert" : "Als gelernt markieren") + '</button><button class="btn primary" id="practice-ch">Dieses Kapitel üben · ' + nQ + ' Fragen</button></div></header>';
+
+    h += '<section class="sec"><h2>Trickfilm <span class="k">' + ((window.FILMS || {})[c.id] || []).length + ' gezeichnete Fälle</span></h2><div class="player" id="filmplayer"></div><div class="player-note">Die Fälle aus dem Buch als Zeichentrick. Pausieren, Szenen springen, Tempo ändern oder vorlesen lassen.</div></section>';
+    h += '<section class="sec"><h2>Schaubild-Video <span class="k">' + c.video.length + ' Szenen</span></h2><div class="player" id="player"></div><div class="player-note">Animiertes Erklärvideo: Die Szenen laufen automatisch durch. Mit „Vorlesen“ spricht dein Browser den Text (falls eine deutsche Stimme verfügbar ist).</div></section>';
+
+    h += '<section class="sec"><h2>Auf einen Blick</h2><ul class="points">' + c.points.map(function (p) { return "<li><span>" + esc(p) + "</span></li>"; }).join("") + '</ul></section>';
+
+    h += '<section class="sec"><h2>Schaubilder</h2><div class="figs">';
+    var isWide = function (f) { return (f.v.type === "table" && f.v.cols.length >= 3) || f.v.type === "tri"; };
+    var pool = c.video.map(function (s) { return { cap: s.h, v: s.v, scene: true }; }), figs = c.diagrams.slice();
+    while (figs.length < 4 && pool.length) figs.push(pool.shift());
+    var narrow = function () { return figs.filter(function (f) { return !isWide(f); }).length; };
+    while (narrow() % 2 && pool.length) figs.push(pool.shift());
+    if (narrow() % 2) { for (var fi = figs.length - 1; fi >= 0; fi--) if (figs[fi].scene && !isWide(figs[fi])) { figs.splice(fi, 1); break; } }
+    figs.forEach(function (f) { var wide = (f.v.type === "table" && f.v.cols.length >= 3) || f.v.type === "tri"; h += '<figure class="fig' + (wide ? " wide" : "") + '"><figcaption>' + esc(f.cap) + '</figcaption><div class="vis">' + visual(f.v) + '</div></figure>'; });
+    h += '</div></section>';
+
+    h += '<section class="sec"><div class="traps"><h3>Klausurfallen</h3><ul>' + c.fehler.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + '</ul></div></section>';
+
+    h += '<section class="sec"><h2>Fälle zum Durchdenken <span class="k">erst selbst lösen</span></h2><div class="cases">';
+    c.cases.forEach(function (cs, i) {
+      h += '<div class="case"><h3><span class="tag">FALL ' + c.id + "." + (i + 1) + '</span>' + esc(cs.t) + '</h3><p>' + esc(cs.q) + '</p><div><button class="btn sol-btn" data-i="' + i + '" aria-expanded="false">Lösung anzeigen</button></div><div class="sol" id="sol-' + i + '" hidden><strong>Lösung · </strong>' + esc(cs.a) + '</div></div>';
+    });
+    h += '</div></section>';
+
+    var prev = chById[c.id - 1], next = chById[c.id + 1];
+    h += '<nav class="pager">' + (prev ? '<button class="btn" data-go="' + prev.id + '">← ' + prev.id + ". " + esc(prev.title.split(":")[0]) + '</button>' : "<span></span>") + (next ? '<button class="btn" data-go="' + next.id + '">' + next.id + ". " + esc(next.title.split(":")[0]) + ' →</button>' : "") + '</nav>';
+
+    $("#article").innerHTML = h;
+    player.mount($("#player"), c);
+    filmPlayer.mount($("#filmplayer"), c);
+  }
+
+  function goChapter(id, scroll) {
+    player.stop(); filmPlayer.stop();
+    curCh = id; store("lastChapter", id);
+    renderSide(); renderArticle();
+    if (scroll !== false) window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.matchMedia("(max-width: 900px)").matches) { $("#side-list").hidden = true; $("#side-toggle").setAttribute("aria-expanded", "false"); }
+  }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.ch) goChapter(+b.dataset.ch);
+    else if (b.dataset.go) goChapter(+b.dataset.go);
+    else if (b.dataset.view) setView(b.dataset.view);
+    else if (b.id === "side-toggle") { var l = $("#side-list"); l.hidden = !l.hidden; b.setAttribute("aria-expanded", String(!l.hidden)); }
+    else if (b.id === "mark-learned") {
+      var i = learned.indexOf(curCh); if (i > -1) learned.splice(i, 1); else learned.push(curCh);
+      store("learned", learned); renderSide();
+      b.classList.toggle("ok", learned.indexOf(curCh) > -1); b.textContent = learned.indexOf(curCh) > -1 ? "✓ Als gelernt markiert" : "Als gelernt markieren";
+    }
+    else if (b.id === "practice-ch") { exam.setup.chapters = [curCh]; exam.setup.count = 0; exam.setup.mode = "practice"; setView("exam"); exam.start(); }
+    else if (b.classList.contains("sol-btn")) {
+      var s = $("#sol-" + b.dataset.i); s.hidden = !s.hidden; b.setAttribute("aria-expanded", String(!s.hidden)); b.textContent = s.hidden ? "Lösung anzeigen" : "Lösung ausblenden";
+    }
+  });
+
+  /* ───────── video player ───────── */
+  var player = (function () {
+    var el, ch, idx = 0, playing = false, t0 = 0, elapsed = 0, timer = null, tts = false, subs = true, speed = 1, utter = null, started = false;
+    var hasTTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+    function dur(s) { return Math.min(22, Math.max(8, s.n.length / 15)) / speed; }
+    function deVoice() { try { var vs = speechSynthesis.getVoices(); return vs.filter(function (v) { return /^de(-|_|$)/i.test(v.lang); }).sort(function (a, b) { return (b.lang === "de-AT") - (a.lang === "de-AT"); })[0] || null; } catch (e) { return null; } }
+    function mount(node, chapter) {
+      el = node; ch = chapter; idx = 0; playing = false; elapsed = 0; started = false;
+      el.innerHTML = '<div class="screen"><div class="meta"><span id="pl-scene">SZENE 1/' + ch.video.length + '</span><span class="live" id="pl-live">● KAPITEL ' + ch.id + '</span></div><div class="stage vis anim" id="pl-stage" aria-live="polite"></div><div class="caption" id="pl-cap"></div>' +
+        '<div class="cover" id="pl-cover"><div class="inner"><div class="para-big">§</div><h3>' + esc(ch.title) + '</h3><p>' + ch.video.length + ' Szenen · ca. ' + String(Math.round(ch.video.reduce(function (a, s) { return a + dur(s); }, 0) / 60 * 10) / 10).replace(".", ",") + ' Minuten</p><button class="playbig" id="pl-start" aria-label="Video starten">▶</button></div></div></div>' +
+        '<div class="controls"><button class="cbtn" id="pl-prev" aria-label="Vorherige Szene">⏮</button><button class="cbtn" id="pl-play" aria-label="Abspielen">▶</button><button class="cbtn" id="pl-next" aria-label="Nächste Szene">⏭</button><div class="segs" id="pl-segs">' +
+        ch.video.map(function (s, i) { return '<button data-seg="' + i + '" aria-label="Szene ' + (i + 1) + ': ' + esc(s.h) + '"><i></i></button>'; }).join("") + '</div>' +
+        '<select class="cspeed" id="pl-speed" aria-label="Geschwindigkeit"><option value="0.75">0,75×</option><option value="1" selected>1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select>' +
+        '<button class="ctog" id="pl-subs" aria-pressed="true">Untertitel</button>' + (hasTTS ? '<button class="ctog" id="pl-tts" aria-pressed="' + tts + '">Vorlesen</button>' : "") + '</div>';
+      $("#pl-speed", el).value = String(speed);
+      el.addEventListener("click", onClick);
+      $("#pl-speed", el).addEventListener("change", function (e) { var f = elapsed * speed; speed = +e.target.value; elapsed = f / speed; if (tts && playing) speak(); });
+      show(0, false);
+    }
+    function onClick(e) {
+      var b = e.target.closest("button"); if (!b) return;
+      if (b.id === "pl-start") { $("#pl-cover", el).hidden = true; started = true; show(0, true); play(); }
+      else if (b.id === "pl-play") { if (!started) { $("#pl-cover", el).hidden = true; started = true; show(0, true); } playing ? pause() : play(); }
+      else if (b.id === "pl-prev") { go(Math.max(0, idx - 1)); }
+      else if (b.id === "pl-next") { if (idx < ch.video.length - 1) go(idx + 1); }
+      else if (b.dataset.seg) go(+b.dataset.seg);
+      else if (b.id === "pl-subs") { subs = !subs; b.setAttribute("aria-pressed", subs); $("#pl-cap", el).hidden = !subs; }
+      else if (b.id === "pl-tts") { tts = !tts; b.setAttribute("aria-pressed", tts); if (tts && playing) speak(); else cancelSpeech(); }
+    }
+    function go(i) { $("#pl-cover", el).hidden = true; started = true; elapsed = 0; show(i, playing); if (playing) { t0 = performance.now(); if (tts) speak(); } }
+    function show(i, animate) {
+      idx = i; var s = ch.video[i];
+      var stage = $("#pl-stage", el);
+      var n = 12, step = Math.min(0.9, (dur(s) * 0.55) / n);
+      stage.innerHTML = '<h3>' + esc(s.h) + '</h3><div class="stage-vis">' + visual(s.v, animate ? step : 0) + '</div>';
+      stage.classList.toggle("anim", !!animate);
+      if (animate && !playing) stage.querySelectorAll(".rv, line").forEach(function (x) { x.style.animationPlayState = "paused"; });
+      $("#pl-scene", el).textContent = "SZENE " + (i + 1) + "/" + ch.video.length;
+      $("#pl-cap", el).innerHTML = '<span class="rest">' + esc(s.n) + '</span>';
+      paintSegs();
+    }
+    function paintSegs() {
+      var s = ch.video[idx], f = Math.min(1, elapsed / dur(s));
+      el.querySelectorAll("#pl-segs i").forEach(function (x, i) { x.style.width = (i < idx ? 100 : i === idx ? f * 100 : 0) + "%"; });
+      var cap = $("#pl-cap", el); var txt = s.n, cut = Math.round(txt.length * f);
+      if (started) cap.innerHTML = '<span class="spoken">' + esc(txt.slice(0, cut)) + '</span><span class="rest">' + esc(txt.slice(cut)) + '</span>';
+    }
+    function play() {
+      filmPlayer.stop();
+      playing = true; $("#pl-play", el).textContent = "⏸"; $("#pl-play", el).setAttribute("aria-label", "Pause");
+      $("#pl-stage", el).querySelectorAll(".rv, line").forEach(function (x) { x.style.animationPlayState = "running"; });
+      t0 = performance.now() - elapsed * 1000; if (tts) speak();
+      clearInterval(timer); timer = setInterval(tick, 100);
+    }
+    function pause() {
+      playing = false; clearInterval(timer); $("#pl-play", el).textContent = "▶"; $("#pl-play", el).setAttribute("aria-label", "Abspielen");
+      $("#pl-stage", el).querySelectorAll(".rv, line").forEach(function (x) { x.style.animationPlayState = "paused"; });
+      cancelSpeech();
+    }
+    function tick() {
+      elapsed = (performance.now() - t0) / 1000;
+      var d = dur(ch.video[idx]);
+      var real = elapsed;
+      if (tts && utter) elapsed = Math.min(elapsed, d * 0.98);
+      paintSegs();
+      if ((!tts || !utter) && real >= d) next();
+      else if (tts && real >= d * 2.5) next(); /* Sprachausgabe hängt – trotzdem weiter */
+    }
+    function next() {
+      if (idx < ch.video.length - 1) { show(idx + 1, true); elapsed = 0; t0 = performance.now(); if (tts) speak(); }
+      else { pause(); elapsed = dur(ch.video[idx]); paintSegs(); $("#pl-live", el).textContent = "✓ ENDE"; }
+    }
+    function speak() {
+      cancelSpeech(); if (!hasTTS) return;
+      var s = ch.video[idx]; utter = new SpeechSynthesisUtterance(s.h + ". " + s.n);
+      var v = deVoice(); if (v) utter.voice = v; utter.lang = v ? v.lang : "de-DE"; utter.rate = speed;
+      var me = utter;
+      utter.onend = function () { if (me !== utter || !playing) return; utter = null; setTimeout(function () { if (playing) next(); }, 500); };
+      utter.onerror = function () { if (me === utter) utter = null; };
+      try { speechSynthesis.speak(utter); } catch (e) { utter = null; }
+    }
+    function cancelSpeech() { utter = null; try { if (hasTTS) speechSynthesis.cancel(); } catch (e) {} }
+    function stop() { if (el) pause(); }
+    return { mount: mount, stop: stop };
+  })();
+
+
+  /* ───────── Trickfilm-Player ───────── */
+  var filmPlayer = (function () {
+    var el = null, ch, scenes = [], idx = 0, film = null, playing = false, raf = 0, last = 0, tts = false, subs = true, speed = 1, utter = null, started = false, spoke = false;
+    var hasTTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+    function D(s) { return Math.max(s.d || 10, s.n.length / 16); }
+    function deVoice() { try { return speechSynthesis.getVoices().filter(function (v) { return /^de(-|_|$)/i.test(v.lang); }).sort(function (a, b) { return (b.lang === "de-AT") - (a.lang === "de-AT"); })[0] || null; } catch (e) { return null; } }
+    function mount(node, chapter) {
+      stop(); if (film) { film.destroy(); film = null; }
+      el = node; ch = chapter; scenes = (window.FILMS || {})[chapter.id] || []; idx = 0; started = false;
+      if (!scenes.length || !window.FilmEngine) { el.closest("section").hidden = true; return; }
+      var mins = String(Math.round(scenes.reduce(function (a, s) { return a + D(s); }, 0) / 60 * 10) / 10).replace(".", ",");
+      el.innerHTML = '<div class="fwrap"><svg class="fstage" viewBox="0 0 800 450" role="img" aria-label="Trickfilm zu ' + esc(ch.title) + '"></svg><div class="fscene" id="fl-scene"></div>' +
+        '<div class="fcover" id="fl-cover"><div class="inner"><span class="fbadge">TRICKFILM · KAPITEL ' + ch.id + '</span><h3>' + esc(ch.title) + '</h3><p>' + scenes.length + ' gezeichnete Fälle · ca. ' + mins + ' Minuten</p><button class="playbig" id="fl-start" aria-label="Trickfilm starten">▶</button></div></div></div>' +
+        '<div class="caption fcap" id="fl-cap"></div>' +
+        '<div class="controls"><button class="cbtn" id="fl-prev" aria-label="Vorherige Szene">⏮</button><button class="cbtn" id="fl-play" aria-label="Abspielen">▶</button><button class="cbtn" id="fl-next" aria-label="Nächste Szene">⏭</button><div class="segs" id="fl-segs">' +
+        scenes.map(function (s, i) { return '<button data-fseg="' + i + '" aria-label="Szene ' + (i + 1) + ': ' + esc(s.h) + '"><i></i></button>'; }).join("") + '</div>' +
+        '<select class="cspeed" id="fl-speed" aria-label="Geschwindigkeit"><option value="0.75">0,75×</option><option value="1">1×</option><option value="1.25">1,25×</option><option value="1.5">1,5×</option></select>' +
+        '<button class="ctog" id="fl-subs" aria-pressed="' + subs + '">Untertitel</button>' + (hasTTS ? '<button class="ctog" id="fl-tts" aria-pressed="' + tts + '">Vorlesen</button>' : "") + '</div>';
+      $("#fl-speed", el).value = String(speed);
+      $("#fl-cap", el).hidden = !subs;
+      el.onclick = onClick;
+      $("#fl-speed", el).onchange = function (e) { speed = +e.target.value; if (film) film.setRate(speed); if (tts && playing) speak(); };
+      load(0, false);
+    }
+    function onClick(e) {
+      var b = e.target.closest("button"); if (!b) return;
+      if (b.id === "fl-start") { begin(); load(0, false); play(); }
+      else if (b.id === "fl-play") { if (!started) { begin(); load(0, false); } playing ? pause() : play(); }
+      else if (b.id === "fl-prev") { begin(); load(Math.max(0, idx - 1), playing); }
+      else if (b.id === "fl-next") { begin(); if (idx < scenes.length - 1) load(idx + 1, playing); }
+      else if (b.dataset.fseg) { begin(); load(+b.dataset.fseg, playing); }
+      else if (b.id === "fl-subs") { subs = !subs; b.setAttribute("aria-pressed", subs); $("#fl-cap", el).hidden = !subs; }
+      else if (b.id === "fl-tts") { tts = !tts; b.setAttribute("aria-pressed", tts); if (tts && playing) speak(); else cancelSpeech(); }
+    }
+    function begin() { started = true; var c = $("#fl-cover", el); if (c) c.hidden = true; }
+    function load(i, autoplay) {
+      if (film) film.destroy(); cancelSpeech(); spoke = false; idx = i;
+      var s = scenes[i];
+      film = new window.FilmEngine.Film($(".fstage", el), s, speed);
+      $("#fl-scene", el).textContent = (i + 1) + " / " + scenes.length + " · " + s.h;
+      paint();
+      if (autoplay) { film.play(); if (tts) speak(); }
+    }
+    function loop(ts) {
+      if (!playing) return;
+      ts = performance.now(); var dt = Math.min(0.25, (ts - last) / 1000); last = ts;
+      film.tick(dt); paint();
+      var d = D(scenes[idx]);
+      if (film.t >= d && (!tts || !utter || film.t >= d * 2.2)) { next(); }
+      if (playing) raf = setTimeout(loop, 33);
+    }
+    function next() {
+      if (idx < scenes.length - 1) load(idx + 1, true);
+      else { pause(); film.t = D(scenes[idx]); paint(); $("#fl-scene", el).textContent = "✓ Ende · " + ch.title; }
+    }
+    function play() {
+      if (!film) return;
+      player.stop();
+      playing = true; film.play(); last = performance.now(); clearTimeout(raf); raf = setTimeout(loop, 33);
+      $("#fl-play", el).textContent = "⏸"; $("#fl-play", el).setAttribute("aria-label", "Pause");
+      if (tts && !spoke) speak();
+    }
+    function pause() {
+      playing = false; clearTimeout(raf); if (film) film.pause();
+      if (el && $("#fl-play", el)) { $("#fl-play", el).textContent = "▶"; $("#fl-play", el).setAttribute("aria-label", "Abspielen"); }
+      if (spoke) { cancelSpeech(); spoke = false; }
+    }
+    function paint() {
+      var s = scenes[idx], f = Math.min(1, film ? film.t / D(s) : 0);
+      el.querySelectorAll("#fl-segs i").forEach(function (x, i) { x.style.width = (i < idx ? 100 : i === idx ? f * 100 : 0) + "%"; });
+      var cut = Math.round(s.n.length * f);
+      $("#fl-cap", el).innerHTML = '<span class="spoken">' + esc(s.n.slice(0, cut)) + '</span><span class="rest">' + esc(s.n.slice(cut)) + '</span>';
+    }
+    function speak() {
+      cancelSpeech(); if (!hasTTS) return; spoke = true;
+      var s = scenes[idx], u = new SpeechSynthesisUtterance(s.h + ". " + s.n), v = deVoice();
+      if (v) u.voice = v; u.lang = v ? v.lang : "de-DE"; u.rate = speed; utter = u;
+      u.onend = u.onerror = function () { if (utter === u) utter = null; };
+      try { speechSynthesis.speak(u); } catch (e) { utter = null; }
+    }
+    function cancelSpeech() { utter = null; try { if (hasTTS) speechSynthesis.cancel(); } catch (e) {} }
+    function stop() { if (playing) pause(); }
+    return { mount: mount, stop: stop };
+  })();
+
+  /* ───────── exam ───────── */
+  var GRADES = [[87.5, "1", "Sehr gut"], [75, "2", "Gut"], [62.5, "3", "Befriedigend"], [50, "4", "Genügend"], [0, "5", "Nicht genügend"]];
+  function gradeOf(p) { for (var i = 0; i < GRADES.length; i++) if (p >= GRADES[i][0]) return GRADES[i]; }
+  function pts(q) { return (q.t === "mc" || q.t === "num" ? 2 : 1) + (q.s ? 1 : 0); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  var TYPE_LBL = { sc: "Eine Antwort ist richtig", mc: "Mehrere Antworten können richtig sein", tf: "Richtig oder falsch?", num: "Rechenaufgabe – Zahl eingeben" };
+
+  var exam = {
+    setup: { chapters: CH.map(function (c) { return c.id; }), count: 20, mode: "exam", timed: true },
+    run: null,
+    start: function (ids) {
+      var pool = ids ? ids.map(function (i) { return QS[i]; }) : QS.filter(function (q) { return exam.setup.chapters.indexOf(q.c) > -1; });
+      pool = shuffle(pool);
+      if (!ids && exam.setup.count) pool = pool.slice(0, exam.setup.count);
+      if (!pool.length) return;
+      var items = pool.map(function (q) { return { q: q, order: q.o ? (q.t === "tf" ? [0, 1] : shuffle(q.o.map(function (_, i) { return i; }))) : null, ans: null, checked: false, flag: false }; });
+      var limit = exam.setup.mode === "exam" && exam.setup.timed ? Math.ceil(pool.length * 1.5) * 60 : 0;
+      exam.run = { items: items, i: 0, mode: exam.setup.mode, limit: limit, t0: Date.now(), done: false, confirm: false, chapters: exam.setup.chapters.slice(), filter: "all" };
+      clearInterval(exam.timer); if (limit) exam.timer = setInterval(exam.tickTimer, 1000);
+      exam.render();
+    },
+    tickTimer: function () {
+      var r = exam.run; if (!r || r.done) { clearInterval(exam.timer); return; }
+      var left = r.limit - Math.floor((Date.now() - r.t0) / 1000);
+      var t = $("#ex-timer"); if (t) { t.textContent = fmt(Math.max(0, left)); t.classList.toggle("low", left < 60); }
+      if (left <= 0) exam.finish();
+    },
+    score: function (it) {
+      var q = it.q, p = pts(q), a = it.ans;
+      if (a === null || a === undefined || (Array.isArray(a) && !a.length) || a === "") return 0;
+      if (q.t === "tf") return a === q.a ? p : 0;
+      if (q.t === "num") { var v = parseFloat(String(a).replace(/\./g, "").replace(",", ".")); return Math.abs(v - q.a) < 0.01 ? p : 0; }
+      if (q.t === "sc") return a[0] === q.a[0] ? p : 0;
+      var hit = a.filter(function (x) { return q.a.indexOf(x) > -1; }).length, wrong = a.length - hit;
+      return Math.max(0, Math.round(((hit - wrong) / q.a.length) * p * 2) / 2);
+    },
+    render: function () {
+      var v = $("#view-exam"), r = exam.run;
+      if (!r) return v.innerHTML = setupHTML();
+      if (r.done) return v.innerHTML = resultHTML();
+      v.innerHTML = questionHTML();
+      var inp = $("#num-in"); if (inp) inp.addEventListener("input", function () { r.items[r.i].ans = inp.value.trim() || null; updateMap(); });
+    },
+    finish: function () {
+      var r = exam.run; if (!r || r.done) return;
+      r.done = true; r.t1 = Date.now(); clearInterval(exam.timer);
+      var got = 0, max = 0; r.items.forEach(function (it) { it.got = exam.score(it); got += it.got; max += pts(it.q); });
+      r.got = got; r.max = max; r.pct = max ? got / max * 100 : 0;
+      var hist = store("history") || [];
+      hist.unshift({ d: Date.now(), pct: Math.round(r.pct * 10) / 10, got: got, max: max, n: r.items.length, g: gradeOf(r.pct)[1], mode: r.mode, ch: uniq(r.items.map(function (it) { return it.q.c; })).length });
+      store("history", hist.slice(0, 30));
+      exam.render(); window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+  function uniq(a) { return a.filter(function (x, i) { return a.indexOf(x) === i; }); }
+  function fmt(s) { var m = Math.floor(s / 60), x = s % 60; return (m < 10 ? "0" : "") + m + ":" + (x < 10 ? "0" : "") + x; }
+  function fmtDate(t) { var d = new Date(t); return d.toLocaleDateString("de-AT", { day: "2-digit", month: "2-digit", year: "2-digit" }) + " " + d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" }); }
+
+  function setupHTML() {
+    var s = exam.setup, h = '<div class="panel"><div><div class="eyebrow">Klausursimulation</div><h2>Prüfungsbogen zusammenstellen</h2></div><p class="lede">Wähle Kapitel, Umfang und Modus. Im Klausurmodus siehst du die Lösungen erst bei der Auswertung – wie in der echten Prüfung. Im Übungsmodus bekommst du nach jeder Frage sofort Rückmeldung.</p>';
+    h += '<div class="pick"><div class="qnav"><h3>Kapitel</h3><div class="grp"><button class="btn" data-ex="all">Alle</button><button class="btn" data-ex="none">Keine</button></div></div>';
+    var byT = {}; CH.forEach(function (c) { (byT[c.teil] = byT[c.teil] || []).push(c); });
+    Object.keys(byT).forEach(function (t) {
+      h += '<div class="pick-teil"><div class="tl">Teil ' + t + ' · ' + esc(TEILE[t]) + '</div><div class="pick-row">';
+      byT[t].forEach(function (c) {
+        var n = QS.filter(function (q) { return q.c === c.id; }).length;
+        h += '<label class="tick"><input type="checkbox" id="pk-' + c.id + '" data-pick="' + c.id + '"' + (s.chapters.indexOf(c.id) > -1 ? " checked" : "") + '>' + c.id + '. ' + esc(c.title.split(":")[0]) + ' <span class="cnt">' + n + '</span></label>';
+      });
+      h += '</div></div>';
+    });
+    h += '</div><div class="opts-grid">';
+    h += '<div class="opt-block"><span class="lbl">Anzahl Fragen</span><div class="seg-ctl">' + [10, 20, 30, 0].map(function (n) { return '<button data-count="' + n + '" aria-pressed="' + (s.count === n) + '">' + (n || "Alle") + '</button>'; }).join("") + '</div></div>';
+    h += '<div class="opt-block"><span class="lbl">Modus</span><div class="seg-ctl"><button data-mode="exam" aria-pressed="' + (s.mode === "exam") + '">Klausur</button><button data-mode="practice" aria-pressed="' + (s.mode === "practice") + '">Übung</button></div><span class="hint">' + (s.mode === "exam" ? "Auswertung erst am Ende" : "Sofortiges Feedback mit Erklärung") + '</span></div>';
+    if (s.mode === "exam") h += '<div class="opt-block"><span class="lbl">Zeitlimit</span><div class="seg-ctl"><button data-timed="1" aria-pressed="' + s.timed + '">1,5 Min. pro Frage</button><button data-timed="0" aria-pressed="' + !s.timed + '">Ohne</button></div></div>';
+    h += '</div>';
+    var avail = QS.filter(function (q) { return s.chapters.indexOf(q.c) > -1; }).length, n = s.count ? Math.min(s.count, avail) : avail;
+    var maxP = "Fragen mit Sachverhalt +1 Punkt, Mehrfachauswahl und Rechenaufgaben 2 Punkte";
+    h += '<div class="startbar"><div class="sum">' + n + ' Fragen aus ' + s.chapters.length + ' Kapiteln' + (s.mode === "exam" && s.timed && n ? ' · ' + Math.ceil(n * 1.5) + ' Minuten' : "") + '<br><small>' + maxP + '</small></div><button class="btn primary" id="ex-start"' + (n ? "" : " disabled") + '>Klausur starten</button></div>';
+    h += '<div><span class="lbl" style="font-family:var(--f-display);font-weight:700;font-size:14px">Notenschlüssel (Orientierung)</span><div class="scale-tbl" style="margin-top:6px">' + GRADES.map(function (g, i) { return '<span>' + g[1] + ' ' + g[2] + ': ' + (i ? (i === GRADES.length - 1 ? "< 50 %" : "ab " + String(g[0]).replace(".", ",") + " %") : "ab 87,5 %") + '</span>'; }).join("") + '</div></div></div>';
+    var hist = store("history") || [];
+    h += '<div class="panel"><h3>Deine letzten Versuche</h3>';
+    if (!hist.length) h += '<p class="empty">Noch keine Klausur abgegeben. Nach der ersten Auswertung erscheint hier dein Verlauf (nur in diesem Browser gespeichert).</p>';
+    else h += '<div class="hist">' + hist.slice(0, 8).map(function (x) { return '<div class="hrow"><span class="d">' + fmtDate(x.d) + '</span><div class="tr"><i style="width:' + x.pct + '%"></i></div><span class="mono">' + String(x.pct).replace(".", ",") + ' %</span><span class="g">Note ' + x.g + ' · ' + x.n + ' Fragen' + (x.mode === "practice" ? " · Übung" : "") + '</span></div>'; }).join("") + '</div>';
+    return h + '</div>';
+  }
+
+  function answerLabel(q, order, a) {
+    if (a === null || a === undefined || a === "" || (Array.isArray(a) && !a.length)) return "keine Antwort";
+    if (q.t === "tf") return a ? "Richtig" : "Falsch";
+    if (q.t === "num") return a + " " + (q.unit || "");
+    return a.map(function (x) { return String.fromCharCode(65 + order.indexOf(x)) + ") " + q.o[x]; }).join(" · ");
+  }
+  function correctLabel(q, order) {
+    if (q.t === "tf") return q.a ? "Richtig" : "Falsch";
+    if (q.t === "num") return q.a.toLocaleString("de-AT") + " " + (q.unit || "");
+    return q.a.slice().sort(function (x, y) { return order.indexOf(x) - order.indexOf(y); }).map(function (x) { return String.fromCharCode(65 + order.indexOf(x)) + ") " + q.o[x]; }).join(" · ");
+  }
+
+  function questionHTML() {
+    var r = exam.run, it = r.items[r.i], q = it.q, c = chById[q.c], show = r.mode === "practice" && it.checked;
+    var h = '<div class="panel"><div class="qhead"><span class="qn">Frage ' + (r.i + 1) + ' / ' + r.items.length + '</span><span class="qtag">Kap. ' + c.id + ' · ' + esc(c.title.split(":")[0]) + '</span><span class="qtype">' + pts(q) + ' ' + (pts(q) === 1 ? "Punkt" : "Punkte") + '</span>' + (r.limit ? '<span class="timer" id="ex-timer">' + fmt(Math.max(0, r.limit - Math.floor((Date.now() - r.t0) / 1000))) + '</span>' : '<span class="timer">' + (r.mode === "practice" ? "Übung" : "ohne Zeit") + '</span>') + '</div>';
+    h += '<div class="bar"><i style="width:' + ((r.i + 1) / r.items.length * 100) + '%"></i></div>';
+    if (q.s) h += '<div class="sv"><b>Sachverhalt</b>' + esc(q.s) + '</div>';
+    h += '<div class="qtype">' + TYPE_LBL[q.t] + '</div><p class="qtext">' + esc(q.q) + '</p>';
+    if (q.t === "num") {
+      h += '<div class="numin"><input id="num-in" inputmode="decimal" autocomplete="off" placeholder="Zahl eingeben" value="' + esc(it.ans || "") + '"' + (show ? " disabled" : "") + '><span class="unit">' + esc(q.unit || "") + '</span></div>';
+    } else {
+      var opts = q.t === "tf" ? [{ k: true, t: "Richtig" }, { k: false, t: "Falsch" }] : it.order.map(function (x) { return { k: x, t: q.o[x] }; });
+      h += '<div class="answers" role="group" aria-label="Antworten">';
+      opts.forEach(function (o, i) {
+        var sel = q.t === "tf" ? it.ans === o.k : (it.ans || []).indexOf(o.k) > -1;
+        var cls = "ans" + (q.t === "mc" ? " multi" : ""), mk = "";
+        if (show) {
+          var isRight = q.t === "tf" ? q.a === o.k : q.a.indexOf(o.k) > -1;
+          if (isRight) { cls += " right"; mk = "✓ richtig"; } else if (sel) { cls += " wrong"; mk = "✗"; }
+        }
+        h += '<button class="' + cls + '" data-ans="' + i + '" aria-pressed="' + sel + '"' + (show ? " disabled" : "") + '><span class="key">' + (q.t === "tf" ? (o.k ? "R" : "F") : String.fromCharCode(65 + i)) + '</span><span>' + esc(o.t) + '</span><span class="mk">' + mk + '</span></button>';
+      });
+      h += '</div>';
+    }
+    if (show) {
+      var g = exam.score(it), p = pts(q), cl = g === p ? "ok" : g > 0 ? "part" : "bad";
+      h += '<div class="feedback ' + cl + '"><b>' + (cl === "ok" ? "Richtig! " : cl === "part" ? "Teilweise richtig. " : "Leider falsch. ") + String(g).replace(".", ",") + ' / ' + p + ' Punkte</b>' + (cl !== "ok" ? '<span>Lösung: ' + esc(correctLabel(q, it.order)) + '</span>' : "") + '<span>' + esc(q.e) + '</span></div>';
+    }
+    if (r.confirm) {
+      var open = r.items.filter(function (x) { return x.ans === null || x.ans === "" || (Array.isArray(x.ans) && !x.ans.length); }).length;
+      h += '<div class="confirm"><b style="font-family:var(--f-display)">Klausur jetzt abgeben?</b><span>' + (open ? open + " Frage" + (open > 1 ? "n sind" : " ist") + " noch unbeantwortet." : "Alle Fragen sind beantwortet.") + ' Danach kannst du nichts mehr ändern.</span><div class="grp" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-ex="submit">Ja, abgeben</button><button class="btn" data-ex="cancel">Weiter bearbeiten</button></div></div>';
+    }
+    h += '<div class="qnav"><div class="grp"><button class="btn" data-ex="prev"' + (r.i ? "" : " disabled") + '>← Zurück</button>';
+    if (r.mode === "exam") h += '<button class="btn" data-ex="flag" aria-pressed="' + it.flag + '">' + (it.flag ? "★ Markiert" : "☆ Markieren") + '</button>';
+    h += '</div><div class="grp">';
+    if (r.mode === "practice" && !it.checked) h += '<button class="btn primary" data-ex="check">Antwort prüfen</button>';
+    else if (r.i < r.items.length - 1) h += '<button class="btn primary" data-ex="next">Weiter →</button>';
+    else h += '<button class="btn primary" data-ex="' + (r.mode === "practice" ? "submit" : "ask") + '">Zur Auswertung</button>';
+    h += '</div></div></div>';
+    if (r.mode === "exam") {
+      h += '<div class="panel"><div class="qnav"><h3>Übersicht</h3><button class="btn" data-ex="ask">Klausur abgeben</button></div><div class="grid-map" id="grid-map">' + mapHTML() + '</div></div>';
+    }
+    return h;
+  }
+  function mapHTML() {
+    var r = exam.run;
+    return r.items.map(function (x, i) { var done = !(x.ans === null || x.ans === "" || (Array.isArray(x.ans) && !x.ans.length)); return '<button data-jump="' + i + '" class="' + (done ? "done " : "") + (i === r.i ? "cur " : "") + (x.flag ? "flag" : "") + '" aria-label="Frage ' + (i + 1) + (done ? ", beantwortet" : "") + (x.flag ? ", markiert" : "") + '">' + (i + 1) + '</button>'; }).join("");
+  }
+  function updateMap() { var g = $("#grid-map"); if (g) g.innerHTML = mapHTML(); }
+
+  function resultHTML() {
+    var r = exam.run, g = gradeOf(r.pct), secs = Math.round((r.t1 - r.t0) / 1000);
+    var full = r.items.filter(function (x) { return x.got === pts(x.q); }).length;
+    var part = r.items.filter(function (x) { return x.got > 0 && x.got < pts(x.q); }).length;
+    var C = 2 * Math.PI * 62, col = r.pct >= 62.5 ? "var(--ok)" : r.pct >= 50 ? "var(--warn)" : "var(--bad)";
+    var h = '<div class="panel"><div class="eyebrow">Auswertung · ' + (r.mode === "exam" ? "Klausurmodus" : "Übungsmodus") + '</div><div class="res-hero">';
+    h += '<svg class="ring" viewBox="0 0 150 150" role="img" aria-label="' + Math.round(r.pct) + ' Prozent"><circle cx="75" cy="75" r="62" fill="none" stroke="var(--sunken)" stroke-width="14"/><circle cx="75" cy="75" r="62" fill="none" stroke="' + col + '" stroke-width="14" stroke-linecap="round" stroke-dasharray="' + (C * r.pct / 100).toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 75 75)"/><text x="75" y="80" text-anchor="middle" font-size="30" font-weight="800" fill="var(--ink)">' + Math.round(r.pct) + '%</text><text x="75" y="102" text-anchor="middle" font-size="12" fill="var(--muted)">erreicht</text></svg>';
+    h += '<div class="grade"><div class="g"><span>' + g[1] + ' · ' + g[2] + '</span></div><div class="stats"><div class="stat"><b>' + String(r.got).replace(".", ",") + ' / ' + r.max + '</b><small>Punkte</small></div><div class="stat"><b>' + full + ' / ' + r.items.length + '</b><small>voll richtig</small></div><div class="stat"><b>' + part + '</b><small>teilweise</small></div><div class="stat"><b>' + fmt(secs) + '</b><small>Zeit</small></div></div></div></div>';
+    h += '<div class="actions"><button class="btn primary" data-ex="retry"' + (full === r.items.length ? " disabled" : "") + '>Fehler wiederholen</button><button class="btn" data-ex="new">Neue Klausur</button></div></div>';
+
+    var per = {};
+    r.items.forEach(function (x) { var p = per[x.q.c] = per[x.q.c] || { got: 0, max: 0, n: 0 }; p.got += x.got; p.max += pts(x.q); p.n++; });
+    var keys = Object.keys(per).map(Number).sort(function (a, b) { return per[a].got / per[a].max - per[b].got / per[b].max; });
+    h += '<div class="panel"><div><h2>Stärken und Schwächen</h2><p class="lede">Kapitel nach Ergebnis sortiert – die schwächsten oben. „Wiederholen“ öffnet das Kapitel im Lernbereich.</p></div><div class="chbars">';
+    keys.forEach(function (k) {
+      var p = per[k], pc = p.got / p.max * 100, cc = pc >= 75 ? "var(--ok)" : pc >= 50 ? "var(--warn)" : "var(--bad)";
+      h += '<div class="chbar"><span class="nm"><b>' + String(k).padStart(2, "0") + '</b>' + esc(chById[k].title.split(":")[0]) + ' <span style="color:var(--muted);font-size:12px">(' + p.n + ')</span></span><span class="tr"><i style="width:' + Math.max(pc, 2) + '%;background:' + cc + '"></i></span><span class="pc">' + Math.round(pc) + '%</span><button class="lnk" data-learn="' + k + '">Wiederholen →</button></div>';
+    });
+    h += '</div></div>';
+
+    h += '<div class="panel"><div class="qnav"><h2>Alle Fragen mit Lösung</h2><div class="seg-ctl"><button data-filter="all" aria-pressed="' + (r.filter === "all") + '">Alle</button><button data-filter="wrong" aria-pressed="' + (r.filter === "wrong") + '">Nur Fehler</button></div></div><div class="review">';
+    r.items.forEach(function (x, i) {
+      var p = pts(x.q), st = x.got === p ? "ok" : x.got > 0 ? "part" : "bad";
+      if (r.filter === "wrong" && st === "ok") return;
+      var c = chById[x.q.c];
+      h += '<div class="rv-item ' + st + '"><div class="top-line"><span class="pill ' + st + '">' + (st === "ok" ? "richtig" : st === "part" ? "teilweise" : "falsch") + '</span><span class="mono">' + (i + 1) + '.</span><span>Kap. ' + c.id + ' · ' + esc(c.title.split(":")[0]) + '</span><span class="mono" style="margin-left:auto">' + String(x.got).replace(".", ",") + ' / ' + p + '</span></div>';
+      if (x.q.s) h += '<p class="ln"><span>Sachverhalt: </span>' + esc(x.q.s) + '</p>';
+      h += '<p class="q">' + esc(x.q.q) + '</p><p class="ln"><span>Deine Antwort: </span>' + esc(answerLabel(x.q, x.order, x.ans)) + '</p>';
+      if (st !== "ok") h += '<p class="ln"><span>Richtig: </span>' + esc(correctLabel(x.q, x.order)) + '</p>';
+      h += '<p class="ex">' + esc(x.q.e) + '</p></div>';
+    });
+    return h + '</div></div>';
+  }
+
+  document.addEventListener("change", function (e) {
+    var t = e.target;
+    if (t.dataset.pick) { var id = +t.dataset.pick, a = exam.setup.chapters, i = a.indexOf(id); if (t.checked && i < 0) a.push(id); if (!t.checked && i > -1) a.splice(i, 1); exam.render(); var el = $("#pk-" + id); if (el) el.focus(); }
+  });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || !$("#view-exam").contains(b)) return;
+    var s = exam.setup, r = exam.run, d = b.dataset;
+    if (d.count !== undefined) { s.count = +d.count; exam.render(); }
+    else if (d.mode) { s.mode = d.mode; exam.render(); }
+    else if (d.timed !== undefined) { s.timed = d.timed === "1"; exam.render(); }
+    else if (d.learn) { setView("learn"); goChapter(+d.learn); }
+    else if (d.filter) { r.filter = d.filter; exam.render(); }
+    else if (d.jump !== undefined) { r.i = +d.jump; r.confirm = false; exam.render(); }
+    else if (b.id === "ex-start") { exam.start(); window.scrollTo({ top: 0 }); }
+    else if (d.ans !== undefined) {
+      var it = r.items[r.i], q = it.q, i = +d.ans;
+      if (q.t === "tf") it.ans = i === 0;
+      else { var k = it.order[i]; if (q.t === "sc") it.ans = [k]; else { it.ans = it.ans || []; var j = it.ans.indexOf(k); if (j > -1) it.ans.splice(j, 1); else it.ans.push(k); } }
+      exam.render();
+    }
+    else if (d.ex) {
+      switch (d.ex) {
+        case "all": s.chapters = CH.map(function (c) { return c.id; }); exam.render(); break;
+        case "none": s.chapters = []; exam.render(); break;
+        case "prev": r.i--; r.confirm = false; exam.render(); break;
+        case "next": r.i++; r.confirm = false; exam.render(); window.scrollTo({ top: 0 }); break;
+        case "flag": r.items[r.i].flag = !r.items[r.i].flag; exam.render(); break;
+        case "check": r.items[r.i].checked = true; exam.render(); break;
+        case "ask": r.confirm = true; exam.render(); break;
+        case "cancel": r.confirm = false; exam.render(); break;
+        case "submit": exam.finish(); break;
+        case "retry": exam.start(r.items.filter(function (x) { return x.got < pts(x.q); }).map(function (x) { return x.q.id; })); window.scrollTo({ top: 0 }); break;
+        case "new": exam.run = null; exam.render(); window.scrollTo({ top: 0 }); break;
+      }
+    }
+  });
+
+  /* ───────── views ───────── */
+  function setView(v) {
+    document.querySelectorAll(".tabs button").forEach(function (b) { b.setAttribute("aria-selected", String(b.dataset.view === v)); });
+    $("#view-learn").hidden = v !== "learn"; $("#view-exam").hidden = v !== "exam";
+    if (v === "exam") { player.stop(); filmPlayer.stop(); exam.render(); }
+  }
+
+  renderSide(); renderArticle();
+  var hsh = (location.hash || "").slice(1);
+  if (hsh === "klausur") setView("exam");
+  else if (/^kapitel-\d+$/.test(hsh)) { var n = +hsh.split("-")[1]; if (chById[n]) goChapter(n, false); }
+  if (window.matchMedia("(max-width: 900px)").matches) $("#side-list").hidden = true;
+})();
+</script>
+</body>
+</html>

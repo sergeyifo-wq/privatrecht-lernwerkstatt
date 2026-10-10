@@ -1,0 +1,372 @@
+/* Drehbücher der Trickfilme – je Kapitel 3–4 Szenen nach den Fällen des Superbuchs.
+   Zeitleiste: [Sekunde, Aktion, ...Argumente]  (siehe film.js) */
+(function () {
+  function P(name, c, x, e) { return Object.assign({ k: "person", name: name, c: c, x: x, y: 390 }, e || {}); }
+  function K(name, c, x, e) { return P(name, c, x, Object.assign({ kid: 1 }, e || {})); }
+  function O(k, x, y, e) { return Object.assign({ k: k, x: x, y: y }, e || {}); }
+  var H = { hidden: 1 };
+  function h(e) { return Object.assign({ hidden: 1 }, e || {}); }
+
+  window.FILMS = {
+  /* ═════ 1 Recht und Rechtsverständnis ═════ */
+  1: [
+    { h: "Recht hat Zähne", bg: "shop", d: 13,
+      n: "K steckt im Supermarkt einen Fernseher ein und will gehen. Der Kaufvertrag verpflichtet ihn aber zu zahlen. Zahlt er nicht, kann der Staat das mit Klage und Exekution erzwingen. Genau das macht Recht aus.",
+      actors: { kas: P("Kassierin", "#2e9d62", 720, { hs: "bun", apron: 1 }), tv: O("tv", 580, 292, { s: "499 €" }), k: P("K", "#2f56c8", 140, H), ri: P("Gericht", "#222", 470, h({ robe: 1, glasses: 1, hs: "bald", old: 0 })) },
+      tl: [[0.2, "in", "k"], [1.6, "mv", "k", 470], [2.8, "say", "k", "Den nehm ich mit!"], [3.6, "give", "tv", "k"], [4.6, "mv", "k", 180, null, 1.4], [5.2, "say", "kas", "Halt! Erst zahlen!"], [6.2, "law", "1062 ABGB: Käufer muss zahlen"], [7.2, "in", "ri", "pop"], [7.8, "mv", "ri", 380, null, 0.8], [8.6, "arrow", "ri", "k", "Klage + Exekution", "bad"], [9.2, "face", "k", "shock"], [10.4, "stamp", "RECHT = ERZWINGBAR", "navy"]] },
+    { h: "Nur Moral – kein Zwang", bg: "street", d: 12,
+      n: "Wer einer älteren Dame keinen Platz anbietet, handelt unhöflich. Wer im Jogginganzug zur Hochzeit kommt, verletzt die Sitte. Die Folge ist nur Missbilligung. Ein Gericht hilft hier niemandem.",
+      actors: { oma: P("Ältere Dame", "#9b5de5", 160, { old: 1, hs: "bun", skirt: "#7a46c2" }), m: P("M", "#e4572e", 330), g: P("Hochzeitsgast", "#8a94ad", 620, h({ cap: "#8a94ad" })), b1: P("Braut", "#ffffff", 720, { hs: "long", hair: "#c48a3a", skirt: "#fff" }) },
+      tl: [[0.5, "say", "m", "Bitte, setzen Sie sich!"], [1.4, "face", "oma", "happy"], [2.4, "tag", "m", "Moral / Sitte", "green"], [3.6, "in", "g", "right"], [4.8, "face", "b1", "angry"], [5.2, "say", "b1", "Im Jogginganzug?!"], [6.6, "tag", "g", "Missbilligung", "warn"], [8, "stamp", "KEIN STAATLICHER ZWANG", "warn"]] },
+    { h: "Der Stufenbau", bg: "blank", d: 13,
+      n: "Die Rechtsordnung ist ein Turm. Oben die Verfassung, dann Gesetze, darunter Verordnungen, ganz unten Bescheide, Urteile und Verträge. Will eine Verordnung über das Gesetz klettern, fällt sie zurück: Jede Stufe muss der höheren entsprechen.",
+      actors: { s1: O("block", 400, 390, { s: "Bescheide · Urteile · Verträge", w: 460, h: 44, c: "#8fb3ff", dark: false }), s2: O("block", 400, 346, { s: "Verordnungen", w: 380, h: 44, c: "#6f8ff0" }), s3: O("block", 400, 302, { s: "einfache Gesetze", w: 300, h: 44, c: "#2f56c8" }), s4: O("block", 400, 258, { s: "Verfassungsgesetze", w: 220, h: 44, c: "#1d3a8f" }), s5: O("block", 400, 214, { s: "Baugesetze", w: 140, h: 44, c: "#131c33" }), vo: O("doc", 700, 340, h({ s: "Verordnung" })) },
+      tl: [[0.3, "in", "s1", "pop"], [0.8, "in", "s2", "pop"], [1.3, "in", "s3", "pop"], [1.8, "in", "s4", "pop"], [2.3, "in", "s5", "pop"], [3.6, "in", "vo", "pop"], [4.4, "mv", "vo", 400, 170, 1.6], [6.2, "shake", "vo"], [6.5, "stamp", "WIDERSPRUCH!", "bad", 600, 140, 2.5], [7.4, "mv", "vo", 640, 300, 1.2], [9, "law", "Jede Stufe muss der höheren entsprechen"], [10, "glow", "s5", 2]] },
+    { h: "E-Scooter im Stadtpark", bg: "park", d: 14,
+      n: "„Kraftfahrzeuge verboten“, sagt die Parkordnung. Tom rast mit dem E-Scooter durch: verboten, das schützt die Spaziergänger. Frau F im Elektrorollstuhl fährt Schritttempo und gefährdet niemanden. Nach dem Zweck ist sie nicht gemeint: teleologische Reduktion.",
+      actors: { sg: O("sign", 400, 390, { s: "Kraftfahrzeuge verboten!" }), tom: P("Tom", "#e4572e", -100, { helmet: "#e04848" }), sc: O("scooter", -100, 390), f: P("Frau F", "#2e9d62", 900, { hs: "long", hair: "#7a4b2a" }), wc: O("wheelchair", 900, 390) },
+      tl: [[0.4, "mv", "tom", 220, null, 1], [0.4, "mv", "sc", 220, null, 1], [1.6, "say", "tom", "Wuuusch – 25 km/h!"], [3, "cross", "tom"], [3.3, "stamp", "VERSTOSS", "bad", 200, 120, 3], [6.2, "unmark", "tom"], [6.2, "mv", "f", 610, null, 3], [6.2, "mv", "wc", 610, null, 3], [8.4, "say", "f", "Ich fahre nur Schritttempo."], [9.8, "check", "f"], [10.6, "law", "Teleologische Reduktion (Zweck der Norm)"]] }
+  ],
+  /* ═════ 2 Privatrecht vs. öffentliches Recht ═════ */
+  2: [
+    { h: "Die Stadt geht einkaufen", bg: "shop", d: 12,
+      n: "Die Bürgermeisterin kauft für die Stadt 200 Bürosessel. Sie tritt dem Händler gleichgeordnet gegenüber und schließt einen ganz normalen Kaufvertrag. Nicht die Person entscheidet, sondern die Handlungsform: Privatrecht.",
+      actors: { hd: P("Möbelhändler", "#f2a541", 720, { apron: 1 }), ch: O("chair", 600, 292), bm: P("Stadt (Bürgermeisterin)", "#c0504d", 120, h({ hs: "long", hair: "#5b3a24", vest: "#ffd23f" })), mo: O("money", 120, 300, h()) },
+      tl: [[0.3, "in", "bm"], [1.6, "mv", "bm", 430], [2.8, "say", "bm", "200 Sessel, bitte!"], [4.2, "give", "mo", "bm"], [4.6, "give", "mo", "hd", "l"], [5.6, "give", "ch", "bm"], [6.4, "arrow", "bm", "hd", "gleichgeordnet", "ok"], [7.6, "tag", "bm", "Privatrecht", "ok"], [8.6, "law", "Handlungsform entscheidet"]] },
+    { h: "Post vom Finanzamt", bg: "street", d: 12,
+      n: "Das Finanzamt schreibt A die Einkommensteuer vor. Es verhandelt nicht, sondern entscheidet einseitig mit Bescheid. Das ist Über- und Unterordnung, also öffentliches Recht.",
+      actors: { fa: O("building", 600, 390, { s: "FINANZAMT", w: 180, h: 220, c: "#b8c6e6" }), a: P("A", "#3ab0c4", 180), bs: O("doc", 600, 300, h({ s: "Bescheid", seal: 1 })) },
+      tl: [[0.6, "in", "bs", "pop"], [1.4, "give", "bs", "a", null, 1.6], [3.2, "face", "a", "shock"], [3.6, "say", "a", "Darf ich da mitreden?"], [5, "arrow", "fa", "a", "hoheitlich, einseitig", "navy"], [6.6, "stamp", "ÖFFENTLICHES RECHT", "navy"], [8, "law", "Legalitätsprinzip"]] },
+    { h: "Blaulicht und Amtshaftung", bg: "street", d: 13,
+      n: "Ein Polizeiauto beschädigt auf einer Einsatzfahrt das geparkte Auto von A. Das ist hoheitliches Handeln. A klagt nicht den Polizisten, sondern den Bund nach dem Amtshaftungsgesetz.",
+      actors: { pa: O("car", -120, 390, { c: "#2f56c8", s: "POLIZEI" }), car: O("car", 520, 390, { c: "#e4572e" }), a: P("A", "#2e9d62", 700, h()), bund: O("building", 150, 390, h({ s: "BUND", w: 150, h: 200, c: "#e3c1c1", sc: "#c0504d" })) },
+      tl: [[0.3, "mv", "pa", 380, null, 1.2], [1.5, "quake"], [1.5, "shake", "car"], [1.7, "art", "car", { dent: 1 }], [2.4, "in", "a", "right"], [3.4, "face", "a", "angry"], [3.8, "say", "a", "Mein Auto!"], [5, "law", "AHG – Amtshaftung"], [5.6, "mv", "pa", 960, null, 1], [6.2, "in", "bund", "pop"], [7, "arrow", "a", "bund", "Klage gegen den Bund", "navy"], [9, "tag", "a", "nicht gegen den Polizisten", "warn"]] },
+    { h: "Online-Kauf: Gesetze stapeln sich", bg: "room", d: 12,
+      n: "Student S kauft online ein Rennrad bei einer Unternehmerin. Grundlage ist das ABGB. Darauf stapeln sich Sondergesetze, die vorgehen: VGG für die Gewährleistung, FAGG für den Rücktritt, ECG für den Online-Shop und das KSchG.",
+      actors: { s: P("Student S", "#9b5de5", 160, { cap: "#9b5de5" }), lp: O("laptop", 160, 300), b0: O("block", 560, 390, h({ s: "ABGB", w: 260, c: "#131c33" })), b1: O("block", 560, 346, h({ s: "VGG – Gewährleistung", w: 240, c: "#2f56c8" })), b2: O("block", 560, 302, h({ s: "FAGG – Rücktritt", w: 220, c: "#2f56c8" })), b3: O("block", 560, 258, h({ s: "ECG – Online", w: 200, c: "#2f56c8" })), b4: O("block", 560, 214, h({ s: "KSchG", w: 180, c: "#2f56c8" })) },
+      tl: [[0.4, "say", "s", "Klick – Rennrad gekauft!"], [1.6, "in", "b0", "pop"], [2.6, "in", "b1", "up"], [3.6, "in", "b2", "up"], [4.6, "in", "b3", "up"], [5.6, "in", "b4", "up"], [7, "law", "lex specialis geht vor – ABGB subsidiär"], [8, "glow", "b4", 2]] }
+  ],
+  /* ═════ 3 Rechtssubjekte ═════ */
+  3: [
+    { h: "Max und das Eis", bg: "shop", d: 12,
+      n: "Der sechsjährige Max kauft mit seinem Taschengeld ein Eis um zwei Euro fünfzig und zahlt sofort. Altersüblich, geringfügig und erfüllt: Der Kauf ist wirksam.",
+      actors: { v: P("Verkäuferin", "#3ab0c4", 720, { hs: "long", hair: "#c48a3a", apron: 1 }), ice: O("ice", 600, 292), max: K("Max, 6", "#e4572e", 120, h({ cap: "#2f56c8" })), co: O("coin", 120, 300, h()) },
+      tl: [[0.2, "in", "max"], [1.6, "mv", "max", 480], [2.6, "say", "max", "Ein Eis, bitte!"], [3.8, "give", "co", "max"], [4.2, "give", "co", "v", "l"], [4.9, "give", "ice", "max"], [5.8, "face", "max", "happy"], [6.2, "law", "170 Abs 3 ABGB – Taschengeldgeschäft"], [7.4, "stamp", "WIRKSAM", "ok"], [8, "confetti"]] },
+    { h: "Die teure Spielkonsole", bg: "shop", d: 13,
+      n: "Eine Woche später kauft Max mit 350 Euro aus Papas Schreibtisch eine Spielkonsole. Weder geringfügig noch altersüblich: unwirksam. Konsole und Geld werden zurückgegeben.",
+      actors: { v: P("Verkäuferin", "#3ab0c4", 720, { hs: "long", hair: "#c48a3a", apron: 1 }), cs: O("console", 600, 292), max: K("Max, 6", "#e4572e", 430, { cap: "#2f56c8" }), mo: O("money", 430, 300, h()), pa: P("Papa", "#2f56c8", 130, h({ glasses: 1 })) },
+      tl: [[0.4, "give", "mo", "max"], [0.4, "in", "mo", "pop"], [1.4, "say", "max", "Die Konsole!"], [2.6, "give", "mo", "v", "l"], [3.2, "give", "cs", "max"], [4.4, "in", "pa"], [5.6, "face", "pa", "angry"], [5.8, "say", "pa", "Das waren meine 350 €!"], [7.2, "stamp", "UNWIRKSAM", "bad"], [8.4, "give", "cs", "v", "l"], [8.8, "give", "mo", "pa"], [10, "law", "Unmündige: nur bloß Vorteilhaftes"]] },
+    { h: "Die Altersleiter", bg: "stairs", d: 14,
+      n: "Lena wächst. Unter sieben sind ihre Geschäfte grundsätzlich unwirksam. Mit sieben darf sie bloß Vorteilhaftes annehmen. Ab vierzehn darf sie über ihr eigenes Einkommen verfügen. Mit achtzehn ist sie voll geschäftsfähig.",
+      actors: { l: K("Lena, 5", "#f2a541", 200, { hs: "long", hair: "#7a4b2a" }) },
+      tl: [[0.4, "tag", "l", "unter 7: unwirksam", "bad"], [2.4, "mv", "l", 490, 322, 1.2], [3.4, "txt", "l", "Lena, 10"], [3.6, "tag", "l", "7–14: nur Vorteilhaftes", "warn"], [6, "mv", "l", 590, 254, 1.2], [7, "txt", "l", "Lena, 16"], [7.2, "tag", "l", "14–18: + eigenes Einkommen", "navy"], [9.6, "mv", "l", 705, 220, 1.2], [10.6, "art", "l", { kid: 0 }], [10.6, "txt", "l", "Lena, 18"], [10.8, "tag", "l", "voll geschäftsfähig!", "ok"], [11.6, "confetti"]] },
+    { h: "Der Ball im Fenster", bg: "garden", d: 14,
+      n: "Der zehnjährige Paul schießt absichtlich einen Ball ins Fenster des Nachbarn. Paul ist noch nicht deliktsfähig. Die Mutter haftet nur, wenn sie ihre Aufsichtspflicht verletzt hat. Sonst kommt Pauls Billigkeitshaftung in Betracht.",
+      actors: { hs: O("house", 620, 390, { s: "Nachbar N" }), n: P("Nachbar N", "#8a94ad", 760, h({ hs: "bald", old: 0 })), paul: K("Paul, 10", "#2e9d62", 260), ball: O("ball", 300, 390), mu: P("Mutter", "#9b5de5", 90, { hs: "long", hair: "#3b2a20" }), ph: O("phone", 120, 342) },
+      tl: [[0.4, "say", "mu", "Ja, ich telefoniere grad…", 2.2], [1.6, "jump", "paul"], [2, "mv", "ball", 590, 300, 0.7], [2.7, "quake"], [2.8, "shake", "hs"], [3.4, "in", "n", "right"], [4.4, "face", "n", "angry"], [4.6, "say", "n", "600 € für mein Fenster!"], [6.2, "law", "Deliktsfähig erst ab 14"], [7.4, "arrow", "n", "mu", "§ 1309 nur bei Aufsichtsfehler", "warn", 1], [9.6, "arrow", "n", "paul", "§ 1310 Billigkeit", "warn", 1]] }
+  ],
+  /* ═════ 4 Stellvertretung ═════ */
+  4: [
+    { h: "Das Vertretungsdreieck", bg: "shop", d: 14,
+      n: "Emilia gibt Stefan eine Vollmacht. Stefan geht zu Mario und kauft im Namen von Emilia einen Laptop. Der Vertrag entsteht direkt zwischen Emilia und Mario. Stefan selbst wird nicht Vertragspartner.",
+      actors: { em: P("Emilia", "#e4572e", 90, { hs: "long", hair: "#c48a3a" }), st: P("Stefan", "#2f56c8", 220), ma: P("Mario (Händler)", "#2e9d62", 720, { apron: 1 }), lp: O("laptop", 600, 292), vm: O("doc", 90, 340, h({ s: "Vollmacht", sig: 1 })) },
+      tl: [[0.4, "in", "vm", "pop"], [0.8, "give", "vm", "em"], [1.6, "give", "vm", "st", "l"], [2.6, "mv", "st", 470], [3.8, "say", "st", "Im Namen von Emilia!"], [5.2, "give", "lp", "st"], [6.2, "arrow", "em", "st", "Vollmacht", "navy"], [7.2, "arrow", "st", "ma", "Erklärung", "blue"], [8.6, "arrow", "em", "ma", "Vertrag wirkt direkt!", "ok"], [10, "law", "1002 ff ABGB – Stellvertretung"]] },
+    { h: "Können und Dürfen", bg: "shop", d: 13,
+      n: "Die Vollmacht deckt Laptops bis 1.000 Euro. Intern flüstert Emilia: höchstens 500. Stefan kauft um 550. Der Vertrag ist wirksam, denn geheime Weisungen wirken nicht gegen Dritte. Stefan haftet Emilia nur intern.",
+      actors: { em: P("Emilia", "#e4572e", 90, { hs: "long", hair: "#c48a3a" }), st: P("Stefan", "#2f56c8", 220), ma: P("Mario", "#2e9d62", 720, { apron: 1 }), lp: O("laptop", 600, 292, { s: "550 €" }) },
+      tl: [[0.3, "tag", "st", "Vollmacht: bis 1.000 €", "navy"], [1.4, "say", "em", "Pssst: max. 500 €!", 2], [3.4, "mv", "st", 470], [4.6, "give", "lp", "st"], [5.4, "stamp", "WIRKSAM", "ok", 600, 140, 3], [6.6, "law", "1017 ABGB – geheime Instruktion"], [8.6, "mv", "st", 260], [9.6, "face", "em", "angry"], [10, "arrow", "em", "st", "Ersatz nur intern (§ 1012)", "warn"]] },
+    { h: "Die Visitenkarte", bg: "office", d: 13,
+      n: "Bauunternehmer B lässt Mitarbeiter M Visitenkarten mit „Einkaufsleiter“ drucken. Intern darf M nichts bestellen. M bestellt Ziegel um 6.000 Euro. Der Händler durfte dem Anschein vertrauen: B muss zahlen.",
+      actors: { b: P("Chef B", "#131c33", 120, { tie: "#e04848" }), m: P("M", "#3ab0c4", 260), cd: O("doc", 120, 340, h({ s: "Einkaufs-|leiter" })), h1: P("Händler H", "#f2a541", 680, h({ apron: 1 })), z: O("box", 560, 390, h({ s: "Ziegel 6.000 €" })) },
+      tl: [[0.4, "in", "cd", "pop"], [0.8, "give", "cd", "b"], [1.6, "give", "cd", "m", "l"], [2.6, "in", "h1", "right"], [3.4, "mv", "m", 480], [4.4, "say", "m", "Ziegel für B, bitte!"], [5.6, "glow", "cd", 2], [6, "say", "h1", "Der Einkaufsleiter – passt!"], [7.4, "in", "z", "pop"], [8.4, "arrow", "h1", "b", "Anscheinsvollmacht: B zahlt", "bad"], [10, "face", "b", "shock"], [10.4, "law", "Rechtsschein schützt den Redlichen"]] },
+    { h: "Der eifrige Assistent", bg: "fair", d: 14,
+      n: "Assistent A soll nur nach dem Preis fragen, kauft aber ein Bild um 12.000 Euro im Namen der Galeristin G. G genehmigt nicht. Ohne Vertretungsmacht kein Vertrag. Der Händler bekommt von A nur seinen Vertrauensschaden: 200 Euro Anwaltskosten.",
+      actors: { g: P("Galeristin G", "#9b5de5", 110, { hs: "bun", glasses: 1 }), a: P("Assistent A", "#3ab0c4", 330), k: P("Händler K", "#e4572e", 690), pt: O("painting", 560, 390), ct: O("doc", 450, 300, h({ s: "Kauf 12.000 €", sig: 1 })) },
+      tl: [[0.4, "say", "a", "Gekauft – im Namen von G!"], [1.6, "in", "ct", "pop"], [2.8, "say", "g", "Das hab ich nie erlaubt!"], [3.6, "face", "g", "angry"], [4.6, "law", "1016 ABGB – keine Genehmigung"], [5.4, "cross", "ct"], [6.4, "dim", "ct"], [7.2, "face", "k", "sad"], [7.6, "arrow", "k", "a", "§ 1019: 200 € Vertrauensschaden", "warn"], [10, "tag", "k", "kein entgangener Gewinn", "bad"]] }
+  ],
+  /* ═════ 5 Sachenrecht ═════ */
+  5: [
+    { h: "Titel plus Modus", bg: "street", d: 13,
+      n: "V verkauft K sein Fahrrad. Der unterschriebene Kaufvertrag ist der Titel, aber V ist noch Eigentümer. Erst mit der Übergabe, dem Modus, wird K Eigentümer.",
+      actors: { v: P("Verkäufer V", "#e4572e", 220), k: P("Käufer K", "#2f56c8", 560), bk: O("bike", 300, 390), ct: O("doc", 390, 300, h({ s: "Kaufvertrag", sig: 1 })) },
+      tl: [[0.2, "tag", "bk", "Eigentum: V", "navy"], [1, "in", "ct", "pop"], [1.8, "tag", "ct", "TITEL", "warn"], [3.6, "say", "k", "Jetzt gehört's mir, oder?", 2.4], [5, "say", "v", "Noch nicht!", 1.8], [7, "untag", "ct"], [7, "dim", "ct", 0.25], [7.2, "mv", "bk", 470, null, 1.4], [8.8, "tag", "bk", "MODUS: Übergabe", "warn"], [9.8, "tag", "bk", "Eigentum: K", "ok", "t2"], [10.4, "law", "Titel + Modus = Eigentum"], [10.8, "confetti"]] },
+    { h: "Das geliehene Rennrad", bg: "street", d: 14,
+      n: "E leiht F ihr Rennrad. F verkauft es als „mein eigenes Rad“ an den gutgläubigen K. Entgeltlich, übergeben, redlich, und F war Vertrauensmann der E. K wird Eigentümer, E muss sich an F halten.",
+      actors: { e: P("Eigentümerin E", "#2e9d62", 110, { hs: "long", hair: "#c48a3a" }), f: P("Freundin F", "#f2a541", 300, { hs: "bun" }), k: P("Käufer K", "#2f56c8", 680), bk: O("bike", 170, 390), mo: O("money", 680, 300, h()) },
+      tl: [[0.4, "mv", "bk", 360, null, 1], [1.4, "tag", "bk", "geliehen", "warn"], [2.6, "mv", "f", 480], [2.6, "mv", "bk", 540, null, 1.2], [3.8, "say", "f", "Mein eigenes Rad – 2.100 €!"], [5.2, "in", "mo", "pop"], [5.6, "give", "mo", "f"], [6.2, "mv", "bk", 600, null, 0.8], [7, "say", "e", "Das ist MEIN Rad!"], [8.4, "law", "367 ABGB – Vertrauensmann"], [9.4, "tag", "bk", "Eigentum: K", "ok"], [10.6, "arrow", "e", "f", "Ersatz von F", "warn"]] },
+    { h: "Gestohlen in der Nacht", bg: "night", d: 13,
+      n: "Ein Dieb stiehlt E das Rad und verkauft es an den Privatmann K. Ein Dieb ist kein Vertrauensmann: Niemand kann mehr Rechte übertragen, als er hat. E kann das Rad von K herausverlangen.",
+      actors: { d: P("Dieb", "#222", -100, { cap: "#222", f: "sly" }), bk: O("bike", 260, 390), k: P("Käufer K", "#2f56c8", 690), e: P("E", "#2e9d62", 140, h({ hs: "long", hair: "#c48a3a" })) },
+      tl: [[0.2, "mv", "d", 200, null, 1.2], [1.6, "mv", "d", 480, null, 1.4], [1.6, "mv", "bk", 540, null, 1.4], [3.2, "say", "d", "Billig abzugeben…"], [4.6, "out", "d", "left"], [4.8, "mv", "bk", 600, null, 0.6], [5.6, "in", "e"], [6.8, "say", "e", "Her mit meinem Rad!"], [8.2, "arrow", "e", "k", "Herausgabe § 366", "ok"], [9.4, "stamp", "NEMO PLUS IURIS", "bad", 400, 120]] },
+    { h: "Wer zuerst ins Grundbuch kommt", bg: "office", d: 15,
+      n: "Die C-GmbH verkauft dieselbe Wohnung zuerst an Bettina, dann an Sebastian. Beide haben einen gültigen Titel. Sebastian beantragt aber zuerst die Einverleibung im Grundbuch. Er wird Eigentümer.",
+      actors: { gb: O("grundbuch", 630, 316, { rows: ["A: Wohnung Top 5", "B: C-GmbH", "C: –"] }), be: P("Bettina", "#e4572e", 110, { hs: "long", hair: "#3b2a20" }), se: P("Sebastian", "#2f56c8", 250), c1: O("doc", 110, 300, h({ s: "Kauf 1.10.", sig: 1 })), c2: O("doc", 250, 300, h({ s: "Kauf 5.10.", sig: 1 })) },
+      tl: [[0.4, "in", "c1", "pop"], [0.6, "give", "c1", "be"], [1.6, "in", "c2", "pop"], [1.8, "give", "c2", "se"], [3, "say", "be", "Ich hab früher gekauft!"], [4.4, "mv", "se", 480, null, 1.2], [5.8, "give", "c2", "gb"], [6.2, "out", "c2"], [6.4, "art", "gb", { rows: ["A: Wohnung Top 5", "B: Sebastian", "C: –"] }], [6.8, "glow", "gb", 2], [7.6, "law", "440 ABGB – Priorität des Antrags"], [8.8, "face", "be", "sad"], [9.2, "stamp", "SEBASTIAN = EIGENTÜMER", "ok", 400, 110], [11, "tag", "be", "Schadenersatz gegen C-GmbH", "warn"]] }
+  ],
+  /* ═════ 6 Vertragsabschluss ═════ */
+  6: [
+    { h: "Der 99-Euro-Fernseher", bg: "shop", d: 13,
+      n: "Ein Fernseher steht irrtümlich um 99 statt 999 Euro im Schaufenster. K legt 99 Euro hin. Doch die Auszeichnung ist nur eine Einladung zur Angebotsstellung. K macht das Angebot, und der Händler darf ablehnen.",
+      actors: { hd: P("Händler", "#2e9d62", 720, { apron: 1 }), tv: O("tv", 590, 292, { s: "99 €" }), k: P("K", "#e4572e", 120, H), co: O("money", 120, 300, h()) },
+      tl: [[0.2, "in", "k"], [1.4, "mv", "k", 440], [2.4, "say", "k", "99 € – ich nehm ihn!"], [3.2, "in", "co", "pop"], [3.4, "drop", "co", 520, 292], [4.6, "arrow", "k", "hd", "Angebot", "blue"], [6, "say", "hd", "Nein, danke!"], [7, "stamp", "SCHAUFENSTER = EINLADUNG", "warn", 400, 130], [8.4, "law", "invitatio ad offerendum"], [9.4, "face", "k", "sad"]] },
+    { h: "Unbestellte Krawatten", bg: "room", d: 14,
+      n: "Pensionist P bekommt unbestellt Krawatten zugeschickt: „Nicht zurückgeschickt in 14 Tagen heißt gekauft!“ P stellt das Paket in den Keller. Schweigen ist keine Annahme, P muss nichts zahlen.",
+      actors: { p: P("Pensionist P", "#3ab0c4", 220, { old: 1, glasses: 1 }), bx: O("box", 500, -80, { s: "Krawatten" }), lt: O("doc", 600, 300, h({ s: "Zahlen Sie|79 €!" })), cal: O("calendar", 680, 390, h({ m: "TAGE", s: "0" })) },
+      tl: [[0.4, "mv", "bx", 420, 390, 0.8], [1.2, "quake"], [1.6, "in", "lt", "pop"], [2.6, "face", "p", "think"], [3, "say", "p", "Hab ich nie bestellt…"], [4.6, "out", "bx", "fade"], [5.4, "in", "cal", "pop"], [5.6, "count", "cal", 0, 14, 2.4], [8.4, "stamp", "SCHWEIGEN ≠ ANNAHME", "ok"], [9.4, "law", "864 Abs 2 ABGB – unbestellte Ware"], [10.4, "face", "p", "happy"]] },
+    { h: "Der Brief im Poststreik", bg: "office", d: 15,
+      n: "M bietet Stühle an, gültig bis 30. April. I schickt die Annahme am 25. April ab. Wegen eines Poststreiks kommt der Brief erst am 5. Mai an. Am Poststempel sieht M, dass er rechtzeitig abgeschickt wurde. Reagiert M nicht sofort, gilt die Annahme als rechtzeitig.",
+      actors: { i: P("I", "#9b5de5", 110, { hs: "long", hair: "#3b2a20" }), m: P("M", "#f2a541", 700), env: O("envelope", 150, 300, h({ s: "25.4." })), cal: O("calendar", 400, 390, { m: "APRIL", s: "25" }) },
+      tl: [[0.4, "in", "env", "pop"], [1, "say", "i", "Einverstanden!"], [2.2, "mv", "env", 400, 200, 2], [2.4, "count", "cal", 25, 30, 2], [4.6, "set", "cal", ".mon", "MAI"], [4.8, "count", "cal", 1, 5, 1.2], [6.2, "mv", "env", 600, 340, 1], [7.4, "say", "m", "Zu spät… oder?"], [8.6, "glow", "env", 2], [9.6, "law", "862a ABGB – rechtzeitig abgesendet"], [10.8, "stamp", "VERTRAG!", "ok"]] },
+    { h: "14 Tage Rücktritt", bg: "room", d: 14,
+      n: "Vera bestellt online eine Jacke um 180 Euro, sie kommt am 3. Mai. Am 12. Mai tritt sie per E-Mail ohne Begründung zurück. Die 14 Tage laufen ab Erhalt, also ist sie rechtzeitig, auch wenn sie die Jacke anprobiert hat.",
+      actors: { v: P("Vera", "#e4572e", 180, { hs: "long", hair: "#c48a3a" }), lp: O("laptop", 330, 300, { s: "Zahlungs-|pflichtig bestellen" }), bx: O("box", 500, 390, h({ s: "Jacke" })), cnt: O("counter", 620, 200, { s: "Tag 0", w: 200 }), em: O("envelope", 330, 260, h({ s: "Rücktritt" })) },
+      tl: [[0.4, "say", "v", "Klick!"], [1.6, "in", "bx", "up"], [2.4, "set", "cnt", ".num", "3. Mai"], [3.4, "count", "cnt", 1, 9, 2.4, "Tag "], [6, "say", "v", "Passt mir doch nicht."], [7.2, "in", "em", "pop"], [7.6, "mv", "em", 860, 200, 1], [8.6, "stamp", "RECHTZEITIG", "ok"], [9.6, "law", "11 FAGG – 14 Tage ohne Grund"], [10.6, "tag", "v", "Anprobieren schadet nicht", "navy"]] }
+  ],
+  /* ═════ 7 Willensmängel ═════ */
+  7: [
+    { h: "Der Tippfehler", bg: "office", d: 13,
+      n: "Händler A will eine Barockkommode um 8.900 Euro anbieten und tippt 890. Sammler S kennt den Marktwert und schlägt sofort zu. Der Irrtum musste ihm offenbar auffallen. A kann wegen Irrtums anfechten.",
+      actors: { a: P("Händler A", "#2f56c8", 600, { glasses: 1 }), lp: O("laptop", 640, 320, { s: "890 €" }), s: P("Sammler S", "#9b5de5", 160, { f: "sly", hat: "#131c33" }), mg: O("magnifier", 640, 300, h()) },
+      tl: [[0.4, "say", "a", "Tipp, tipp… abgeschickt!", 2], [2.4, "say", "s", "Sofort angenommen! Hehe.", 2.2], [4.4, "in", "mg", "pop"], [4.8, "pulse", "lp"], [5.4, "say", "a", "Oh nein – 8.900 €!"], [6.2, "face", "a", "shock"], [7.4, "law", "871 ABGB – offenbar auffallend"], [8.6, "stamp", "ANFECHTBAR", "warn"], [10, "tag", "s", "musste es merken", "bad"]] },
+    { h: "„Nie einen Unfall gehabt“", bg: "street", d: 14,
+      n: "Auf die ausdrückliche Frage sagt Verkäufer V: „Unfallfrei!“ Tatsächlich ist ein schwerer Rahmenschaden kaschiert. Das ist List. K kann noch nach vier Jahren anfechten, die Frist beträgt 30 Jahre, und Schadenersatz bekommt er dazu.",
+      actors: { v: P("Verkäufer V", "#e4572e", 160, { f: "sly" }), car: O("car", 400, 390, { c: "#3ab0c4" }), k: P("Käufer K", "#2e9d62", 640) },
+      tl: [[0.4, "say", "k", "Hatte er einen Unfall?"], [1.8, "say", "v", "Nein, nie!"], [3.2, "shake", "car"], [3.4, "art", "car", { dent: 1 }], [3.6, "cross", "car"], [4.4, "face", "k", "angry"], [5, "law", "870 ABGB – List"], [6.2, "stamp", "30 JAHRE ANFECHTBAR", "warn", 400, 120], [8, "unstamp"], [8.2, "tag", "k", "+ Schadenersatz § 874", "ok"], [9.6, "tag", "car", "Gewährleistungsausschluss hilft nicht", "bad"]] },
+    { h: "Verkürzung über die Hälfte", bg: "blank", d: 14,
+      n: "S verkauft ein geerbtes Bild um 1.200 Euro, wert war es 5.000. Die Waage kippt: Sie bekam weniger als die Hälfte. S kann den Vertrag aufheben. Der Käufer kann das abwenden, indem er 3.800 Euro aufzahlt.",
+      actors: { sc: O("scales", 400, 390, { l: "Bild: 5.000 €", r: "Preis: 1.200 €" }), s: P("S", "#e4572e", 120, { hs: "long", hair: "#3b2a20" }), k: P("Käufer K", "#2f56c8", 690, { hat: "#131c33" }), mo: O("money", 690, 300, h()) },
+      tl: [[0.6, "tilt", "sc", -16], [1.8, "say", "s", "Nur 1.200 €?!"], [3.4, "law", "934 ABGB – laesio enormis (< ½)"], [4.6, "stamp", "AUFHEBBAR", "warn", 400, 110, 2.6], [7.6, "in", "mo", "pop"], [7.8, "say", "k", "Ich zahle 3.800 € auf!"], [9.2, "mv", "mo", 486, 300, 0.8], [10, "tilt", "sc", 0], [10.6, "art", "sc", { r: "1.200 + 3.800 €" }], [11, "check", "k"]] },
+    { h: "Der Wucherer", bg: "night", d: 14,
+      n: "W droht die Delogierung, keine Bank hilft. Geldverleiher G weiß das und verlangt für 3.000 Euro nach sechs Monaten 5.400 zurück. Auffallendes Missverhältnis, Schwächelage, Ausnützen: Wucher, der Vertrag ist nichtig. W zahlt nur das Kapital zurück.",
+      actors: { w: P("W", "#8a94ad", 160, { f: "sad" }), hs: O("house", 160, 390, { s: "Delogierung!" }), g: P("Geldverleiher G", "#131c33", 640, { hat: "#131c33", f: "sly" }), mo: O("money", 640, 300) },
+      tl: [[0, "art", "hs", { scale: 0.7 }], [0.4, "mv", "hs", 60, 390, 0.4], [0.8, "say", "w", "Ich brauche dringend Geld…"], [2.4, "give", "mo", "w"], [3, "say", "g", "Gerne. 5.400 € zurück!"], [4.6, "tag", "w", "Schwächelage", "warn"], [5.6, "tag", "g", "+80 % in 6 Monaten", "bad"], [6.8, "law", "879 Abs 2 Z 4 ABGB – Wucher"], [8, "stamp", "NICHTIG", "bad"], [9.6, "untag", "g"], [9.6, "tag", "w", "zurück: nur 3.000 € Kapital", "ok"]] }
+  ],
+  /* ═════ 8 Leistungsstörungen ═════ */
+  8: [
+    { h: "Die Hochzeitstorte kommt zu spät", bg: "party", d: 14,
+      n: "Die Torte war für Samstag 15 Uhr bestellt. Sie kommt erst am Sonntag, und die Feier ist vorbei. Das ist ein absolutes Fixgeschäft. Der Vertrag ist aufgelöst, das Brautpaar muss nicht zahlen.",
+      actors: { br: P("Braut", "#ffffff", 300, { hs: "long", hair: "#c48a3a", skirt: "#fff" }), bg2: P("Bräutigam", "#131c33", 430, { tie: "#e04848" }), cal: O("calendar", 110, 390, { m: "SAMSTAG", s: "15:00", small: 1 }), ko: P("Konditor", "#f7a8c4", 940, { apron: 1, hat: "#fff" }), ck: O("cake", 940, 300) },
+      tl: [[0.6, "say", "br", "Wo bleibt die Torte?"], [2, "face", "br", "sad"], [2.4, "face", "bg2", "sad"], [3.4, "set", "cal", ".mon", "SONNTAG"], [3.5, "set", "cal", ".num", "11:00"], [4.2, "mv", "ko", 580, null, 1.4], [4.2, "mv", "ck", 612, 300, 1.4], [5.8, "drop", "ck", 440, 300, 0.6], [6, "say", "ko", "Tadaaa – Ihre Torte!"], [7.4, "face", "br", "angry"], [7.6, "say", "br", "Die Feier war gestern!"], [9, "stamp", "FIXGESCHÄFT: AUFGELÖST", "bad", 400, 120], [10.6, "law", "919 ABGB"]] },
+    { h: "Die Küche und die Nachfrist", bg: "room", d: 13,
+      n: "Die Küche soll am 1. März kommen, es kommt nichts. Eine spätere Lieferung ist aber noch sinnvoll: einfacher Verzug. S setzt eine Nachfrist von zwei Wochen. Kommt auch dann nichts, kann sie zurücktreten.",
+      actors: { s: P("Studentin S", "#3ab0c4", 220, { hs: "bun" }), cal: O("calendar", 520, 390, { m: "MÄRZ", s: "1" }), ph: O("phone", 220, 300, h()) },
+      tl: [[0.6, "say", "s", "Keine Küche da…"], [2, "face", "s", "think"], [2.6, "in", "ph", "pop"], [2.8, "give", "ph", "s"], [3.4, "say", "s", "Nachfrist: 2 Wochen!"], [5, "count", "cal", 1, 15, 2], [7.4, "say", "s", "Wieder nichts – Rücktritt!"], [8.8, "stamp", "RÜCKTRITT", "ok"], [10, "law", "918 ABGB – Nachfrist"]] },
+    { h: "Blitz über dem Ferienhaus", bg: "garden", d: 15,
+      n: "Das verkaufte Ferienhaus brennt vor der Übergabe durch Blitzschlag ab. Das ist Zufall: Die Schuld erlischt. V bekommt aber 220.000 Euro von der Versicherung. K kann dieses stellvertretende Commodum verlangen, muss dann aber den Kaufpreis zahlen.",
+      actors: { hs: O("house", 420, 390, { s: "Ferienhaus" }), v: P("Verkäufer V", "#e4572e", 160), k: P("Käufer K", "#2f56c8", 680), ins: O("building", 160, 390, h({ s: "VERSICHERUNG", w: 150, h: 180 })), mo: O("money", 160, 280, h()) },
+      tl: [[0.6, "zap", "hs"], [1.4, "face", "v", "shock"], [1.6, "face", "k", "shock"], [2.6, "law", "1447 ABGB – zufälliger Untergang"], [4, "mv", "v", 300], [4.2, "in", "ins", "pop"], [5, "in", "mo", "pop"], [5.4, "give", "mo", "v"], [6.4, "tag", "mo", "220.000 €", "ok"], [7.6, "say", "k", "Dann will ich das Geld!"], [8.8, "arrow", "k", "v", "stellvertretendes commodum", "navy"], [10.6, "tag", "k", "zahlt dafür den Kaufpreis", "warn"]] },
+    { h: "Gewährleistung in zwei Stufen", bg: "shop", d: 15,
+      n: "Der Laptop flackert nach zehn Monaten. Innerhalb eines Jahres wird vermutet, dass der Mangel schon bei Übergabe da war. K bekommt zuerst Verbesserung oder Austausch. Erst wenn das scheitert, gibt es Preisminderung oder Geld zurück.",
+      actors: { e: P("Händler E", "#2e9d62", 720, { apron: 1 }), k: P("K", "#f2a541", 300), lp: O("laptop", 300, 300), s1: O("block", 560, 200, h({ s: "1 · Verbesserung / Austausch", w: 220, c: "#2e9d62" })), s2: O("block", 560, 140, h({ s: "2 · Minderung / Wandlung", w: 220, c: "#8a94ad" })) },
+      tl: [[0, "give", "lp", "k"], [0.6, "shake", "lp"], [1, "cross", "lp"], [1.8, "say", "k", "Er flackert!"], [3, "law", "VGG: 1 Jahr Vermutung"], [4.2, "say", "e", "Den hast du kaputt gemacht!", 2], [6.2, "stamp", "E MUSS BEWEISEN", "navy", 400, 110, 2.4], [8.8, "in", "s1", "pop"], [9.8, "in", "s2", "pop"], [10.4, "dim", "s2", 0.5], [11.2, "unmark", "lp"], [11.4, "check", "lp"]] }
+  ],
+  /* ═════ 9 Änderungen ═════ */
+  9: [
+    { h: "Die verkaufte Forderung", bg: "office", d: 14,
+      n: "Webdesignerin W verkauft ihre Forderung über 8.000 Euro gegen K um 7.000 Euro an das Inkassobüro I. K weiß nichts davon und zahlt an W. Weil K nicht verständigt wurde, ist er frei. I muss sich an W halten.",
+      actors: { w: P("W", "#e4572e", 120, { hs: "long", hair: "#3b2a20" }), i: P("Inkasso I", "#131c33", 360, { tie: "#ffd23f" }), k: P("Kunde K", "#2f56c8", 670), fd: O("doc", 120, 300, { s: "Forderung|8.000 €" }), m1: O("money", 360, 300, h()), m2: O("money", 670, 300, h()) },
+      tl: [[0.2, "give", "fd", "w"], [0.8, "give", "fd", "i", "l"], [1.6, "in", "m1", "pop"], [1.8, "give", "m1", "w"], [2.8, "tag", "k", "nicht verständigt", "warn"], [4, "in", "m2", "pop"], [4.2, "mv", "m2", 160, 280, 1.4], [5.8, "law", "1395 ABGB – Zahlung an Zedenten befreit"], [7, "stamp", "K IST FREI", "ok", 560, 130, 3], [8.6, "arrow", "i", "w", "Herausgabe!", "bad"], [10.2, "face", "w", "shock"]] },
+    { h: "Stundung oder Novation?", bg: "blank", d: 15,
+      n: "S schuldet G 20.000 Euro, B bürgt. Verschieben G und S nur den Termin, ist das eine schlichte Änderung: B haftet weiter, aber nicht schlechter. Ersetzen sie den Kauf durch ein Darlehen, ist das eine Novation. Die alte Schuld und die Bürgschaft erlöschen.",
+      actors: { g: P("Gläubiger G", "#2f56c8", 120), s: P("Schuldner S", "#e4572e", 320), b: P("Bürge B", "#2e9d62", 600, { glasses: 1 }), d: O("doc", 220, 230, { s: "Kauf|20.000 €" }), cal: O("calendar", 420, 260, h({ m: "FÄLLIG", s: "1.3.", small: 1 })) },
+      tl: [[0.4, "tag", "b", "haftet", "navy"], [1.4, "in", "cal", "pop"], [2.2, "set", "cal", ".num", "1.9."], [2.8, "tag", "cal", "nur Nebenpunkt", "warn"], [3.8, "tag", "b", "haftet weiter (nicht für neue Zinsen)", "navy"], [6.4, "out", "cal"], [7, "art", "d", { s: "Darlehen|20.000 €", seal: 1 }], [7.4, "tag", "d", "neuer Rechtsgrund", "bad"], [8.6, "law", "1376, 1378 ABGB – Novation"], [9.6, "untag", "b"], [9.8, "say", "b", "Ich bin frei!"], [10.6, "face", "b", "happy"], [11.2, "out", "b", "right"]] },
+    { h: "Die WG-Stromrechnung", bg: "room", d: 14,
+      n: "A, B und C haften „zur ungeteilten Hand“ für 1.200 Euro Strom. A und B sind pleite. Der Versorger verlangt alles von C. Das ist Solidarschuld. C zahlt und nimmt bei A und B je 400 Euro Regress.",
+      actors: { a: P("A", "#f2a541", 110), b: P("B", "#9b5de5", 240, { hs: "long" }), c: P("C", "#2e9d62", 370), ev: P("Stromversorger", "#131c33", 680, { tie: "#ffd23f" }), r: O("doc", 680, 300, { s: "Strom|1.200 €" }) },
+      tl: [[0.2, "give", "r", "ev"], [0.8, "tag", "a", "pleite", "bad"], [1.2, "tag", "b", "pleite", "bad"], [1.6, "dim", "a", 0.45], [1.6, "dim", "b", 0.45], [2.6, "arrow", "ev", "c", "alles: 1.200 €", "bad"], [4, "face", "c", "shock"], [4.8, "law", "„zur ungeteilten Hand“ = solidarisch"], [6.2, "rain", "€"], [7.6, "arrow", "c", "a", "400 €", "navy", 1], [8.6, "arrow", "c", "b", "400 €", "navy", 1], [9.8, "tag", "c", "Regress § 896", "ok"]] },
+    { h: "Der Vergleich", bg: "office", d: 13,
+      n: "Bernd verlangt 3.000 Euro Schmerzengeld, die Versicherung bietet 1.000. Beide geben nach und einigen sich auf 2.200 Euro. Das ist ein Vergleich. Über die verglichenen Punkte kann man danach nicht mehr wegen Irrtums streiten.",
+      actors: { be: P("Bernd", "#e4572e", 120), vs: P("Versicherung", "#2f56c8", 680, { tie: "#ffd23f" }), c1: O("counter", 230, 210, { s: "3.000 €", w: 150 }), c2: O("counter", 570, 210, { s: "1.000 €", w: 150 }) },
+      tl: [[0.6, "say", "be", "3.000 €!", 1.6], [1.8, "say", "vs", "1.000 €!", 1.6], [3.4, "count", "c1", 3000, 2200, 2, "", " €"], [3.4, "count", "c2", 1000, 2200, 2, "", " €"], [3.4, "mv", "c1", 315, 210, 2], [3.4, "mv", "c2", 485, 210, 2], [3.6, "mv", "be", 300, null, 2], [3.6, "mv", "vs", 500, null, 2], [6, "confetti"], [6.2, "stamp", "VERGLEICH", "ok", 400, 100], [7.6, "law", "1380, 1385 ABGB"]] }
+  ],
+  /* ═════ 10 Beendigung ═════ */
+  10: [
+    { h: "Aufrechnung", bg: "blank", d: 14,
+      n: "Grafikerin G verlangt 3.000 Euro von U. U hat gegen G eine fällige Darlehensforderung über 1.800 Euro. Die Forderungen prallen aufeinander und erlöschen in Höhe von 1.800. Die Forderung von Us Ehefrau zählt nicht, weil sie nicht gegenseitig ist. U zahlt 1.200.",
+      actors: { g: P("Grafikerin G", "#e4572e", 100, { hs: "long", hair: "#3b2a20" }), u: P("U", "#2f56c8", 650), f1: O("block", 260, 240, { s: "G → U: 3.000 €", w: 170, c: "#e04848" }), f2: O("block", 540, 240, { s: "U → G: 1.800 €", w: 170, c: "#2f56c8" }), e: P("Ehefrau E", "#9b5de5", 770, h({ hs: "long" })), f3: O("block", 560, 140, h({ s: "E → G: 500 €", w: 150, c: "#9b5de5" })) },
+      tl: [[0.8, "mv", "f1", 360, 240, 1], [0.8, "mv", "f2", 440, 240, 1], [1.8, "quake"], [2, "out", "f2"], [2.2, "art", "f1", { s: "U zahlt: 1.200 €" }], [3.4, "law", "1438 ABGB – Aufrechnung"], [5, "in", "e", "right"], [5.6, "in", "f3", "pop"], [6.6, "say", "u", "Und die 500 € meiner Frau?"], [8, "cross", "f3"], [8.6, "tag", "e", "nicht gegenseitig", "bad"], [10, "stamp", "1.200 €", "ok", 360, 120]] },
+    { h: "Die Uhr der Verjährung", bg: "office", d: 15,
+      n: "Die Heizungsrechnung ist am 1. April 2022 fällig. Forderungen des täglichen Lebens verjähren in drei Jahren. Eine Klage am 1. Juni 2025 kommt zu spät. Hätte die Kundin im Dezember 2024 die Schuld per E-Mail anerkannt, hätte die Frist neu begonnen.",
+      actors: { cl: O("clock", 400, 210), cnt: O("counter", 400, 330, { s: "2022", w: 240 }), i: P("Installateur I", "#f2a541", 650, { cap: "#2f56c8" }), kl: O("doc", 650, 300, h({ s: "Klage|1.6.2025" })), k: P("Kundin K", "#9b5de5", 140, { hs: "bun" }), em: O("envelope", 140, 300, h({ s: "Anerkenntnis" })) },
+      tl: [[0.4, "spin", "cl", 1080, 3], [0.4, "count", "cnt", 2022, 2025, 3], [3.6, "in", "kl", "pop"], [4, "give", "kl", "i"], [4.6, "cross", "kl"], [5, "stamp", "VERJÄHRT", "bad", 400, 90, 2.6], [5.4, "law", "1486 ABGB – 3 Jahre"], [8.2, "set", "cnt", ".num", "Dez. 2024"], [8.6, "in", "em", "pop"], [9, "say", "k", "Ich weiß, ich schulde noch…"], [10.4, "mv", "em", 560, 340, 1], [11.2, "spin", "cl", -360, 1], [11.6, "set", "cnt", ".num", "neu bis 2027"], [12.2, "law", "1497 ABGB – Unterbrechung"]] },
+    { h: "Raus aus dem Fitness-Abo", bg: "street", d: 13,
+      n: "Ks Vertrag ist „auf unbestimmte Zeit, kündbar nach drei Jahren“. Das hält gegenüber Verbrauchern nicht. Nach dem KSchG kann K mit zwei Monaten Frist zum Ende des ersten Jahres kündigen.",
+      actors: { gym: O("building", 560, 390, { s: "FIT-STUDIO", w: 200, h: 200, c: "#ffd8a8", sc: "#e4572e" }), k: P("Konsument K", "#2e9d62", 560, { cap: "#2e9d62" }), ct: O("doc", 300, 300, h({ s: "3 Jahre|Bindung" })), cal: O("calendar", 730, 390, h({ m: "KÜNDIGUNG", s: "30.9.", small: 1 })) },
+      tl: [[0.4, "mv", "k", 380], [1.6, "say", "k", "Ich will raus!"], [2.8, "in", "ct", "pop"], [3.6, "cross", "ct"], [4.2, "law", "15 KSchG – zwingend"], [5.4, "in", "cal", "pop"], [6.2, "tag", "cal", "Zugang bis 31.7.", "warn"], [7.6, "mv", "k", 100], [8.6, "face", "k", "happy"], [9, "stamp", "FREI NACH 1 JAHR", "ok", 520, 120]] }
+  ],
+  /* ═════ 11 Vertragsarten ═════ */
+  11: [
+    { h: "Leihen, mieten, borgen", bg: "room", d: 15,
+      n: "Stefan gibt Lisa seine Unterlagen gratis: Leihe. Verlangt er Geld dafür: Miete. Gibt er ihr Geld, das sie in anderen Scheinen zurückgibt: Darlehen. Entscheidend ist, ob ein Entgelt fließt und ob Eigentum übergeht.",
+      actors: { st: P("Stefan", "#2f56c8", 160), li: P("Lisa", "#e4572e", 600, { hs: "long", hair: "#c48a3a" }), bk: O("book", 160, 300, { s: "Skript", c: "#2e9d62" }), mo: O("money", 600, 300, h()), m2: O("money", 160, 300, h()) },
+      tl: [[0.2, "give", "bk", "st"], [0.8, "give", "bk", "li", "l", 1.2], [2, "stamp", "LEIHE: gratis", "ok", 400, 110, 2.2], [4.6, "give", "bk", "st", null, 0.8], [5.2, "in", "mo", "pop"], [5.4, "give", "mo", "st", "l", 1.2], [5.6, "give", "bk", "li", "l", 1.2], [7, "stamp", "MIETE: gegen Entgelt", "navy", 400, 110, 2.4], [9.6, "in", "m2", "pop"], [9.8, "give", "m2", "li", "l", 1.2], [11, "stamp", "DARLEHEN: Eigentum geht über", "warn", 400, 110]] },
+    { h: "Der Kostenvoranschlag", bg: "room", d: 13,
+      n: "Installateur I legt einen Kostenvoranschlag über 12.000 Euro vor, ohne etwas zur Verbindlichkeit zu sagen. Am Ende verrechnet er 17.500. Gegenüber Verbrauchern ist der Voranschlag verbindlich. K zahlt 12.000, und nichts für den Voranschlag.",
+      actors: { i: P("Installateur I", "#f2a541", 660, { cap: "#2f56c8" }), k: P("Konsumentin K", "#9b5de5", 140, { hs: "long" }), kv: O("doc", 140, 300, { s: "KV|12.000 €" }), cnt: O("counter", 420, 200, { s: "12.000 €", w: 200 }) },
+      tl: [[0.2, "give", "kv", "k"], [0.8, "count", "cnt", 12000, 17500, 2.4, "", " €"], [3.4, "say", "i", "Macht 17.500 €!"], [4.6, "face", "k", "angry"], [5, "mv", "kv", 300, 280, 0.8], [5.6, "glow", "kv", 2], [6.4, "law", "5 Abs 2 KSchG – verbindlich"], [7.4, "count", "cnt", 17500, 12000, 1.6, "", " €"], [9.4, "stamp", "12.000 € – NICHT MEHR", "ok", 420, 110]] },
+    { h: "Die Bürgschaft der Freundin", bg: "bank", d: 14,
+      n: "Studentin B unterschreibt als Bürgin und Zahlerin für 150.000 Euro Kredit ihres Freundes F. F wird zahlungsunfähig, und die Bank wendet sich direkt an B. Das KSchG hilft ihr: Die Bank hätte sie warnen müssen, und das Gericht kann die Haftung mäßigen.",
+      actors: { bk: P("Bank X", "#131c33", 690, { tie: "#ffd23f" }), f: P("Freund F", "#2f56c8", 300), b: P("Studentin B", "#e4572e", 130, { hs: "long", hair: "#3b2a20" }), bd: O("doc", 130, 300, h({ s: "Bürge und|Zahler", sig: 1 })), sc: O("scales", 500, 390, h({ l: "150.000 €", r: "500 €/Monat" })) },
+      tl: [[0.4, "in", "bd", "pop"], [0.8, "give", "bd", "b"], [1.6, "tag", "f", "Kredit 150.000 €", "navy"], [3, "tag", "f", "zahlungsunfähig", "bad"], [3.4, "dim", "f", 0.35], [4.2, "arrow", "bk", "b", "zahl du!", "bad"], [5.4, "face", "b", "shock"], [6.6, "in", "sc", "pop"], [7, "tilt", "sc", -18], [8.2, "law", "25c KSchG – Warnpflicht"], [9.4, "law", "25d KSchG – Mäßigung"], [10.6, "tilt", "sc", -4]] },
+    { h: "Grober Undank", bg: "garden", d: 13,
+      n: "Tim schenkt Marcel alte Clownschuhe und übergibt sie. Später gesteht Marcel, Tim zwei Goldmünzen gestohlen zu haben. Das ist grober Undank. Tim darf die Schenkung widerrufen und die Schuhe zurückverlangen.",
+      actors: { t: P("Tim", "#e4572e", 160, { hs: "curly", hair: "#e4572e" }), m: P("Marcel", "#2f56c8", 600), sh: O("box", 160, 300, { s: "Clownschuhe" }), c1: O("coin", 140, 300, h()) },
+      tl: [[0.2, "give", "sh", "t"], [0.8, "give", "sh", "m", "l", 1.2], [2.2, "say", "m", "Danke!"], [3.4, "in", "c1", "pop"], [3.6, "give", "c1", "m", null, 1], [4.8, "say", "m", "Hihi, die Münzen hab ich geklaut!"], [6, "face", "t", "angry"], [6.8, "law", "948 ABGB – grober Undank"], [8, "give", "sh", "t", null, 1.2], [8.2, "give", "c1", "t", "l", 1.2], [9.6, "stamp", "WIDERRUF", "ok"]] }
+  ],
+  /* ═════ 12 Schadenersatz ═════ */
+  12: [
+    { h: "Bei Rot über die Kreuzung", bg: "street", d: 14,
+      n: "Radfahrer R fährt bei Rot und schaut aufs Handy. Er fährt die Fußgängerin F an, die bei Grün geht. Er handelt grob fahrlässig. F bekommt Heilungskosten, Schmerzengeld, ihren Verdienstentgang von 2.400 Euro und die Brille ersetzt.",
+      actors: { lt: O("light", 400, 390, { state: "red" }), f: P("Fußgängerin F", "#9b5de5", 560, { hs: "long", glasses: 1 }), r: P("Radfahrer R", "#e4572e", -100, { helmet: "#e04848" }), bk: O("bike", -100, 390), ph: O("phone", -100, 300) },
+      tl: [[0.4, "mv", "r", 430, null, 1.6], [0.4, "mv", "bk", 430, null, 1.6], [0.4, "mv", "ph", 462, 342, 1.6], [2, "quake"], [2.1, "shake", "f"], [2.2, "face", "f", "shock"], [3, "law", "1295 ABGB – Verschulden"], [4.2, "tag", "r", "grob fahrlässig", "bad"], [5.4, "untag", "r"], [5.6, "tag", "f", "Heilungskosten + Schmerzengeld", "ok"], [7.2, "tag", "f", "2.400 € Verdienstentgang", "ok", "t2"], [8.8, "law", "1325 ABGB – Körperverletzung"], [10, "stamp", "R HAFTET", "bad", 240, 120]] },
+    { h: "Das Prüfschema", bg: "blank", d: 13,
+      n: "Wer Schadenersatz will, braucht vier Dinge: einen Schaden, Kausalität, Rechtswidrigkeit und Verschulden. Erst wenn alle vier Prüfsteine leuchten, haftet der Schädiger.",
+      actors: { b1: O("block", 160, 300, { s: "Schaden", w: 130, h: 70, c: "#8a94ad" }), b2: O("block", 320, 300, { s: "Kausalität", w: 130, h: 70, c: "#8a94ad" }), b3: O("block", 480, 300, { s: "Rechts-|widrigkeit", w: 130, h: 70, c: "#8a94ad" }), b4: O("block", 640, 300, { s: "Verschulden", w: 130, h: 70, c: "#8a94ad" }) },
+      tl: [[0.8, "art", "b1", { c: "#2e9d62" }], [1, "check", "b1"], [2.6, "art", "b2", { c: "#2e9d62" }], [2.8, "check", "b2"], [4.4, "art", "b3", { c: "#2e9d62" }], [4.6, "check", "b3"], [6.2, "art", "b4", { c: "#2e9d62" }], [6.4, "check", "b4"], [7.6, "stamp", "HAFTUNG!", "ok", 400, 140], [8.4, "confetti"], [9.4, "law", "1293 ff ABGB"]] },
+    { h: "Der Geselle auf Tour", bg: "street", d: 15,
+      n: "Tischler T schickt Geselle G zur Kundin K. G beschädigt dort das Parkett: Erfüllungsgehilfe, T haftet wie für sich selbst. Auf dem Heimweg beschädigt G ein parkendes Auto. Dort ist er nur Besorgungsgehilfe, und T haftet nur, wenn G untüchtig war.",
+      actors: { t: P("Tischler T", "#2f56c8", 90, { apron: 1 }), g: P("Geselle G", "#f2a541", 220, { cap: "#f2a541" }), k: P("Kundin K", "#9b5de5", 470, { hs: "bun" }), car: O("car", 640, 390, { c: "#3ab0c4" }), p: P("Passant P", "#2e9d62", 750, h()) },
+      tl: [[0.4, "mv", "g", 380], [1.6, "shake", "k"], [1.8, "say", "k", "Mein Parkett!"], [3, "arrow", "k", "t", "§ 1313a – T haftet", "ok"], [5, "clearfx"], [5, "mv", "g", 580, null, 1.2], [6.4, "quake"], [6.4, "art", "car", { dent: 1 }], [7, "in", "p", "right"], [7.8, "arrow", "p", "t", "§ 1315: nur bei Untüchtigkeit", "bad", 1], [10.4, "arrow", "p", "g", "G selbst + EKHG", "ok"]] },
+    { h: "Der explodierende Wasserkocher", bg: "room", d: 14,
+      n: "Der Wasserkocher platzt wegen eines Konstruktionsfehlers. S verbrüht sich, ihr Laptop um 900 Euro ist kaputt. Nach dem Produkthaftungsgesetz haftet der Importeur ohne Verschulden: für die Verletzung und für den Laptop, abzüglich 500 Euro Selbstbehalt. Für den Kocher selbst gilt Gewährleistung.",
+      actors: { s: P("Studentin S", "#e4572e", 160, { hs: "long", hair: "#3b2a20" }), kt: O("kettle", 380, 390), lp: O("laptop", 500, 390), imp: O("building", 690, 390, h({ s: "IMPORTEUR I", w: 160, h: 190 })) },
+      tl: [[0.6, "zap", "kt"], [1.4, "face", "s", "shock"], [1.8, "cross", "lp"], [3, "law", "PHG – ohne Verschulden"], [4, "in", "imp", "pop"], [4.8, "arrow", "s", "imp", "Verletzung + Laptop", "ok"], [6.6, "tag", "lp", "900 − 500 = 400 €", "warn"], [8.2, "untag", "lp"], [8.4, "tag", "kt", "Kocher selbst: Gewährleistung", "navy"], [10, "stamp", "PRODUKTHAFTUNG", "navy", 400, 120]] }
+  ],
+  /* ═════ 13 Bereicherung / GoA ═════ */
+  13: [
+    { h: "Doppelt überwiesen", bg: "office", d: 13,
+      n: "Die Buchhaltung überweist die Rechnung von Lieferant L zweimal. L gibt das Geld für eine Betriebsfeier aus. Trotzdem muss er zurückzahlen: Er hat sich eigenen Aufwand erspart und bleibt bereichert.",
+      actors: { fa: O("building", 140, 390, { s: "X-GMBH", w: 150, h: 200 }), l: P("Lieferant L", "#f2a541", 600), m1: O("money", 140, 260, h()), m2: O("money", 140, 260, h()) },
+      tl: [[0.4, "in", "m1", "pop"], [0.6, "give", "m1", "l"], [1.8, "in", "m2", "pop"], [2, "give", "m2", "l", "l"], [3.2, "say", "l", "Party!"], [3.6, "confetti"], [5, "law", "1431 ABGB – irrtümliche Zahlung"], [6.2, "arrow", "fa", "l", "4.800 € zurück!", "bad"], [8, "tag", "l", "ersparter Aufwand = bereichert", "warn"], [9.6, "stamp", "RÜCKFORDERUNG", "ok", 400, 120]] },
+    { h: "Ferien in fremder Wohnung", bg: "lake", d: 14,
+      n: "Schwager S hat den Schlüssel und wohnt ungefragt zwei Wochen in Es Ferienwohnung. Auch wenn E nicht vermietet hätte: S hat eine fremde Sache genutzt und schuldet ein angemessenes Entgelt, 14 mal 120 Euro.",
+      actors: { hs: O("house", 560, 390, { s: "Ferienwohnung E", c: "#d6f0ff" }), s: P("Schwager S", "#2f56c8", -100, { hat: "#f2a541" }), cnt: O("counter", 230, 200, h({ s: "0 €", w: 190 })) },
+      tl: [[0.2, "mv", "s", 420, null, 1.6], [1.8, "say", "s", "Urlaub – gratis!"], [3.2, "in", "cnt", "pop"], [3.4, "count", "cnt", 0, 1680, 3, "", " €"], [6.8, "law", "1041 ABGB – Verwendungsanspruch"], [8.2, "tag", "cnt", "14 × 120 €", "navy"], [9.4, "stamp", "1.680 € ZAHLEN", "bad", 520, 110]] },
+    { h: "Der hilfsbereite Nachbar", bg: "garden", d: 15,
+      n: "Während Familie F auf Urlaub ist, platzt ein Rohr. Nachbar N ruft den Installateur: Notgeschäftsführung, die 450 Euro werden ersetzt. Dann streicht N noch den Zaun, weil er ihm nicht gefällt. Das ist unnütz und bringt ihm nichts.",
+      actors: { pp: O("pipe", 420, 300), n: P("Nachbar N", "#2e9d62", 160, { cap: "#2e9d62" }), fe: O("fence", 640, 390, { c: "#d9d9d9" }), ph: O("phone", 160, 300, h()) },
+      tl: [[0.4, "shake", "pp"], [1.2, "say", "n", "Wasser läuft aus!"], [2.4, "in", "ph", "pop"], [2.6, "give", "ph", "n"], [3.6, "art", "pp", { fixed: 1 }], [4, "check", "pp"], [4.6, "law", "1036 ABGB – Notfall: 450 € Ersatz"], [6.6, "mv", "n", 520], [7.8, "art", "fe", { c: "#ff7ad9" }], [8.4, "say", "n", "Pink ist schöner!"], [9.8, "cross", "fe"], [10.4, "law", "1038 ABGB – unnütz: kein Ersatz"]] }
+  ],
+  /* ═════ 14 IPR ═════ */
+  14: [
+    { h: "Chianti von der Toskana nach Wien", bg: "world", d: 13,
+      n: "Ein Wiener Weinhändler kauft 3.000 Flaschen Chianti in der Toskana. Warenkauf, Unternehmer, Niederlassungen in zwei Vertragsstaaten: Es gilt UN-Kaufrecht. Es löst den Fall direkt, ohne Umweg über ein nationales Recht.",
+      actors: { fa: O("flag", 120, 390, { code: "AT" }), fi: O("flag", 680, 390, { code: "IT" }), w: P("Weinhandel W", "#e4572e", 260, { tie: "#2f56c8" }), i: P("Weingut I", "#2e9d62", 540, { hat: "#9a6a43" }), bo: O("bottle", 600, 300, { c: "#7a1f2b" }) },
+      tl: [[0.4, "give", "bo", "i", "l"], [1, "say", "w", "3.000 Flaschen, bitte!"], [2.4, "give", "bo", "w", null, 1.6], [4.2, "tag", "w", "Unternehmer", "navy"], [4.6, "tag", "i", "Unternehmer", "navy"], [5.8, "law", "Art 1 CISG"], [7, "stamp", "UN-KAUFRECHT", "ok", 400, 120], [8.6, "tag", "w", "„österr. Recht“ schließt es NICHT aus", "warn", "t2"]] },
+    { h: "Kopfhörer aus München", bg: "world", d: 14,
+      n: "Die Linzer Studentin L bestellt privat Kopfhörer bei einem Münchner Händler, der nach Österreich liefert. Die AGB wählen deutsches Recht. Weil der Händler sich an Österreich richtet, behält L den zwingenden österreichischen Verbraucherschutz.",
+      actors: { fa: O("flag", 100, 390, { code: "AT" }), fd: O("flag", 700, 390, { code: "DE" }), l: P("Studentin L", "#9b5de5", 250, { hs: "long" }), hd: P("Händler", "#131c33", 560, { tie: "#ffd23f" }), bx: O("box", 560, 300, { s: "Kopfhörer" }), agb: O("doc", 460, 250, h({ s: "AGB: dt.|Recht" })) },
+      tl: [[0.4, "mv", "bx", 300, 300, 1.6], [2.2, "in", "agb", "pop"], [3, "say", "l", "Und mein Schutz?"], [4.4, "law", "Art 6 Rom I – Verbraucherverträge"], [5.6, "tag", "l", "Schutz: VGG + KSchG bleiben", "ok"], [7.4, "tag", "agb", "Wahl gilt – aber nur on top", "warn"], [9, "stamp", "KEIN CISG (privat)", "bad", 400, 140]] },
+    { h: "Unfall am Gardasee", bg: "lake", d: 14,
+      n: "Der Salzburger S fährt am Gardasee einen Italiener an: Es gilt italienisches Recht, das Recht des Unfallorts. Fährt er seinen Grazer Studienkollegen an, gilt österreichisches Recht, weil beide in Österreich leben.",
+      actors: { s: P("S (Salzburg)", "#e4572e", -100, { helmet: "#e04848" }), bk: O("bike", -100, 390), it: P("Italiener", "#2e9d62", 420), at: P("Grazer G", "#2f56c8", 710) },
+      tl: [[0.2, "mv", "s", 340, null, 1.4], [0.2, "mv", "bk", 340, null, 1.4], [1.6, "quake"], [1.6, "shake", "it"], [2.2, "tag", "it", "italienisches Recht", "ok"], [3.2, "law", "Art 4 Abs 1 Rom II – Erfolgsort"], [5.6, "untag", "it"], [5.6, "mv", "s", 570, null, 1.2], [5.6, "mv", "bk", 570, null, 1.2], [6.8, "quake"], [6.8, "shake", "at"], [7.4, "tag", "at", "österreichisches Recht", "ok"], [8.4, "law", "Art 4 Abs 2 – gemeinsamer Aufenthalt"]] }
+  ],
+  /* ═════ 15 Unternehmensrecht ═════ */
+  15: [
+    { h: "Lenas Fahrradgeschäft", bg: "street", d: 13,
+      n: "Lena betreibt ein Fahrradgeschäft mit zwei Angestellten. Sie ist Unternehmerin kraft Betrieb, auch ohne Eintragung. Eine Firma und eine Prokura gibt es aber erst nach der Eintragung ins Firmenbuch.",
+      actors: { sh: O("building", 560, 390, { s: "RADWERK", w: 200, h: 180, c: "#ffd8a8", sc: "#2e9d62" }), l: P("Lena", "#2e9d62", 260, { hs: "long", hair: "#c48a3a" }), bk: O("bike", 400, 390), pk: O("doc", 400, 250, h({ s: "Prokura" })), fb: O("book", 120, 390, h({ s: "Firmenbuch" })) },
+      tl: [[0.4, "tag", "l", "§ 1 UGB: kraft Betrieb", "ok"], [2, "in", "pk", "pop"], [2.6, "cross", "pk"], [3, "say", "l", "Prokura? Noch nicht…"], [4.6, "in", "fb", "pop"], [5.2, "mv", "l", 200], [6.6, "glow", "fb", 2], [7, "unmark", "pk"], [7.2, "check", "pk"], [7.8, "art", "sh", { s: "RADWERK e.U." }], [8.6, "law", "48 UGB – Prokura nur nach Eintragung"]] },
+    { h: "Die widerrufene Prokura", bg: "office", d: 15,
+      n: "Die GmbH widerruft Peters Prokura am 2. März, eingetragen wird das erst am 20. April. Am 15. März kauft Peter Holz bei einem ahnungslosen Händler. Weil das Firmenbuch noch die Prokura zeigt, ist die GmbH gebunden.",
+      actors: { gf: P("Geschäftsführer", "#131c33", 100, { tie: "#e04848" }), pe: P("Peter", "#2f56c8", 260), pk: O("doc", 260, 300, { s: "Prokura" }), fb: O("grundbuch", 420, 316, { rows: ["FIRMENBUCH", "Prokura: Peter", "Stand 15.3."] }), hh: P("Holzhändler", "#f2a541", 700, { apron: 1 }), pl: O("plank", 700, 300, h()) },
+      tl: [[0.2, "give", "pk", "pe"], [0.8, "say", "gf", "Prokura weg!"], [1.8, "give", "pk", "gf"], [2.6, "tag", "fb", "noch nicht gelöscht", "warn"], [4, "mv", "pe", 580], [5, "say", "pe", "Holz für die GmbH!"], [6.2, "in", "pl", "pop"], [6.4, "give", "pl", "pe"], [7.4, "law", "15 Abs 1 UGB – negative Publizität"], [8.6, "stamp", "GMBH GEBUNDEN", "bad", 400, 110], [10.2, "arrow", "gf", "pe", "intern Schadenersatz", "warn", 1]] },
+    { h: "Zu spät gerügt", bg: "fair", d: 14,
+      n: "Eine Tischlerei bekommt am 2. Februar Eichenplatten und lässt sie ungeöffnet liegen. Am 25. April zeigen sich Risse, die man sofort gesehen hätte. Unter Unternehmern muss man rasch untersuchen und rügen. Wer zu spät rügt, verliert seine Rechte.",
+      actors: { t: P("Tischlerei T", "#2f56c8", 200, { apron: 1 }), g: P("Großhändler G", "#131c33", 640, { tie: "#ffd23f" }), pl: O("plank", 400, 390), cal: O("calendar", 400, 300, { m: "FEBRUAR", s: "2" }) },
+      tl: [[0.6, "say", "t", "Lagern wir mal ein."], [2, "count", "cal", 2, 28, 1.6], [3.8, "set", "cal", ".mon", "APRIL"], [4, "count", "cal", 1, 25, 1.4], [5.6, "art", "pl", { crack: 1 }], [5.8, "shake", "pl"], [6.4, "say", "t", "Risse!"], [7.6, "say", "g", "Viel zu spät gerügt!"], [8.8, "law", "377 UGB – Rügeobliegenheit"], [10, "stamp", "RECHTE VERLOREN", "bad", 400, 110]] },
+    { h: "Der Ausgleichsanspruch", bg: "street", d: 13,
+      n: "Handelsvertreter Martin hat in acht Jahren 90 Kunden gewonnen. Die GmbH kündigt ihn. Dafür bekommt er einen Ausgleich von höchstens einer Jahresvergütung: 250.000 Euro geteilt durch fünf Jahre, also 50.000 Euro.",
+      actors: { m: P("Martin", "#e4572e", 160, { tie: "#2f56c8" }), cr: O("crowd", 450, 390, { n: 7 }), cnt: O("counter", 540, 200, h({ s: "250.000 €", w: 210 })) },
+      tl: [[0.4, "tag", "cr", "90 neue Kunden", "ok"], [2, "say", "m", "Ich wurde gekündigt…"], [3.4, "in", "cnt", "pop"], [4.2, "count", "cnt", 250000, 50000, 2, "", " €"], [6.6, "tag", "cnt", "Ø der letzten 5 Jahre", "navy"], [8, "law", "24 HVertrG – Ausgleichsanspruch"], [9.2, "rain", "€"]] }
+  ],
+  /* ═════ 16 Personengesellschaften ═════ */
+  16: [
+    { h: "Der Food-Truck", bg: "street", d: 15,
+      n: "Mia, Jonas und Lea betreiben ohne Vertrag einen Food-Truck. Das ist eine GesbR. Jonas kauft allein einen Grill um 8.000 Euro, gewöhnlicher Betrieb, also wirksam. Der Händler verlangt alles von Lea, denn die Gesellschafter haften solidarisch. Lea nimmt dann bei den anderen Regress.",
+      actors: { tr: O("truck", 470, 390, { s: "STREETBOWL" }), mi: P("Mia", "#e4572e", 120, { hs: "long" }), jo: P("Jonas", "#2f56c8", 240), le: P("Lea", "#2e9d62", 600, { hs: "bun" }), gr: O("grill", 330, 390, h()), hd: P("Händler", "#131c33", 920, h({ tie: "#ffd23f" })) },
+      tl: [[0.4, "tag", "tr", "GesbR", "navy"], [1.6, "in", "gr", "pop"], [1.8, "say", "jo", "Neuer Grill – 8.000 €!"], [3.2, "in", "hd", "right"], [4.2, "mv", "hd", 740], [5.2, "arrow", "hd", "le", "8.000 €", "bad"], [6.4, "face", "le", "shock"], [7, "law", "1199 ABGB – solidarisch"], [8.6, "arrow", "le", "mi", "Regress", "navy", 1], [9.6, "arrow", "le", "jo", "Regress", "navy", 1]] },
+    { h: "Die sechs Haftungsmerkmale", bg: "street", d: 14,
+      n: "Ein Gläubiger der OG muss nicht erst die Gesellschaft klagen. Er geht direkt auf das Privatvermögen der Gesellschafter: unbeschränkt, unbeschränkbar, unmittelbar, primär, persönlich und solidarisch.",
+      actors: { og: O("building", 170, 390, { s: "BERGER OG", w: 170, h: 190 }), hs: O("house", 600, 390, { s: "privat" }), gl: P("Gläubiger", "#131c33", 380, { tie: "#e04848" }) },
+      tl: [[0.4, "say", "gl", "Ich will mein Geld!"], [1.8, "arrow", "gl", "hs", "direkt aufs Privatvermögen", "bad"], [3.2, "shake", "hs"], [3.8, "law", "128 UGB"], [4.6, "stamp", "UNBESCHRÄNKT", "bad", 400, 110, 1.2], [5.8, "stamp", "UNMITTELBAR", "bad", 400, 160, 1.2], [7, "stamp", "PRIMÄR", "bad", 400, 210, 1.2], [8.2, "stamp", "SOLIDARISCH", "bad", 400, 260, 1.4], [10, "tag", "og", "Gesellschaft muss nicht zuerst", "warn"]] },
+    { h: "Neu drin, alt draußen", bg: "street", d: 14,
+      n: "Carla tritt in die OG ein und haftet sofort auch für die alten Schulden. Novak scheidet aus und haftet noch fünf Jahre für Schulden, die bis zu seinem Austritt entstanden sind.",
+      actors: { og: O("building", 470, 390, { s: "OG", w: 160, h: 190 }), ca: P("Carla", "#9b5de5", -100, { hs: "long" }), nv: P("Novak", "#2f56c8", 470), sd: O("doc", 470, 150, { s: "Altschuld|30.000 €" }) },
+      tl: [[0.2, "mv", "ca", 300, null, 1.6], [2, "give", "sd", "ca"], [2.6, "tag", "ca", "§ 130: haftet für Altschulden", "bad"], [4.8, "mv", "nv", 900, null, 2], [5, "say", "nv", "Tschüss!", 1.6], [7, "mv", "nv", 700, null, 1], [7.8, "tag", "nv", "§ 160: 5 Jahre Nachhaftung", "warn"], [9.6, "law", "128–130, 160 UGB"]] },
+    { h: "Die Haftsumme der Kommanditistin", bg: "blank", d: 14,
+      n: "Karins Haftsumme beträgt 100.000 Euro. Eingezahlt hat sie 60.000. Den Gläubigern haftet sie nur noch mit dem Rest von 40.000 Euro. Lässt sie sich 20.000 zurückzahlen, lebt die Haftung wieder auf: 60.000.",
+      actors: { k: P("Karin", "#e4572e", 140, { hs: "long", hair: "#c48a3a" }), hs: O("block", 480, 390, { s: "Haftsumme 100.000 €", w: 300, h: 200, c: "#e3e9f5", dark: false }), ein: O("block", 480, 390, h({ s: "eingezahlt 60.000 €", w: 300, h: 120, c: "#2e9d62" })), cnt: O("counter", 480, 150, h({ s: "40.000 €", w: 230 })), mo: O("money", 480, 330, h()) },
+      tl: [[0.6, "in", "ein", "up"], [2, "in", "cnt", "pop"], [2.4, "tag", "cnt", "haftet noch", "bad"], [3.6, "law", "171 UGB"], [5.6, "in", "mo", "pop"], [5.8, "give", "mo", "k", null, 1.2], [7.2, "art", "ein", { s: "eingezahlt 40.000 €", h: 80 }], [7.6, "count", "cnt", 40000, 60000, 1.4, "", " €"], [9.4, "law", "172 UGB – Wiederaufleben"]] }
+  ],
+  /* ═════ 17 Kapitalgesellschaften ═════ */
+  17: [
+    { h: "Die GmbH wird geboren", bg: "office", d: 15,
+      n: "Clara und David gründen eine GmbH. Der Gesellschaftsvertrag braucht einen Notariatsakt, das Stammkapital beträgt 10.000 Euro, davon 5.000 in bar. Erst mit der Eintragung im Firmenbuch entsteht die GmbH. Wer vorher in ihrem Namen bestellt, haftet persönlich.",
+      actors: { no: P("Notarin", "#22263a", 400, { robe: 1, hs: "bun", glasses: 1 }), cl: P("Clara", "#e4572e", 160, { hs: "long" }), da: P("David", "#2f56c8", 640), na: O("doc", 520, 300, h({ s: "Notariats-|akt", seal: 1, big: 1 })), sf: O("safe", 280, 390, h()), gm: O("building", 640, 390, h({ s: "MODE GMBH", w: 170, h: 200, c: "#ffd8a8", sc: "#e4572e" })) },
+      tl: [[0.4, "in", "na", "pop"], [1.4, "law", "4 GmbHG – Notariatsakt"], [2.4, "in", "sf", "pop"], [2.8, "tag", "sf", "5.000 € bar", "ok"], [4.2, "tag", "cl", "bestellt vorher: haftet persönlich", "bad"], [6.6, "untag", "cl"], [6.6, "mv", "da", 770], [7, "in", "gm", "pop"], [7.6, "stamp", "EINGETRAGEN", "ok", 520, 110], [8.4, "confetti"], [9.6, "law", "Stammkapital 10.000 €"]] },
+    { h: "Der überbewertete Lieferwagen", bg: "street", d: 12,
+      n: "David bringt statt Geld einen Lieferwagen ein, angeblich 3.000 Euro wert. In Wahrheit ist er nur 2.000 wert. Die Differenz von 1.000 Euro muss David in bar nachzahlen.",
+      actors: { da: P("David", "#2f56c8", 160), car: O("car", 450, 390, { c: "#ffffff", s: "3.000 €" }), mg: O("magnifier", 560, 300, h()), mo: O("money", 160, 300, h()) },
+      tl: [[0.4, "say", "da", "Der ist 3.000 € wert!"], [2, "in", "mg", "pop"], [2.4, "mv", "mg", 450, 300, 1], [3.6, "art", "car", { s: "2.000 €" }], [4.2, "face", "da", "shock"], [5, "law", "10a GmbHG – Differenzhaftung"], [6.2, "in", "mo", "pop"], [6.4, "drop", "mo", 600, 390], [7.2, "tag", "mo", "+ 1.000 €", "ok"]] },
+    { h: "Weisung oder Freiheit?", bg: "court", d: 15,
+      n: "In der GmbH dürfen die Gesellschafter dem Geschäftsführer Weisungen erteilen. Befolgt er einen Beschluss, haftet er grundsätzlich nicht. Der Vorstand einer AG dagegen leitet weisungsfrei und trägt die volle Verantwortung.",
+      actors: { gv: O("crowd", 160, 390, { n: 3 }), gf: P("GmbH-Geschäftsführer", "#2f56c8", 330, { tie: "#ffd23f" }), hv: O("crowd", 540, 390, { n: 5 }), vs: P("AG-Vorstand", "#131c33", 700, { tie: "#e04848", glasses: 1 }) },
+      tl: [[0.4, "tag", "gv", "Generalversammlung", "navy"], [1, "arrow", "gv", "gf", "Kauf die Pistenraupe!", "navy"], [2.8, "say", "gf", "Jawohl."], [4, "check", "gf"], [4.6, "law", "20 GmbHG – weisungsgebunden"], [6.6, "tag", "hv", "Hauptversammlung", "navy"], [7.2, "arrow", "hv", "vs", "Mach das!", "navy", 1], [8.8, "say", "vs", "Ich leite weisungsfrei."], [10.2, "law", "70 AktG"], [11.2, "stamp", "WEISUNGSFREI", "warn", 640, 110]] },
+    { h: "Abstimmung in der Generalversammlung", bg: "office", d: 15,
+      n: "Mayr hat 60 Prozent, Cerny 10, Berger 30. Für einen neuen Geschäftsführer genügt die einfache Mehrheit: 70 Prozent reichen. Eine Satzungsänderung braucht drei Viertel: 70 Prozent sind zu wenig.",
+      actors: { ma: P("Mayr 60 %", "#2f56c8", 140), ce: P("Cerny 10 %", "#2e9d62", 290), be: P("Berger 30 %", "#e4572e", 660), cnt: O("counter", 470, 200, { s: "0 %", w: 170 }) },
+      tl: [[0.4, "jump", "ma"], [0.6, "jump", "ce"], [1, "count", "cnt", 0, 70, 1.4, "", " %"], [2.8, "tag", "cnt", "Geschäftsführer: > 50 %", "ok"], [3.4, "check", "ma"], [5.4, "unmark", "ma"], [5.6, "untag", "cnt"], [6, "tag", "cnt", "Satzung: ≥ 75 % nötig", "bad"], [7.4, "say", "be", "Ich bin dagegen!"], [8.8, "cross", "cnt"], [9.4, "law", "¾-Mehrheit für Satzungsänderung"]] }
+  ],
+  /* ═════ 18 Wertpapierrecht ═════ */
+  18: [
+    { h: "Zwei gestohlene Papiere", bg: "night", d: 15,
+      n: "Ein Dieb stiehlt eine Inhaberschuldverschreibung und ein Namenssparbuch. Das Inhaberpapier verkauft er an den gutgläubigen A, der es behalten darf. Beim Namenssparbuch, einem Rektapapier, gibt es keinen gutgläubigen Erwerb. H bekommt es von B zurück.",
+      actors: { d: P("Dieb", "#222", 400, { cap: "#222", f: "sly" }), ip: O("cheque", 400, 300, { s: "INHABERPAPIER" }), sp: O("book", 430, 300, { s: "Sparbuch H", c: "#e04848" }), a: P("Anleger A", "#2f56c8", 120), b: P("B", "#f2a541", 620), hh: P("Eigentümer H", "#2e9d62", 920, h()) },
+      tl: [[0.6, "say", "d", "Wer will billig?"], [1.8, "give", "ip", "a", null, 1.2], [3, "check", "a"], [3.4, "tag", "a", "gutgläubig erworben", "ok"], [5, "give", "sp", "b", "l", 1.2], [6.4, "in", "hh", "right"], [6.8, "mv", "hh", 765], [7.6, "say", "hh", "Mein Sparbuch!"], [8.8, "law", "Rektapapier: kein gutgläubiger Erwerb"], [10, "give", "sp", "hh", "l"], [10.6, "cross", "b"]] },
+    { h: "Die Reise des Wechsels", bg: "bank", d: 15,
+      n: "H zieht einen Wechsel auf T zugunsten von S. T akzeptiert. Der Wechsel wandert per Indossament über die Bank zum Investor I. Zahlt T nicht, kann I nach Protest jeden in der Kette in Anspruch nehmen, in beliebiger Reihenfolge.",
+      actors: { h1: P("Ausstellerin H", "#e4572e", 90, { hs: "long" }), t: P("Bezogener T", "#2f56c8", 250), s: P("Säge S", "#f2a541", 410), bk: P("Bank B", "#131c33", 560, { tie: "#ffd23f" }), i: P("Investor I", "#2e9d62", 720, { glasses: 1 }), w: O("doc", 90, 300, { s: "WECHSEL|20.000 €" }) },
+      tl: [[0.2, "give", "w", "h1"], [0.8, "arrow", "h1", "t", "Zahlungsanweisung", "navy"], [2, "tag", "t", "akzeptiert", "ok"], [3, "give", "w", "s", null, 1], [4.2, "give", "w", "bk", null, 1], [5.4, "give", "w", "i", null, 1], [6.4, "clearfx"], [6.6, "say", "t", "Ich zahle nicht!"], [7.6, "face", "i", "angry"], [8.4, "arrow", "i", "t", "", "bad"], [8.8, "arrow", "i", "h1", "", "bad"], [9.2, "arrow", "i", "bk", "", "bad"], [10, "law", "Art 47 WG – Sprungregress"]] },
+    { h: "Die gestohlene Kreditkarte", bg: "street", d: 13,
+      n: "Ks Kreditkarte wird gestohlen, der Dieb kauft damit ein. Die Bank muss beweisen, dass K die Zahlung autorisiert hat. War K nur leicht fahrlässig, haftet er höchstens mit 50 Euro.",
+      actors: { k: P("Kunde K", "#2f56c8", 160), cd: O("card", 160, 300), d: P("Dieb", "#222", 900, { cap: "#222", f: "sly" }), cnt: O("counter", 520, 190, h({ s: "0 €", w: 180 })) },
+      tl: [[0.2, "give", "cd", "k"], [0.6, "mv", "d", 260, null, 1.4], [2, "give", "cd", "d"], [2.2, "mv", "d", 640, null, 1.2], [3.6, "in", "cnt", "pop"], [3.8, "count", "cnt", 0, 1300, 1.6, "", " €"], [5.6, "face", "k", "shock"], [6.2, "law", "ZaDiG – Bank muss Autorisierung beweisen"], [7.6, "count", "cnt", 1300, 50, 1.2, "max. ", " €"], [9.4, "tag", "k", "leicht fahrlässig: max. 50 €", "ok"]] }
+  ],
+  /* ═════ 19 Wettbewerb ═════ */
+  19: [
+    { h: "Die Tiefpreissensation", bg: "shop", d: 15,
+      n: "Händler E wirbt: Fernseher um 299 statt 699 Euro. Er hat aber nur zwei Stück, um 9 Uhr ist alles weg, und 699 hat er nie verlangt. Das ist ein Lockvogelangebot mit falschem Statt-Preis. Der Mitbewerber klagt auf Unterlassung.",
+      actors: { sg: O("sign", 200, 390, { s: "TV 299 € statt 699 €!", c: "#ffd23f" }), tv: O("tv", 600, 292, { s: "299 €" }), e: P("Händler E", "#e4572e", 730, { apron: 1, f: "sly" }), cr: O("crowd", 400, 390, h({ n: 7 })), mb: P("Mitbewerber", "#2f56c8", 900, h({ tie: "#ffd23f" })), kl: O("doc", 900, 300, h({ s: "Unter-|lassung" })) },
+      tl: [[0.6, "in", "cr", "left"], [2.2, "out", "tv"], [2.6, "say", "e", "Leider ausverkauft!"], [3.6, "tag", "cr", "um 9:00 weg", "bad"], [5, "law", "UWG Anhang – Lockvogelangebot"], [6.2, "law", "2 UWG – falscher Statt-Preis"], [7.4, "in", "mb", "right"], [8.2, "mv", "mb", 560], [8.2, "mv", "kl", 592, 342, 1.2], [9.6, "stamp", "IRREFÜHREND", "bad", 400, 110], [11, "tag", "mb", "binnen 6 Monaten", "navy"]] },
+    { h: "Der Vertreter, der nicht geht", bg: "room", d: 15,
+      n: "Ein Vertreter sitzt seit zwei Stunden bei der 82-jährigen Frau R. Er schenkt ihr einen Topf, droht mit seinem Jobverlust und geht trotz Bitte nicht. Das ist eine aggressive Geschäftspraktik. Den Vertrag wird Frau R per Rücktritt nach dem FAGG wieder los.",
+      actors: { r: P("Frau R, 82", "#9b5de5", 180, { old: 1, hs: "bun", skirt: "#7a46c2" }), v: P("Vertreter", "#131c33", 520, { tie: "#e04848", f: "sly" }), pt: O("pot", 520, 300), cl: O("clock", 700, 200), ct: O("doc", 380, 300, h({ s: "Kauf|1.800 €", sig: 1 })) },
+      tl: [[0.4, "spin", "cl", 720, 2], [0.6, "give", "pt", "r", "l", 1.2], [2.2, "say", "r", "Bitte gehen Sie jetzt."], [3.6, "say", "v", "Sonst verlier ich meinen Job!"], [5.2, "face", "r", "sad"], [5.6, "in", "ct", "pop"], [6.2, "stamp", "AGGRESSIV", "bad", 400, 110, 2.6], [6.6, "law", "1a UWG – aggressive Praktik"], [9.2, "law", "11 FAGG – 14 Tage Rücktritt"], [10.2, "cross", "ct"], [10.8, "face", "r", "happy"]] },
+    { h: "Das geheime Preiskartell", bg: "night", d: 14,
+      n: "Zwei Konkurrenten vereinbaren heimlich einen gemeinsamen Preis. Solche Absprachen sind verboten und nichtig, Preisabsprachen sogar ohne Bagatellgrenze. Die Wettbewerbsbehörde kann Geldbußen bis zu 10 Prozent des Umsatzes verhängen.",
+      actors: { a: P("Firma A", "#e4572e", 300, { tie: "#131c33", f: "sly" }), b: P("Firma B", "#2f56c8", 470, { tie: "#131c33", f: "sly" }), mg: O("magnifier", 700, 300, h()), cnt: O("counter", 620, 160, h({ s: "0 %", w: 170 })) },
+      tl: [[0.4, "mv", "a", 350], [0.4, "mv", "b", 430], [1.4, "say", "a", "Psst: beide 2 € mehr?"], [2.8, "say", "b", "Abgemacht!"], [4.2, "in", "mg", "pop"], [4.6, "mv", "mg", 400, 300, 1], [5.6, "face", "a", "shock"], [5.6, "face", "b", "shock"], [6.2, "stamp", "KARTELL – NICHTIG", "bad", 400, 110], [7.6, "law", "1 KartG · Art 101 AEUV"], [8.8, "in", "cnt", "pop"], [9, "count", "cnt", 0, 10, 1.2, "bis ", " % Umsatz"]] }
+  ],
+  /* ═════ 20 Immaterialgüterrecht ═════ */
+  20: [
+    { h: "Blitzkraft oder Energy Drink?", bg: "shop", d: 14,
+      n: "Ein Start-up will zwei Marken anmelden. „Blitzkraft“ ist ein Fantasiewort und schutzfähig. „Energy Drink“ beschreibt nur das Produkt und muss für alle frei bleiben. Ein Mitbewerber mit „Blitzkraaft“ kann binnen drei Monaten Widerspruch erheben.",
+      actors: { c1: O("can", 560, 292, { c: "#2f56c8" }), c2: O("can", 660, 292, { c: "#8a94ad" }), s: P("Start-up", "#e4572e", 200, { cap: "#e4572e" }), mb: P("Mitbewerber", "#2e9d62", 900, h({ tie: "#ffd23f" })) },
+      tl: [[0.4, "tag", "c1", "„Blitzkraft“", "navy"], [1.2, "tag", "c2", "„Energy Drink“", "navy"], [2.4, "check", "c1"], [3, "cross", "c2"], [3.8, "law", "Marke: unterscheidungskräftig"], [5.4, "in", "mb", "right"], [6.2, "mv", "mb", 735], [6.8, "say", "mb", "Wir sind „Blitzkraaft“!"], [8.2, "arrow", "mb", "s", "Widerspruch: 3 Monate", "warn"], [10, "law", "Schutz 10 Jahre, verlängerbar"]] },
+    { h: "Der kopierte Stuhl", bg: "fair", d: 14,
+      n: "Designerin D zeigt ihren Stuhl im März auf der Messe und meldet ihn erst im Oktober an. Dank zwölf Monaten Neuheitsschonfrist ist er trotzdem neu. Als ein Diskonter ihn im Dezember kopiert, kann D sich wehren.",
+      actors: { d: P("Designerin D", "#9b5de5", 180, { hs: "long", glasses: 1 }), ch: O("chair", 330, 390, { c: "#e04848" }), cal: O("calendar", 520, 300, { m: "MÄRZ", s: "Messe", small: 1 }), dk: P("Diskonter", "#f2a541", 900, h({ f: "sly" })), cp: O("chair", 900, 390, h({ c: "#e04848" })) },
+      tl: [[0.4, "say", "d", "Mein neuer Stuhl!"], [1.6, "pulse", "ch"], [2.6, "set", "cal", ".mon", "OKTOBER"], [2.7, "set", "cal", ".num", "Anmeldung"], [3.4, "law", "12 Monate Neuheitsschonfrist"], [5, "set", "cal", ".mon", "DEZEMBER"], [5.1, "set", "cal", ".num", "Kopie!"], [5.4, "in", "dk", "right"], [5.4, "in", "cp", "right"], [6.6, "mv", "dk", 660], [6.6, "mv", "cp", 740], [8, "arrow", "d", "dk", "Unterlassung + Entgelt", "bad"], [10, "tag", "d", "Schutz bis 25 Jahre", "ok"]] },
+    { h: "Die Erfindung", bg: "lab", d: 14,
+      n: "Ingenieurin I entwickelt ein neues Kühlsystem für Akkus. Für ein Patent muss die Erfindung neu sein, nicht naheliegend und gewerblich anwendbar. Dann ist sie höchstens 20 Jahre geschützt.",
+      actors: { i: P("Ingenieurin I", "#3ab0c4", 200, { hs: "bun", glasses: 1 }), bu: O("bulb", 200, 222, h()), s1: O("block", 470, 190, h({ s: "neu", w: 200, c: "#2e9d62" })), s2: O("block", 470, 250, h({ s: "nicht naheliegend", w: 200, c: "#2e9d62" })), s3: O("block", 470, 310, h({ s: "gewerblich anwendbar", w: 200, c: "#2e9d62" })), ce: O("cert", 680, 390, h({ s: "PATENT" })) },
+      tl: [[0.4, "in", "bu", "pop"], [0.8, "glow", "bu", 2], [1.4, "say", "i", "Heureka!", 1.6], [3, "in", "s1", "pop"], [4, "in", "s2", "pop"], [5, "in", "s3", "pop"], [6.4, "in", "ce", "pop"], [7, "confetti"], [7.6, "law", "Patent: max. 20 Jahre"], [9, "tag", "i", "Vorsicht: Konferenz vor Anmeldung schadet!", "warn"]] },
+    { h: "Urheberrecht entsteht von selbst", bg: "room", d: 13,
+      n: "Malerin M malt ein Bild. In dem Moment, in dem das Werk entsteht, ist es geschützt, ohne Anmeldung und ohne Formular. Der Schutz dauert bis 70 Jahre nach ihrem Tod.",
+      actors: { m: P("Malerin M", "#e4572e", 220, { hs: "curly", hair: "#7a4b2a", apron: 1 }), pt: O("painting", 470, 330, h()), cp: O("copyright", 470, 200, h()), cnt: O("counter", 650, 120, h({ s: "70 Jahre", w: 170 })), fm: O("doc", 680, 330, h({ s: "Anmeldung?" })) },
+      tl: [[0.4, "say", "m", "Pinsel, Farbe, los!"], [1.8, "in", "pt", "fade"], [3, "in", "cp", "pop"], [3.6, "glow", "cp", 2], [4.6, "in", "fm", "pop"], [5.2, "cross", "fm"], [5.8, "law", "UrhG – formlos mit der Schöpfung"], [7.6, "in", "cnt", "pop"], [8.2, "tag", "cnt", "nach dem Tod", "navy"], [9.4, "stamp", "© GESCHÜTZT", "ok", 300, 120]] }
+  ]
+  };
+})();
