@@ -24,35 +24,39 @@
   function lines(x, y, arr, fs, fill, weight, lh) { return arr.map(function (l, i) { return txt(x, y + i * (lh || fs * 1.2), l, fs, fill, weight); }).join(""); }
 
   /* ───────── Gesichter ───────── */
+  /* Augen und Mund liegen in eigenen Gruppen (Ursprung im Mittelpunkt), damit sie blinzeln und sprechen können. */
   function face(f) {
-    var e = '<circle cx="-8" cy="-130" r="2.8" fill="' + C.ink + '"/><circle cx="8" cy="-130" r="2.8" fill="' + C.ink + '"/>';
     var st = ' stroke="' + C.ink + '" stroke-width="2.6" fill="none" stroke-linecap="round"';
+    var dot = function (r) { return '<circle cx="-8" cy="0" r="' + r + '" fill="' + C.ink + '"/><circle cx="8" cy="0" r="' + r + '" fill="' + C.ink + '"/><circle cx="-7" cy="-1" r="' + (r * 0.35) + '" fill="#fff"/><circle cx="9" cy="-1" r="' + (r * 0.35) + '" fill="#fff"/>'; };
+    var eyes = dot(3), brows = "", mouth = "", cheeks = "";
     switch (f) {
-      case "sad": return e + '<path d="M-13 -139 L-4 -136 M13 -139 L4 -136"' + st + '/><path d="M-7 -114 Q0 -121 7 -114"' + st + "/>";
-      case "shock": return '<circle cx="-8" cy="-130" r="3.6" fill="' + C.ink + '"/><circle cx="8" cy="-130" r="3.6" fill="' + C.ink + '"/><path d="M-13 -142 L-4 -140 M13 -142 L4 -140"' + st + '/><ellipse cx="0" cy="-115" rx="4.5" ry="5.5" fill="' + C.ink + '"/>';
-      case "angry": return e + '<path d="M-14 -141 L-3 -135 M14 -141 L3 -135"' + st + ' stroke-width="3.4"/><path d="M-7 -115 L7 -115"' + st + "/>";
-      case "sly": return '<path d="M-11 -130 L-5 -130"' + st + '/><circle cx="8" cy="-130" r="2.8" fill="' + C.ink + '"/><path d="M-8 -117 Q2 -112 9 -121"' + st + "/>";
-      case "think": return e + '<path d="M-5 -116 L7 -117"' + st + '/><path d="M4 -141 L13 -143"' + st + "/>";
-      default: return e + '<circle cx="-14" cy="-120" r="3.4" fill="#f29b9b" opacity=".6"/><circle cx="14" cy="-120" r="3.4" fill="#f29b9b" opacity=".6"/><path d="M-8 -119 Q0 -110 8 -119"' + st + "/>";
+      case "sad": brows = '<path d="M-13 -139 L-4 -136 M13 -139 L4 -136"' + st + "/>"; mouth = '<path d="M-7 2 Q0 -5 7 2"' + st + "/>"; break;
+      case "shock": eyes = dot(3.8); brows = '<path d="M-13 -143 L-4 -141 M13 -143 L4 -141"' + st + "/>"; mouth = '<ellipse cx="0" cy="1" rx="4.5" ry="5.5" fill="' + C.ink + '"/>'; break;
+      case "angry": brows = '<path d="M-14 -141 L-3 -135 M14 -141 L3 -135"' + st + ' stroke-width="3.4"/>'; mouth = '<path d="M-7 1 L7 1"' + st + "/>"; break;
+      case "sly": eyes = '<path d="M-11 0 L-5 0"' + st + '/><circle cx="8" cy="0" r="3" fill="' + C.ink + '"/>'; mouth = '<path d="M-8 -1 Q2 4 9 -5"' + st + "/>"; break;
+      case "think": brows = '<path d="M4 -141 L13 -143"' + st + "/>"; mouth = '<path d="M-5 0 L7 -1"' + st + "/>"; break;
+      default: cheeks = '<circle cx="-14" cy="-120" r="3.4" fill="#f29b9b" opacity=".6"/><circle cx="14" cy="-120" r="3.4" fill="#f29b9b" opacity=".6"/>'; mouth = '<path d="M-8 -3 Q0 6 8 -3"' + st + "/>";
     }
+    return cheeks + brows + '<g transform="translate(0,-130)"><g class="eyes">' + eyes + '</g></g><g transform="translate(0,-116)"><g class="mouth">' + mouth + "</g></g>";
   }
 
   /* ───────── Figuren ───────── */
   function person(o) {
-    var s = o.kid ? 0.72 : 1, c = o.c || C.blue, body = o.robe ? "#22263a" : c, skin = o.skin || C.skin;
+    var s = (o.kid ? 0.72 : 1) * 1.15, c = o.c || C.blue, body = o.robe ? "#22263a" : c, skin = o.skin || C.skin;
     var hair = o.hair || (o.old ? "#d6d9e0" : "#3b2a20"), pants = o.pants || "#2a3350";
+    var ol = ' stroke="' + C.ink + '" stroke-width="2"';
+    var leg = function (x, cls, sx) { return '<g transform="translate(' + x + ',-50)"><g class="' + cls + '"><rect x="-5.5" y="0" width="11" height="48" rx="5" fill="' + pants + '"' + ol + '/><ellipse cx="' + sx + '" cy="47" rx="10" ry="5" fill="' + C.ink + '"/></g></g>'; };
+    var arm = function (x, cls, d, hx) { return '<g transform="translate(' + x + ',-90)"><g class="' + cls + '"><path d="' + d + '" stroke="' + C.ink + '" stroke-width="14" stroke-linecap="round" fill="none"/><path d="' + d + '" stroke="' + body + '" stroke-width="10" stroke-linecap="round" fill="none"/><circle cx="' + hx + '" cy="42" r="6.5" fill="' + skin + '"' + ol + '/></g></g>'; };
     var h = '<g transform="scale(' + s + ')">';
-    h += '<rect x="-14" y="-50" width="11" height="48" rx="5" fill="' + pants + '"/><rect x="3" y="-50" width="11" height="48" rx="5" fill="' + pants + '"/>';
-    h += '<ellipse cx="-10" cy="-3" rx="10" ry="5" fill="' + C.ink + '"/><ellipse cx="10" cy="-3" rx="10" ry="5" fill="' + C.ink + '"/>';
-    if (o.skirt) h += '<path d="M-26 -62 L26 -62 L32 -34 L-32 -34Z" fill="' + o.skirt + '"/>';
-    h += '<path d="M-21 -90 Q-36 -68 -32 -50" stroke="' + body + '" stroke-width="11" stroke-linecap="round" fill="none"/><path d="M21 -90 Q36 -68 32 -50" stroke="' + body + '" stroke-width="11" stroke-linecap="round" fill="none"/>';
-    h += '<circle cx="-32" cy="-48" r="6" fill="' + skin + '"/><circle cx="32" cy="-48" r="6" fill="' + skin + '"/>';
-    h += '<rect x="-24" y="-108" width="48" height="64" rx="18" fill="' + body + '"/>';
+    h += leg(-8.5, "leg-l", -1.5) + leg(8.5, "leg-r", 1.5);
+    if (o.skirt) h += '<path d="M-26 -62 L26 -62 L32 -34 L-32 -34Z" fill="' + o.skirt + '"' + ol + "/>";
+    h += arm(-21, "arm-l", "M0 0 Q-15 22 -11 40", -11) + arm(21, "arm-r", "M0 0 Q15 22 11 40", 11);
+    h += '<rect x="-24" y="-108" width="48" height="64" rx="18" fill="' + body + '"' + ol + "/>";
     if (o.robe) h += '<path d="M-10 -108 L0 -92 L10 -108Z" fill="#fff"/>';
     if (o.tie) h += '<path d="M-4 -106 L4 -106 L6 -80 L0 -72 L-6 -80Z" fill="' + o.tie + '"/>';
     if (o.apron) h += '<rect x="-18" y="-86" width="36" height="42" rx="6" fill="#fff" opacity=".92"/>';
     if (o.vest) h += '<path d="M-24 -100 L-8 -100 L-8 -46 L-24 -46Z M24 -100 L8 -100 L8 -46 L24 -46Z" fill="' + o.vest + '"/>';
-    h += '<rect x="-6" y="-114" width="12" height="10" fill="' + skin + '"/><circle cx="0" cy="-130" r="22" fill="' + skin + '"/>';
+    h += '<rect x="-6" y="-114" width="12" height="10" fill="' + skin + '"/><circle cx="0" cy="-130" r="22" fill="' + skin + '"' + ol + "/>";
     var hs = o.hs || (o.old ? "bald" : "short");
     if (hs === "long") h += '<path d="M-24 -132 Q-24 -156 0 -156 Q24 -156 24 -132 L26 -100 L16 -104 L16 -134 Q0 -142 -16 -134 L-16 -104 L-26 -100Z" fill="' + hair + '"/>';
     else if (hs === "bun") h += '<circle cx="0" cy="-158" r="9" fill="' + hair + '"/><path d="M-23 -130 Q-23 -153 0 -153 Q23 -153 23 -130 Q14 -143 0 -141 Q-14 -143 -23 -130Z" fill="' + hair + '"/>';
@@ -223,32 +227,66 @@
   function tr(x, y) { return "translate(" + x + "px," + y + "px)"; }
   var COL = { ok: C.green, bad: C.red, warn: "#d98a00", navy: C.navy, blue: C.blue };
 
-  function Film(svg, scene, rate) {
+  var INTRO = 1.6; /* Sekunden Titelkarte vor jeder Szene */
+  var SKY = { park: 1, garden: 1, lake: 1, street: 1, blank: 1 };
+  function Film(svg, scene, rate, info) {
     this.svg = svg; this.sc = scene; this.rate = rate || 1; this.t = 0; this.playing = false; this.anims = []; this.counts = [];
-    this.q = scene.tl.map(function (a) { return { t: a[0], a: a[1], args: a.slice(2) }; }).sort(function (a, b) { return a.t - b.t; });
+    this.info = info || null; this.OFF = info ? INTRO : 0;
+    var off = this.OFF;
+    this.q = scene.tl.map(function (a) { return { t: a[0] + off, a: a[1], args: a.slice(2) }; }).sort(function (a, b) { return a.t - b.t; });
     this.qi = 0; this.lawN = 0; this.build();
   }
   Film.prototype.build = function () {
-    var svg = this.svg, sc = this.sc;
+    var svg = this.svg, sc = this.sc, self = this;
     svg.innerHTML = DEFS + bg(sc.bg);
+    if (SKY[sc.bg] || !sc.bg) this.clouds();
     this.L = { actors: el("g", {}), fx: el("g", {}), ui: el("g", {}) };
     svg.appendChild(this.L.actors); svg.appendChild(this.L.fx); svg.appendChild(this.L.ui);
     this.A = {};
-    var self = this;
-    Object.keys(sc.actors).forEach(function (id) {
+    Object.keys(sc.actors).forEach(function (id, n) {
       var o = sc.actors[id], r = art(o);
       var g = el("g", { "class": "fa" }), inner = el("g", {}), body = el("g", {}, r.svg);
+      var sw = o.k === "person" ? (o.kid ? 23 : 31) : Math.min(80, Math.max(16, (o.w || ({ car: 150, truck: 180, house: 140, building: 130, bike: 90, boat: 180, crowd: 170, scales: 70, block: 140 }[o.k] || 50)) / 2));
+      if (o.y >= 380 && o.k !== "flag" && o.k !== "sign" && o.k !== "light") g.appendChild(el("ellipse", { cx: 0, cy: 3, rx: sw, ry: 6, fill: "#1b2440", opacity: 0.14 }));
       inner.appendChild(body); g.appendChild(inner);
       var lab = null;
-      if (o.name) { lab = el("text", { x: 0, y: 20, "font-size": 13, "font-weight": 800, fill: C.ink, "text-anchor": "middle", stroke: "#fff", "stroke-width": 4, "paint-order": "stroke" }); lab.textContent = o.name; g.appendChild(lab); }
+      if (o.name) { lab = el("text", { x: 0, y: 24, "font-size": 15, "font-weight": 800, fill: C.ink, "text-anchor": "middle", stroke: "#fff", "stroke-width": 5, "paint-order": "stroke", "stroke-linejoin": "round" }); lab.textContent = o.name; g.appendChild(lab); }
       g.style.transform = tr(o.x, o.y); if (o.hidden) g.style.opacity = 0;
       self.L.actors.appendChild(g);
-      self.A[id] = { g: g, inner: inner, body: body, lab: lab, x: o.x, y: o.y, h: r.h, hand: r.hand || [0, -r.h / 2], o: o, tags: {}, carry: [], beam: 0 };
+      var A = self.A[id] = { g: g, inner: inner, body: body, lab: lab, x: o.x, y: o.y, h: r.h, hand: r.hand || [0, -r.h / 2], o: o, tags: {}, carry: [], beam: 0 };
+      if (o.k === "person") self.idle(A, n);
     });
+    if (this.info) this.titleCard();
+  };
+  /* Lebendigkeit: Atmen und Blinzeln laufen dauerhaft mit (pausieren mit dem Film). */
+  Film.prototype.idle = function (A, n) {
+    this.anim(A.body, [{ transform: "translateY(0px)" }, { transform: "translateY(-1.6px)" }, { transform: "translateY(0px)" }], 2.4 + (n % 3) * 0.35, { it: Infinity, keep: true, ease: "ease-in-out" });
+    this.blink(A, n);
+  };
+  Film.prototype.blink = function (A, n) {
+    var ey = A.body.querySelector(".eyes"); if (!ey) return;
+    this.anim(ey, [{ transform: "scaleY(1)", offset: 0 }, { transform: "scaleY(1)", offset: 0.9 }, { transform: "scaleY(0.12)", offset: 0.94 }, { transform: "scaleY(1)", offset: 0.98 }, { transform: "scaleY(1)", offset: 1 }], 3.2 + ((n || 0) % 4) * 0.7, { it: Infinity, keep: true, ease: "linear" });
+  };
+  Film.prototype.clouds = function () {
+    var self = this;
+    [[90, 70, 1], [420, 46, 0.8], [650, 96, 1.15]].forEach(function (c, i) {
+      var cl = el("g", { opacity: 0.9 }, '<g transform="translate(' + c[0] + "," + c[1] + ") scale(" + c[2] + ')"><ellipse cx="0" cy="0" rx="34" ry="14" fill="#fff"/><circle cx="-14" cy="-8" r="14" fill="#fff"/><circle cx="8" cy="-12" r="18" fill="#fff"/><circle cx="26" cy="-4" r="11" fill="#fff"/></g>');
+      self.svg.appendChild(cl);
+      self.anim(cl, [{ transform: "translateX(0px)" }, { transform: "translateX(" + (60 + i * 25) + "px)" }], 14 + i * 4, { it: Infinity, keep: true, ease: "ease-in-out", dir: "alternate" });
+    });
+  };
+  Film.prototype.titleCard = function () {
+    var i = this.info, card = el("g", {}), self = this, t = wrap(this.sc.h, 30);
+    var hh = 70 + t.length * 34;
+    card.innerHTML = '<rect width="800" height="450" fill="#0e1526" opacity=".72"/><g transform="translate(400,' + (225 - hh / 2) + ')"><rect x="-260" y="0" width="520" height="' + hh + '" rx="18" fill="#fffdf6" stroke="#1b2440" stroke-width="3"/><rect x="-74" y="-16" width="148" height="32" rx="16" fill="' + C.yellow + '" stroke="#1b2440" stroke-width="2"/>' + txt(0, 6, "SZENE " + (i.i + 1) + " / " + i.n, 15, C.ink, 800, "middle", ' letter-spacing="1.5"') + lines(0, 58, t, 30, C.navy, 800, 34) + "</g>";
+    this.L.ui.appendChild(card);
+    card._tr = "";
+    this.anim(card, [{ opacity: 0 }, { opacity: 1 }], 0.3);
+    this.later(INTRO - 0.45, function () { self.anim(card, [{ opacity: 1 }, { opacity: 0 }], 0.4); self.later(0.42, function () { card.remove(); }); });
   };
   Film.prototype.anim = function (node, kf, dur, opt) {
     opt = opt || {};
-    var a = node.animate(kf, { duration: Math.max(1, dur * 1000), fill: "forwards", easing: opt.ease || "cubic-bezier(.3,.7,.2,1)", iterations: opt.it || 1 });
+    var a = node.animate(kf, { duration: Math.max(1, dur * 1000), fill: "forwards", easing: opt.ease || "cubic-bezier(.3,.7,.2,1)", iterations: opt.it || 1, direction: opt.dir || "normal" });
     a.playbackRate = this.rate; if (!this.playing) a.pause();
     var list = this.anims; list.push(a);
     a.onfinish = function () { if (!opt.keep) { try { a.commitStyles(); } catch (e) {} a.cancel(); } var i = list.indexOf(a); if (i > -1) list.splice(i, 1); };
@@ -258,7 +296,14 @@
   Film.prototype.moveTo = function (A, x, y, d, walk) {
     var self = this, dx = x - A.x, dy = y - A.y;
     this.anim(A.g, [{ transform: tr(A.x, A.y) }, { transform: tr(x, y) }], d, { ease: walk ? "linear" : undefined });
-    if (walk && A.o.k === "person") this.anim(A.inner, [{ transform: "translateY(0px)" }, { transform: "translateY(-6px)" }, { transform: "translateY(0px)" }], 0.32, { it: Math.max(1, Math.round(d / 0.32)) });
+    if (walk && A.o.k === "person") {
+      var steps = Math.max(1, Math.round(d / 0.36));
+      this.anim(A.inner, [{ transform: "translateY(0px)" }, { transform: "translateY(-5px)" }, { transform: "translateY(0px)" }], 0.36, { it: steps * 2, ease: "ease-in-out" });
+      var ll = A.body.querySelector(".leg-l"), lr = A.body.querySelector(".leg-r"), al = A.body.querySelector(".arm-l"), ar = A.body.querySelector(".arm-r");
+      var swing = function (n, a) { if (n) self.anim(n, [{ transform: "rotate(0deg)" }, { transform: "rotate(" + a + "deg)" }, { transform: "rotate(0deg)" }, { transform: "rotate(" + (-a) + "deg)" }, { transform: "rotate(0deg)" }], 0.72, { it: steps, ease: "linear" }); };
+      swing(ll, 22); swing(lr, -22);
+      if (!A.carry.length) { swing(al, -18); swing(ar, 18); }
+    }
     A.x = x; A.y = y;
     Object.keys(A.tags).forEach(function (k) { var tg = A.tags[k], nx = tg._x + dx, ny = tg._y + dy; self.anim(tg, [{ transform: tr(tg._x, tg._y) }, { transform: tr(nx, ny) }], d); tg._x = nx; tg._y = ny; tg._tr = tr(nx, ny); });
     A.carry.forEach(function (id) { var B = self.A[id]; self.moveTo(B, B.x + dx, B.y + dy, d); });
@@ -298,13 +343,19 @@
       case "mv": this.moveTo(A, g[1], g[2] != null ? g[2] : A.y, g[3] || 1.2, A.o.k === "person"); break;
       case "jump": this.anim(A.inner, [{ transform: "translateY(0)" }, { transform: "translateY(-40px)" }, { transform: "translateY(0)" }], 0.6, { ease: "ease-in-out" }); break;
       case "say": {
-        var ls = wrap(g[1], 24), w = Math.min(300, Math.max(70, Math.max.apply(null, ls.map(function (l) { return tw(l, 15); })) + 26)), hh = ls.length * 19 + 16;
-        var ax = A.x, ay = this.top(A) - 6, bx = Math.max(8, Math.min(792 - w, ax - w / 2)), by = Math.max(6, ay - hh - 16);
-        var tx = Math.max(bx + 14, Math.min(bx + w - 14, ax));
-        var b = el("g", {}, '<path d="M' + (tx - 8) + " " + (by + hh - 1) + " L" + ax + " " + (ay) + " L" + (tx + 8) + " " + (by + hh - 1) + 'Z" fill="#fff" stroke="' + C.ink + '" stroke-width="2"/><rect x="' + bx + '" y="' + by + '" width="' + w + '" height="' + hh + '" rx="12" fill="#fff" stroke="' + C.ink + '" stroke-width="2"/><rect x="' + (tx - 7) + '" y="' + (by + hh - 3) + '" width="14" height="5" fill="#fff"/>' + lines(bx + w / 2, by + 22, ls, 15, C.ink, 700, 19));
+        var fsz = 17, ls = wrap(g[1], 22), w = Math.min(330, Math.max(76, Math.max.apply(null, ls.map(function (l) { return tw(l, fsz); })) + 30)), hh = ls.length * 21 + 18;
+        var ntag = Object.keys(A.tags).length;
+        var ax = A.x, ay = this.top(A) - 6 - ntag * 30, bx = Math.max(8, Math.min(792 - w, ax - w / 2)), by = Math.max(6, ay - hh - 16);
+        var tx = Math.max(bx + 16, Math.min(bx + w - 16, ax));
+        var b = el("g", {}, '<rect x="' + (bx + 3) + '" y="' + (by + 4) + '" width="' + w + '" height="' + hh + '" rx="14" fill="#1b2440" opacity=".18"/><path d="M' + (tx - 9) + " " + (by + hh - 1) + " L" + ax + " " + (ay) + " L" + (tx + 9) + " " + (by + hh - 1) + 'Z" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4" stroke-linejoin="round"/><rect x="' + bx + '" y="' + by + '" width="' + w + '" height="' + hh + '" rx="14" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4"/><rect x="' + (tx - 8) + '" y="' + (by + hh - 3) + '" width="16" height="6" fill="#fff"/>' + lines(bx + w / 2, by + 24, ls, fsz, C.ink, 700, 21));
         b.style.transformOrigin = ax + "px " + ay + "px";
         this.L.fx.appendChild(b); this.pop(b, 0.35);
-        this.later(g[2] || 2.6, function () { self.anim(b, [{ opacity: 1 }, { opacity: 0 }], 0.25); self.later(0.3, function () { b.remove(); }); });
+        var dur = g[2] || 2.6;
+        var mo = A.body.querySelector(".mouth");
+        if (mo) this.anim(mo, [{ transform: "scaleY(1)" }, { transform: "scaleY(0.3)" }, { transform: "scaleY(1.4)" }, { transform: "scaleY(1)" }], 0.32, { it: Math.max(1, Math.round(Math.min(dur, ls.join(" ").length / 12) / 0.32)), ease: "linear" });
+        var arR = A.body.querySelector(".arm-r");
+        if (arR && !A.carry.length) { this.anim(arR, [{ transform: "rotate(0deg)" }, { transform: "rotate(-50deg)", offset: 0.2 }, { transform: "rotate(-38deg)", offset: 0.5 }, { transform: "rotate(-50deg)", offset: 0.75 }, { transform: "rotate(0deg)" }], Math.min(dur, 2.2), { ease: "ease-in-out" }); }
+        this.later(dur, function () { self.anim(b, [{ opacity: 1 }, { opacity: 0 }], 0.25); self.later(0.3, function () { b.remove(); }); });
         break;
       }
       case "give": {
@@ -353,7 +404,7 @@
       case "clearfx": this.L.fx.innerHTML = ""; break;
       case "pulse": this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.16)" }, { transform: "scale(1)" }], 0.5); break;
       case "shake": this.anim(A.inner, [{ transform: "translateX(0)" }, { transform: "translateX(-7px)" }, { transform: "translateX(7px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }], 0.5); break;
-      case "face": var fc = A.body.querySelector(".face"); if (fc) fc.innerHTML = face(g[1]); this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.05)" }, { transform: "scale(1)" }], 0.3); break;
+      case "face": var fc = A.body.querySelector(".face"); if (fc) { fc.innerHTML = face(g[1]); this.blink(A, 1); } this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.06)" }, { transform: "scale(1)" }], 0.3); break;
       case "tilt": { var bm = A.body.querySelector(".beam"); if (bm) { this.anim(bm, [{ transform: "rotate(" + A.beam + "deg)" }, { transform: "rotate(" + g[1] + "deg)" }], 1, { ease: "cubic-bezier(.4,1.6,.5,1)" }); A.beam = g[1]; } break; }
       case "zap": {
         var zx = A.x, zt = this.top(A);
@@ -387,7 +438,7 @@
       case "count": this.counts.push({ A: A, from: g[1], to: g[2], t0: this.t, d: g[3] || 2, pre: g[4] || "", suf: g[5] || "" }); break;
       case "set": { var nm = A.body.querySelector(g[1] || ".num"); if (nm) { nm.textContent = g[2]; this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.1)" }, { transform: "scale(1)" }], 0.35); } break; }
       case "art": {
-        var o2 = Object.assign({}, A.o, g[1]); A.o = o2; var r2 = art(o2); A.body.innerHTML = r2.svg; A.h = r2.h;
+        var o2 = Object.assign({}, A.o, g[1]); A.o = o2; var r2 = art(o2); A.body.innerHTML = r2.svg; A.h = r2.h; if (r2.hand) A.hand = r2.hand; if (o2.k === "person") this.blink(A, 2);
         this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.1)" }, { transform: "scale(1)" }], 0.4);
         break;
       }
@@ -444,5 +495,5 @@
     this.playing = false; this.rate = 1;
   };
 
-  window.FilmEngine = { Film: Film, FONT: FONT };
+  window.FilmEngine = { Film: Film, FONT: FONT, INTRO: INTRO };
 })();

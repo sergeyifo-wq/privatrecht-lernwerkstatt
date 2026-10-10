@@ -117,6 +117,76 @@ mark, .hl { background: linear-gradient(transparent 55%, var(--mark-soft) 55%); 
 .points { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; max-width: 75ch; }
 .points li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
 .points li::before { content: "§"; font-family: var(--f-display); font-weight: 800; color: var(--brand); }
+/* ── Kompakt / Ausführlich ── */
+.study-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; }
+.study-head h2 { font-size: 22px; font-weight: 700; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.study-head h2 .k { font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+.mode { display: inline-flex; background: var(--sunken); border: 1px solid var(--line); border-radius: 999px; padding: 3px; gap: 2px; }
+.mode button { border: 0; background: transparent; border-radius: 999px; padding: 6px 14px; font-family: var(--f-display); font-weight: 700; font-size: 14px; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.mode button[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); }
+.mode button:not([aria-pressed="true"]):hover { color: var(--ink); }
+.more-cta { justify-self: start; }
+#study { scroll-margin-top: 84px; }
+.dx-toc { display: flex; flex-wrap: wrap; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; }
+.dx-toc .lab { width: 100%; font-family: var(--f-display); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 2px 2px; }
+.dx-toc button { border: 1px solid var(--line); background: var(--paper); border-radius: 8px; padding: 5px 10px; font-family: var(--f-display); font-size: 13.5px; font-weight: 500; text-align: left; line-height: 1.3; }
+.dx-toc button b { font-family: var(--f-mono); font-size: 12px; color: var(--brand); margin-right: 5px; }
+.dx-toc button:hover { border-color: var(--brand); }
+.dx { display: grid; gap: 30px; max-width: 80ch; }
+.dx-sec { display: grid; gap: 14px; scroll-margin-top: 84px; }
+.dx-sec > h3 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; display: flex; gap: 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 2px solid var(--line); }
+.dx-sec > h3 .no { font-family: var(--f-mono); font-size: 14px; font-weight: 700; color: var(--brand-ink); background: var(--brand); border-radius: 6px; padding: 2px 7px; flex: none; }
+.dx-sec p { margin: 0; }
+.dx-sub { font-size: 16px; font-weight: 800; color: var(--brand); margin-top: 6px; letter-spacing: .01em; }
+.dx .nm { font-family: var(--f-display); font-weight: 700; font-size: .93em; color: var(--brand); }
+#study, .dx, .dx-sec, .dx-box, .dx-steps { min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.dx-toc button { max-width: 100%; }
+.dx-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.dx-list li { display: grid; grid-template-columns: 18px 1fr; gap: 8px; }
+.dx-list li::before { content: ""; width: 7px; height: 7px; margin-top: .62em; border-radius: 2px; background: var(--brand); transform: rotate(45deg); justify-self: center; }
+.dx-box { border-radius: var(--r); padding: 14px 16px; display: grid; gap: 6px; border: 1px solid var(--line); border-left-width: 5px; background: var(--surface); }
+.dx-box .lab { font-family: var(--f-display); font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 8px; align-items: center; }
+.dx-box .lab::before { font-size: 14px; letter-spacing: 0; }
+.dx-box .ttl { font-family: var(--f-display); font-weight: 700; font-size: 16.5px; line-height: 1.3; }
+.dx-box.def { border-left-color: var(--brand); background: var(--brand-soft); }
+.dx-box.def .lab { color: var(--brand); } .dx-box.def .lab::before { content: "§"; }
+.dx-box.merke { border-left-color: var(--mark); background: var(--mark-soft); border-color: color-mix(in srgb, var(--mark) 60%, var(--line)); }
+.dx-box.merke .lab { color: var(--ink); } .dx-box.merke .lab::before { content: "★"; }
+.dx-box.bsp { border-left-color: var(--ok); background: var(--ok-soft); }
+.dx-box.bsp .lab { color: var(--ok); } .dx-box.bsp .lab::before { content: "▶"; font-size: 11px; }
+.dx-box.aus { border-left-color: var(--muted); background: var(--sunken); }
+.dx-box.aus .lab { color: var(--muted); } .dx-box.aus .lab::before { content: "↳"; }
+.dx-box.aus.neu { border-left-color: var(--brand); }
+.dx-box.aus.neu .lab { color: var(--brand); } .dx-box.aus.neu .lab::before { content: "NEU"; font-size: 10px; background: var(--brand); color: var(--brand-ink); border-radius: 4px; padding: 1px 5px; }
+.dx-box.fehler { border-left-color: var(--warn); background: var(--warn-soft); }
+.dx-box.fehler .lab { color: var(--warn); } .dx-box.fehler .lab::before { content: "⚠"; }
+.dx-steps { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); padding: 14px 16px; display: grid; gap: 10px; }
+.dx-steps .ttl { font-family: var(--f-display); font-weight: 800; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+.dx-steps .ttl::before { content: "Prüfschema"; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--brand-ink); background: var(--brand); border-radius: 5px; padding: 2px 7px; }
+.dx-steps ol { list-style: none; counter-reset: st; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dx-steps li { counter-increment: st; display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; }
+.dx-steps li::before { content: counter(st); display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--brand); color: var(--brand); font-family: var(--f-display); font-weight: 800; font-size: 13px; }
+.dx-tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.dx-tbl table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.45; }
+.dx-tbl th { font-family: var(--f-display); font-size: 13px; text-align: left; background: var(--sunken); padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+.dx-tbl td { padding: 9px 12px; border-top: 1px solid var(--line); vertical-align: top; min-width: 9ch; }
+.dx-tbl tbody tr:first-child td { border-top: 0; }
+.dx-tbl td:first-child { font-family: var(--f-display); font-weight: 700; font-size: 14px; }
+.dx-tbl tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--sunken) 45%, transparent); }
+@media (max-width: 640px) {
+  .dx-tbl { overflow: visible; border: 0; background: none; }
+  .dx-tbl thead { display: none; }
+  .dx-tbl table, .dx-tbl tbody, .dx-tbl tr, .dx-tbl td { display: block; width: 100%; }
+  .dx-tbl tr { border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); margin-bottom: 8px; overflow: hidden; }
+  .dx-tbl td, .dx-tbl tbody tr:first-child td { border-top: 1px solid var(--line); padding: 8px 12px; min-width: 0; }
+  .dx-tbl td:first-child { border-top: 0; background: var(--sunken) !important; }
+  .dx-tbl tbody tr:nth-child(even) td { background: none; }
+  .dx-tbl td:not(:first-child)[data-l]:not([data-l=""])::before { content: attr(data-l); display: block; font-family: var(--f-display); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .study-head .mode { width: 100%; }
+  .study-head .mode button { flex: 1; justify-content: center; }
+  .dx-box { padding: 12px 13px; }
+}
+.dx-top { justify-self: start; border: 0; background: none; color: var(--brand); font-family: var(--f-display); font-weight: 700; font-size: 13px; padding: 0; }
 .traps { background: var(--warn-soft); border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 8px; }
 .traps h3 { font-size: 15px; color: var(--warn); text-transform: uppercase; letter-spacing: .07em; }
 .traps ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
@@ -408,6 +478,27 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
 <script src="film.js"></script>
 <script src="films.js"></script>
 <script src="questions.js"></script>
+<script src="details/_helpers.js"></script>
+<script src="details/d01.js"></script>
+<script src="details/d02.js"></script>
+<script src="details/d03.js"></script>
+<script src="details/d04.js"></script>
+<script src="details/d05.js"></script>
+<script src="details/d06.js"></script>
+<script src="details/d07.js"></script>
+<script src="details/d08.js"></script>
+<script src="details/d09.js"></script>
+<script src="details/d10.js"></script>
+<script src="details/d11.js"></script>
+<script src="details/d12.js"></script>
+<script src="details/d13.js"></script>
+<script src="details/d14.js"></script>
+<script src="details/d15.js"></script>
+<script src="details/d16.js"></script>
+<script src="details/d17.js"></script>
+<script src="details/d18.js"></script>
+<script src="details/d19.js"></script>
+<script src="details/d20.js"></script>
 <script>
 (function () {
   "use strict";
@@ -502,6 +593,57 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     $("#side-toggle").firstChild.textContent = "Kapitel " + curCh + ": " + chById[curCh].title.split(":")[0] + " ";
   }
 
+  /* ───────── Kompakt / Ausführlich ───────── */
+  var DET = window.DETAILS || {};
+  var mode = store("mode") === "long" ? "long" : "short";
+  function dfmt(s) {
+    return esc(s).replace(/((?:§§?|\bArt) \d+[a-z]?(?: (?:Abs|Z|lit) (?:\d+[a-z]?|[a-z]\b))*(?:(?:, | und | bis |–)\d+[a-z]?(?: (?:Abs|Z|lit) (?:\d+[a-z]?|[a-z]\b))*)*(?: ff)?(?: (?:[A-ZÄÖÜ][A-Za-zÄÖÜäöü-]{0,12}(?:G|O|B|VO|V)\b|AEUV|ABGB))?)/g, '<span class="nm">$1</span>');
+  }
+  function block(b) {
+    if (typeof b === "string") return "<p>" + dfmt(b) + "</p>";
+    var ttl = function (t, dflt) { return t && t !== dflt ? '<div class="ttl">' + dfmt(t) + "</div>" : ""; };
+    switch (b.k) {
+      case "sub": return '<h4 class="dx-sub">' + dfmt(b.h) + "</h4>";
+      case "def": return '<div class="dx-box def"><div class="lab">Definition</div><div class="ttl">' + dfmt(b.h) + "</div><p>" + dfmt(b.t) + "</p></div>";
+      case "merke": return '<div class="dx-box merke"><div class="lab">Merke</div>' + ttl(b.h, "Merke") + "<p>" + dfmt(b.t) + "</p></div>";
+      case "bsp": return '<div class="dx-box bsp"><div class="lab">Beispiel</div>' + ttl(b.h) + "<p>" + dfmt(b.t) + "</p></div>";
+      case "aus": var neu = /(19|20)\d\d/.test(b.h || "");
+        return '<div class="dx-box aus' + (neu ? " neu" : "") + '"><div class="lab">' + (neu ? "Neue Rechtslage" : "Vertiefung") + "</div>" + ttl(b.h) + "<p>" + dfmt(b.t) + "</p></div>";
+      case "fehler": return '<div class="dx-box fehler"><div class="lab">Typischer Fehler</div>' + ttl(b.h, "Typischer Fehler") + "<p>" + dfmt(b.t) + "</p></div>";
+      case "list": return '<ul class="dx-list">' + b.items.map(function (t) { return "<li><span>" + dfmt(t) + "</span></li>"; }).join("") + "</ul>";
+      case "steps": return '<div class="dx-steps"><div class="ttl">' + dfmt(b.h || "") + "</div><ol>" + b.items.map(function (t) { return "<li><span>" + dfmt(t) + "</span></li>"; }).join("") + "</ol></div>";
+      case "table": return '<div class="dx-tbl" tabindex="0"><table><thead><tr>' + b.cols.map(function (t) { return "<th>" + dfmt(t) + "</th>"; }).join("") + "</tr></thead><tbody>" +
+        b.rows.map(function (r) { return "<tr>" + r.map(function (t, j) { return '<td data-l="' + esc(b.cols[j] || "") + '">' + dfmt(t) + "</td>"; }).join("") + "</tr>"; }).join("") + "</tbody></table></div>";
+    }
+    return "";
+  }
+  function words(d) { return JSON.stringify(d).split(/\s+/).length; }
+  function studyHTML(c) {
+    var d = DET[c.id], has = !!(d && d.length), long = has && mode === "long";
+    var tog = has ? '<div class="mode" role="group" aria-label="Umfang des Kapitels"><button data-mode="short" aria-pressed="' + !long + '">Kompakt</button><button data-mode="long" aria-pressed="' + long + '">Ausführlich</button></div>' : "";
+    if (!long) {
+      return '<div class="study-head"><h2>Auf einen Blick <span class="k">Zusammenfassung</span></h2>' + tog + '</div><ul class="points">' + c.points.map(function (p) { return "<li><span>" + esc(p) + "</span></li>"; }).join("") + "</ul>" +
+        (has ? '<button class="btn more-cta" data-mode="long">Ganzes Kapitel ausführlich lesen · ' + d.length + " Abschnitte →</button>" : "");
+    }
+    var min = Math.max(1, Math.round(words(d) / 190));
+    var h = '<div class="study-head"><h2>Ausführlich erklärt <span class="k">' + d.length + " Abschnitte · ca. " + min + " Min. Lesezeit</span></h2>" + tog + "</div>";
+    h += '<nav class="dx-toc" aria-label="Abschnitte"><div class="lab">Inhalt</div>' + d.map(function (s, i) {
+      var m = s.h.match(/^(\d+\.\d+)\s+(.*)$/); return '<button data-jump="dx-' + i + '">' + (m ? "<b>" + m[1] + "</b>" + esc(m[2]) : esc(s.h)) + "</button>";
+    }).join("") + "</nav>";
+    h += '<div class="dx">' + d.map(function (s, i) {
+      var m = s.h.match(/^(\d+\.\d+)\s+(.*)$/);
+      return '<section class="dx-sec" id="dx-' + i + '"><h3>' + (m ? '<span class="no">' + m[1] + "</span><span>" + esc(m[2]) + "</span>" : esc(s.h)) + "</h3>" + s.b.map(block).join("") +
+        (i === d.length - 1 ? '<button class="dx-top" data-jump="study">↑ Zum Inhaltsverzeichnis</button>' : "") + "</section>";
+    }).join("") + "</div>";
+    return h;
+  }
+  function setMode(m, jump) {
+    mode = m; store("mode", m);
+    var s = $("#study"); if (!s) return;
+    s.innerHTML = studyHTML(chById[curCh]);
+    if (jump) s.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function renderArticle() {
     var c = chById[curCh];
     var nQ = QS.filter(function (q) { return q.c === c.id; }).length;
@@ -510,10 +652,10 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     h += '<div class="chips">' + c.norms.map(function (n) { return '<span class="chip">' + esc(n) + '</span>'; }).join("") + '</div>';
     h += '<div class="actions"><button class="btn' + (on ? " ok" : "") + '" id="mark-learned">' + (on ? "✓ Als gelernt markiert" : "Als gelernt markieren") + '</button><button class="btn primary" id="practice-ch">Dieses Kapitel üben · ' + nQ + ' Fragen</button></div></header>';
 
+    h += '<section class="sec" id="study">' + studyHTML(c) + '</section>';
+
     h += '<section class="sec"><h2>Trickfilm <span class="k">' + ((window.FILMS || {})[c.id] || []).length + ' gezeichnete Fälle</span></h2><div class="player" id="filmplayer"></div><div class="player-note">Die Fälle aus dem Buch als Zeichentrick. Pausieren, Szenen springen, Tempo ändern oder vorlesen lassen.</div></section>';
     h += '<section class="sec"><h2>Schaubild-Video <span class="k">' + c.video.length + ' Szenen</span></h2><div class="player" id="player"></div><div class="player-note">Animiertes Erklärvideo: Die Szenen laufen automatisch durch. Mit „Vorlesen“ spricht dein Browser den Text (falls eine deutsche Stimme verfügbar ist).</div></section>';
-
-    h += '<section class="sec"><h2>Auf einen Blick</h2><ul class="points">' + c.points.map(function (p) { return "<li><span>" + esc(p) + "</span></li>"; }).join("") + '</ul></section>';
 
     h += '<section class="sec"><h2>Schaubilder</h2><div class="figs">';
     var isWide = function (f) { return (f.v.type === "table" && f.v.cols.length >= 3) || f.v.type === "tri"; };
@@ -554,6 +696,8 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     if (b.dataset.ch) goChapter(+b.dataset.ch);
     else if (b.dataset.go) goChapter(+b.dataset.go);
     else if (b.dataset.view) setView(b.dataset.view);
+    else if (b.dataset.mode) { if (b.dataset.mode !== mode) setMode(b.dataset.mode, b.classList.contains("more-cta")); }
+    else if (b.dataset.jump) { var tg = document.getElementById(b.dataset.jump); if (tg) tg.scrollIntoView({ behavior: "smooth", block: "start" }); }
     else if (b.id === "side-toggle") { var l = $("#side-list"); l.hidden = !l.hidden; b.setAttribute("aria-expanded", String(!l.hidden)); }
     else if (b.id === "mark-learned") {
       var i = learned.indexOf(curCh); if (i > -1) learned.splice(i, 1); else learned.push(curCh);
@@ -657,7 +801,7 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
   var filmPlayer = (function () {
     var el = null, ch, scenes = [], idx = 0, film = null, playing = false, raf = 0, last = 0, tts = false, subs = true, speed = 1, utter = null, started = false, spoke = false;
     var hasTTS = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-    function D(s) { return Math.max(s.d || 10, s.n.length / 16); }
+    function D(s) { return (window.FilmEngine ? window.FilmEngine.INTRO : 0) + Math.max(s.d || 10, s.n.length / 16); }
     function deVoice() { try { return speechSynthesis.getVoices().filter(function (v) { return /^de(-|_|$)/i.test(v.lang); }).sort(function (a, b) { return (b.lang === "de-AT") - (a.lang === "de-AT"); })[0] || null; } catch (e) { return null; } }
     function mount(node, chapter) {
       stop(); if (film) { film.destroy(); film = null; }
@@ -691,7 +835,8 @@ figure.fig figcaption { font-family: var(--f-display); font-weight: 700; font-si
     function load(i, autoplay) {
       if (film) film.destroy(); cancelSpeech(); spoke = false; idx = i;
       var s = scenes[i];
-      film = new window.FilmEngine.Film($(".fstage", el), s, speed);
+      film = new window.FilmEngine.Film($(".fstage", el), s, speed, { i: i, n: scenes.length });
+      try { $(".fstage", el).animate([{ opacity: 0.2 }, { opacity: 1 }], { duration: 380, easing: "ease-out" }); } catch (e) {}
       $("#fl-scene", el).textContent = (i + 1) + " / " + scenes.length + " · " + s.h;
       paint();
       if (autoplay) { film.play(); if (tts) speak(); }

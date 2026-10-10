@@ -7,6 +7,7 @@ Interaktive Lernplattform zum österreichischen Privatrecht (Basismodul, Rechtss
 ## Inhalt
 
 - **Lernen:** 20 Kapitel (Teil A–H) mit
+  - **Kompakt / Ausführlich:** Umschalter zwischen Kurzfassung und dem vollständigen Kapiteltext (Definitionen, Prüfschemata, Tabellen, Beispiele, Merke-Boxen, typische Fehler)
   - **Trickfilm:** 75 gezeichnete, animierte Szenen zu den Fällen, mit Untertiteln und optionaler Sprachausgabe
   - **Schaubild-Video** und **Schaubilder** (Stufenbau, Vertretungsdreieck, Prüfschemata, Tabellen)
   - **Auf einen Blick**, **Klausurfallen** und **Fälle mit Lösung**
@@ -23,6 +24,7 @@ Reines HTML/CSS/JavaScript ohne Build-Schritt. Lernfortschritt und Klausurverlau
 | `questions.js` | Fragenpool |
 | `film.js` | Trickfilm-Engine (SVG-Figuren, Zeitleiste, Effekte) |
 | `films.js` | Drehbücher der Trickfilme |
+| `details/dNN.js` | Ausführliche Fassung je Kapitel |
 
 Lokal starten: `index.html` im Browser öffnen.
 
