@@ -8,6 +8,8 @@
 
   function esc(s) { return String(s).replace(/[&<>"']/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]; }); }
   function $(s, r) { return (r || document).querySelector(s); }
+  /* weiche Trennstellen in langen Gesetzesnamen („Verbrauchergewährleistungs-gesetz“) */
+  function shy(t) { return esc(t).replace(/([A-Za-zÄÖÜäöüß]{9,}?)(gesetz|gesetzbuch|ordnung|vertrags|geschäfte|vertrauens)/g, "$1­$2"); }
   function has(law, key) { return !!(KEYS[law] && KEYS[law].has(key)); }
   function hasArt(law) { return !!(BY[law] && BY[law].keys.some(function (k) { return /^a\d/.test(k); })); }
   function lawOf(text) { var m = /\b([A-ZÄÖÜ][A-Za-zÄÖÜäöü-]{0,12}(?:G|O|B|VO|V)|AEUV|ABGB)\s*$/.exec(text || ""); return m ? m[1] : null; }
@@ -196,7 +198,7 @@
       h += "<h4>" + esc(g) + "</h4>";
       ls.forEach(function (l) {
         var n = citedCount(l.k);
-        h += '<button class="lawbtn" data-law-open="' + esc(l.k) + '"' + (cur === l.k ? ' aria-current="true"' : "") + '><span class="ab">' + esc(l.k) + '</span><span class="nm2">' + esc(l.t) + "</span>" + (n ? '<span class="cn" title="' + n + ' Paragraphen im Kurs zitiert">' + n + "</span>" : "<span></span>") + "</button>";
+        h += '<button class="lawbtn" data-law-open="' + esc(l.k) + '"' + (cur === l.k ? ' aria-current="true"' : "") + '><span class="ab">' + esc(l.k) + '</span><span class="nm2">' + shy(l.t) + "</span>" + (n ? '<span class="cn" title="' + n + ' Paragraphen im Kurs zitiert">' + n + "</span>" : "<span></span>") + "</button>";
       });
     });
     return h || '<p class="empty">Kein Gesetz gefunden.</p>';
@@ -210,7 +212,7 @@
       h += '<section class="sec"><h2>' + esc(g) + '</h2><div class="lawgrid">';
       IDX.filter(function (l) { return l.g === g; }).forEach(function (l) {
         var n = citedCount(l.k);
-        h += '<button class="lawcard" data-law-open="' + esc(l.k) + '"><b>' + esc(l.k) + "</b><span>" + esc(l.t) + '</span><small>' + l.n + " Normen" + (n ? " · <em>" + n + " im Kurs zitiert</em>" : "") + "</small></button>";
+        h += '<button class="lawcard" data-law-open="' + esc(l.k) + '"><b>' + esc(l.k) + "</b><span>" + shy(l.t) + '</span><small>' + l.n + " Normen" + (n ? " · <em>" + n + " im Kurs zitiert</em>" : "") + "</small></button>";
       });
       h += "</div></section>";
     });

@@ -3,8 +3,10 @@
 (function () {
   "use strict";
   var NS = "http://www.w3.org/2000/svg";
-  var C = { ink: "#1b2440", skin: "#f3c9a4", paper: "#fffdf6", navy: "#1d3a8f", blue: "#2f56c8", yellow: "#ffd23f", red: "#e04848", green: "#2e9d62", grey: "#8a94ad", brown: "#9a6a43", gold: "#e0a800", white: "#ffffff" };
-  var FONT = "'Bricolage Grotesque','Segoe UI',system-ui,sans-serif";
+  /* Blau-Töne der Drehbücher in die warme Rampe Anthrazit → Rost → Orange übersetzen */
+  var BLOCKCOL = { "#131c33": "#1d1c1a", "#1d3a8f": "#4a2510", "#2f56c8": "#8a3608", "#6f8ff0": "#c84c0b", "#8fb3ff": "#f2a46d", "#e3e9f5": "#efe4cb", "#8a94ad": "#8f8a7c" };
+  var C = { ink: "#1d1c1a", skin: "#f3c9a4", paper: "#fbf4e2", navy: "#2b2a27", sig: "#ff6200", blue: "#2f56c8", yellow: "#ffd23f", red: "#e04848", green: "#2e9d62", grey: "#8a94ad", brown: "#9a6a43", gold: "#e0a800", white: "#ffffff" };
+  var FONT = "'Archivo','Arial Narrow',system-ui,sans-serif";
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]; }); }
   function wrap(s, n) {
@@ -120,7 +122,7 @@
       h += '<rect x="-14" y="-34" width="28" height="34" rx="3" fill="' + C.ink + '"/>';
       return { svg: h, h: hh };
     },
-    house: function (o) { return { svg: '<rect x="-64" y="-90" width="128" height="90" fill="' + (o.c || "#f4d9b0") + '" stroke="' + C.ink + '" stroke-width="2"/><path d="M-78 -88 L0 -150 L78 -88Z" fill="' + (o.roof || "#c0504d") + '" stroke="' + C.ink + '" stroke-width="2"/><rect x="-14" y="-48" width="28" height="48" fill="#7a5235"/><g class="win"><rect x="-52" y="-74" width="28" height="24" fill="#bfe0ff" stroke="' + C.ink + '" stroke-width="2"/><rect x="24" y="-74" width="28" height="24" fill="#bfe0ff" stroke="' + C.ink + '" stroke-width="2"/></g>' + (o.s ? '<rect x="-40" y="-122" width="80" height="20" rx="4" fill="#fff"/>' + txt(0, -107, o.s, 11, C.ink, 800) : ""), h: 150 }; },
+    house: function (o) { return { svg: '<rect x="-64" y="-90" width="128" height="90" fill="' + (o.c || "#f4d9b0") + '" stroke="' + C.ink + '" stroke-width="2"/><path d="M-78 -88 L0 -150 L78 -88Z" fill="' + (o.roof || "#c0504d") + '" stroke="' + C.ink + '" stroke-width="2"/><rect x="-14" y="-48" width="28" height="48" fill="#7a5235"/><g class="win"><rect x="-52" y="-74" width="28" height="24" fill="#bfe0ff" stroke="' + C.ink + '" stroke-width="2"/><rect x="24" y="-74" width="28" height="24" fill="#bfe0ff" stroke="' + C.ink + '" stroke-width="2"/></g>' + (o.s ? (function () { var sw = Math.max(80, tw(o.s, 11) + 16); return '<rect x="' + (-sw / 2) + '" y="-122" width="' + sw + '" height="20" rx="3" fill="#fff" stroke="' + C.ink + '" stroke-width="1.2"/>' + txt(0, -107, o.s, 11, C.ink, 800); })() : ""), h: 150 }; },
     car: function (o) { var c = o.c || C.red; return { svg: '<path d="M-74 -18 L-74 -40 Q-70 -50 -54 -52 L-34 -74 L30 -74 L52 -52 Q72 -50 76 -36 L76 -18Z" fill="' + c + '" stroke="' + C.ink + '" stroke-width="2"/><path d="M-28 -68 L-12 -68 L-12 -52 L-44 -52Z M-4 -68 L26 -68 L42 -52 L-4 -52Z" fill="#cfe4ff"/>' + (o.s ? '<rect x="-30" y="-46" width="60" height="16" rx="3" fill="#fff"/>' + txt(0, -34, o.s, 10, C.navy, 800) : "") + '<circle cx="-44" cy="-16" r="15" fill="' + C.ink + '"/><circle cx="-44" cy="-16" r="6" fill="#ccc"/><circle cx="46" cy="-16" r="15" fill="' + C.ink + '"/><circle cx="46" cy="-16" r="6" fill="#ccc"/>' + (o.dent ? '<path d="M48 -60 l8 10 l-10 4 l8 10" stroke="' + C.ink + '" stroke-width="2.5" fill="none"/>' : ""), h: 76 }; },
     truck: function (o) { return { svg: '<rect x="-90" y="-96" width="130" height="80" rx="8" fill="' + (o.c || "#f2a541") + '" stroke="' + C.ink + '" stroke-width="2"/><rect x="-74" y="-80" width="70" height="34" rx="3" fill="#fff4dc"/><path d="M40 -80 L70 -80 L88 -50 L88 -16 L40 -16Z" fill="' + (o.c || "#f2a541") + '" stroke="' + C.ink + '" stroke-width="2"/><path d="M46 -74 L66 -74 L78 -54 L46 -54Z" fill="#cfe4ff"/>' + txt(-39, -58, o.s || "", 13, C.ink, 800) + '<circle cx="-56" cy="-14" r="14" fill="' + C.ink + '"/><circle cx="56" cy="-14" r="14" fill="' + C.ink + '"/>', h: 96 }; },
     bike: function (o) { var c = o.c || C.blue; return { svg: '<g stroke="' + C.ink + '" stroke-width="4" fill="none"><circle cx="-34" cy="-22" r="20"/><circle cx="34" cy="-22" r="20"/></g><path d="M-34 -22 L-8 -54 L24 -54 L34 -22 M-8 -54 L4 -22 L24 -54 M-14 -62 L-2 -62 M24 -54 L22 -68 L32 -70" stroke="' + c + '" stroke-width="5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>', h: 70 }; },
@@ -153,7 +155,7 @@
     light: function (o) { var r = o.state === "red"; return { svg: '<rect x="-4" y="-80" width="8" height="80" fill="' + C.ink + '"/><rect x="-16" y="-150" width="32" height="74" rx="8" fill="' + C.ink + '"/><circle cx="0" cy="-132" r="10" fill="' + (r ? "#ff5a4f" : "#5a2a2a") + '"/><circle cx="0" cy="-102" r="10" fill="' + (r ? "#1f4d2f" : "#4cdc7f") + '"/>', h: 150 }; },
     bulb: function () { return { svg: '<circle cx="0" cy="-50" r="26" fill="' + C.yellow + '" stroke="' + C.ink + '" stroke-width="2"/><rect x="-12" y="-26" width="24" height="18" rx="3" fill="' + C.grey + '"/><path d="M-8 -54 L0 -44 L8 -54" stroke="#b07f00" stroke-width="2" fill="none"/>', h: 76 }; },
     cert: function (o) { return { svg: '<rect x="-50" y="-70" width="100" height="70" rx="4" fill="' + C.paper + '" stroke="' + C.gold + '" stroke-width="4"/>' + txt(0, -46, o.s || "URKUNDE", 12, C.navy, 800) + '<rect x="-30" y="-36" width="60" height="3" fill="#c3cad9"/><circle cx="30" cy="-12" r="11" fill="' + C.red + '"/><path d="M24 -2 L22 12 L30 6 L38 12 L36 -2" fill="' + C.red + '"/>', h: 70 }; },
-    block: function (o) { var w = o.w || 140, hh = o.h || 44, dark = o.dark !== false; return { svg: '<rect x="' + (-w / 2) + '" y="' + (-hh) + '" width="' + w + '" height="' + hh + '" rx="8" fill="' + (o.c || C.navy) + '" stroke="' + C.ink + '" stroke-width="2"/>' + lines(0, -hh / 2 + 5 - (wrap(o.s || "", Math.floor(w / 8)).length - 1) * 7, wrap(o.s || "", Math.floor(w / 8)), 13, dark ? "#fff" : C.ink, 800, 14), h: hh }; },
+    block: function (o) { var w = o.w || 140, hh = o.h || 44, dark = o.dark !== false, fill = BLOCKCOL[String(o.c || "").toLowerCase()] || o.c || C.navy; return { svg: '<rect x="' + (-w / 2) + '" y="' + (-hh) + '" width="' + w + '" height="' + hh + '" rx="3" fill="' + fill + '" stroke="' + C.ink + '" stroke-width="2"/>' + lines(0, -hh / 2 + 5 - (wrap(o.s || "", Math.floor(w / 8)).length - 1) * 7, wrap(o.s || "", Math.floor(w / 8)), 13, dark ? "#fff" : C.ink, 800, 14), h: hh }; },
     safe: function () { return { svg: '<rect x="-40" y="-80" width="80" height="80" rx="6" fill="#7d879f" stroke="' + C.ink + '" stroke-width="2"/><circle cx="0" cy="-40" r="16" fill="#c9d2e6" stroke="' + C.ink + '" stroke-width="2"/><path d="M0 -40 L0 -52" stroke="' + C.ink + '" stroke-width="3"/>', h: 80 }; },
     heart: function () { return { svg: '<path d="M0 -6 C-30 -26 -26 -54 -10 -54 C-4 -54 0 -48 0 -44 C0 -48 4 -54 10 -54 C26 -54 30 -26 0 -6Z" fill="' + C.red + '"/>', h: 54 }; },
     pot: function () { return { svg: '<rect x="-34" y="-40" width="68" height="40" rx="6" fill="#c9d2e6" stroke="' + C.ink + '" stroke-width="2"/><rect x="-40" y="-46" width="80" height="8" rx="3" fill="' + C.ink + '"/><path d="M-34 -30 L-46 -30 M34 -30 L46 -30" stroke="' + C.ink + '" stroke-width="5"/>', h: 46 }; },
@@ -179,7 +181,7 @@
 
   /* ───────── Kulissen ───────── */
   function bg(kind) {
-    var sky = '<rect width="800" height="450" fill="url(#fSky)"/>', ground = function (c) { return '<rect y="390" width="800" height="60" fill="' + (c || "#c9d4ea") + '"/><rect y="388" width="800" height="4" fill="#aab6d3"/>'; };
+    var sky = '<rect width="800" height="450" fill="url(#fSky)"/>', ground = function (c) { return '<rect y="390" width="800" height="60" fill="' + (c || "#d9c69b") + '"/><rect y="388" width="800" height="4" fill="#bfa977"/>'; };
     var h = "";
     switch (kind) {
       case "shop":
@@ -187,39 +189,39 @@
         for (var s = 0; s < 3; s++) { h += '<rect x="40" y="' + (90 + s * 70) + '" width="360" height="8" fill="#b98a5c"/>'; for (var p = 0; p < 9; p++) h += '<rect x="' + (50 + p * 38) + '" y="' + (58 + s * 70) + '" width="28" height="32" rx="3" fill="' + ["#f2a541", "#3ab0c4", "#e4572e", "#9b5de5", "#2e9d62"][(p + s) % 5] + '" opacity=".75"/>'; }
         h += ground("#dcc6a6") + '<rect x="470" y="300" width="320" height="90" fill="#b3835a" stroke="' + C.ink + '" stroke-width="2"/><rect x="460" y="292" width="340" height="12" rx="3" fill="#8f6440"/>';
         break;
-      case "room": h = '<rect width="800" height="450" fill="#e9eefb"/><rect x="70" y="70" width="170" height="150" fill="#bfe0ff" stroke="#fff" stroke-width="10"/><path d="M155 70 L155 220 M70 145 L240 145" stroke="#fff" stroke-width="6"/><rect x="560" y="90" width="120" height="90" fill="#f4d9b0" stroke="#d9a441" stroke-width="6"/>' + ground("#cfb895"); break;
-      case "office": h = '<rect width="800" height="450" fill="#e6ecf7"/><rect x="60" y="60" width="260" height="170" fill="#cfe4ff" stroke="#fff" stroke-width="10"/><rect x="80" y="140" width="40" height="90" fill="#b8c6e6"/><rect x="130" y="110" width="50" height="120" fill="#a9b8dc"/><rect x="190" y="150" width="40" height="80" fill="#b8c6e6"/><rect x="240" y="120" width="60" height="110" fill="#a9b8dc"/>' + ground("#c9d0e2") + '<rect x="500" y="320" width="270" height="14" rx="3" fill="#8f6440"/><rect x="520" y="334" width="10" height="56" fill="#8f6440"/><rect x="740" y="334" width="10" height="56" fill="#8f6440"/>'; break;
+      case "room": h = '<rect width="800" height="450" fill="#f1e7cf"/><rect x="70" y="70" width="170" height="150" fill="#bfe0ff" stroke="#fff" stroke-width="10"/><path d="M155 70 L155 220 M70 145 L240 145" stroke="#fff" stroke-width="6"/><rect x="560" y="90" width="120" height="90" fill="#f4d9b0" stroke="#d9a441" stroke-width="6"/>' + ground("#cfb895"); break;
+      case "office": h = '<rect width="800" height="450" fill="#ece3cc"/><rect x="60" y="60" width="260" height="170" fill="#f6d9b8" stroke="#fff" stroke-width="10"/><rect x="80" y="140" width="40" height="90" fill="#d9b894"/><rect x="130" y="110" width="50" height="120" fill="#cfa985"/><rect x="190" y="150" width="40" height="80" fill="#d9b894"/><rect x="240" y="120" width="60" height="110" fill="#cfa985"/>' + ground("#d6c8a6") + '<rect x="500" y="320" width="270" height="14" rx="3" fill="#8f6440"/><rect x="520" y="334" width="10" height="56" fill="#8f6440"/><rect x="740" y="334" width="10" height="56" fill="#8f6440"/>'; break;
       case "park": h = sky + '<path d="M0 330 Q200 270 400 320 T800 300 L800 390 L0 390Z" fill="#9fd4a4"/>' + ground("#bfe3b4") + '<path d="M300 450 Q400 400 520 390" stroke="#e8dcc0" stroke-width="40" fill="none"/>'; break;
       case "garden": h = sky + '<rect y="300" width="800" height="90" fill="#8cc78f"/>' + ground("#a9d89a"); break;
       case "court": h = '<rect width="800" height="450" fill="#ece6da"/><rect x="60" y="40" width="680" height="46" fill="#d6cdb9"/>' + txt(400, 72, "GERICHT", 24, "#7a6a4f", 800);
         for (var c = 0; c < 6; c++) h += '<rect x="' + (90 + c * 120) + '" y="96" width="30" height="292" fill="#f7f2e8" stroke="#cfc4ad" stroke-width="2"/>';
         h += ground("#cfc4ad"); break;
-      case "bank": h = '<rect width="800" height="450" fill="#e3e9f5"/><rect x="60" y="40" width="680" height="46" fill="#c6d0e6"/>' + txt(400, 72, "BANK", 24, C.navy, 800);
-        for (var b = 0; b < 6; b++) h += '<rect x="' + (90 + b * 120) + '" y="96" width="30" height="292" fill="#f4f7fd" stroke="#c6d0e6" stroke-width="2"/>';
-        h += ground("#c6d0e6"); break;
-      case "night": h = '<rect width="800" height="450" fill="#18213f"/><circle cx="680" cy="80" r="34" fill="#f6f1c7"/><circle cx="668" cy="72" r="34" fill="#18213f"/>';
+      case "bank": h = '<rect width="800" height="450" fill="#ebe2cc"/><rect x="60" y="40" width="680" height="46" fill="#d8cba8"/>' + txt(400, 72, "BANK", 24, C.navy, 800);
+        for (var b = 0; b < 6; b++) h += '<rect x="' + (90 + b * 120) + '" y="96" width="30" height="292" fill="#f7f0de" stroke="#d8cba8" stroke-width="2"/>';
+        h += ground("#d8cba8"); break;
+      case "night": h = '<rect width="800" height="450" fill="#1c1c24"/><circle cx="680" cy="80" r="34" fill="#f6f1c7"/><circle cx="668" cy="72" r="34" fill="#1c1c24"/>';
         for (var n = 0; n < 24; n++) h += '<circle cx="' + ((n * 97) % 800) + '" cy="' + (20 + (n * 53) % 160) + '" r="1.6" fill="#fff" opacity=".7"/>';
-        h += '<rect x="40" y="200" width="120" height="190" fill="#24305a"/><rect x="190" y="160" width="90" height="230" fill="#2a3768"/><rect x="560" y="210" width="140" height="180" fill="#24305a"/>' + ground("#2b3557"); break;
-      case "lake": h = sky + '<path d="M0 260 L120 170 L220 240 L330 150 L470 250 L600 180 L800 260 L800 300 L0 300Z" fill="#a9b8dc"/><rect y="290" width="800" height="100" fill="#8fc3e8"/><path d="M40 330 q20 -6 40 0 M300 350 q20 -6 40 0 M600 320 q20 -6 40 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/>' + ground("#d8c3a5"); break;
-      case "world": h = '<rect width="400" height="450" fill="#e7efff"/><rect x="400" width="400" height="450" fill="#fff3e3"/><path d="M400 0 L400 450" stroke="' + C.ink + '" stroke-width="3" stroke-dasharray="10 10"/>' + ground("#d7dce8"); break;
+        h += '<rect x="40" y="200" width="120" height="190" fill="#2a2a33"/><rect x="190" y="160" width="90" height="230" fill="#32323d"/><rect x="560" y="210" width="140" height="180" fill="#2a2a33"/>' + ground("#2c2c34"); break;
+      case "lake": h = sky + '<path d="M0 260 L120 170 L220 240 L330 150 L470 250 L600 180 L800 260 L800 300 L0 300Z" fill="#c2b08a"/><rect y="290" width="800" height="100" fill="#8fc3e8"/><path d="M40 330 q20 -6 40 0 M300 350 q20 -6 40 0 M600 320 q20 -6 40 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/>' + ground("#d8c3a5"); break;
+      case "world": h = '<rect width="400" height="450" fill="#ece4cf"/><rect x="400" width="400" height="450" fill="#fff3e3"/><path d="M400 0 L400 450" stroke="' + C.ink + '" stroke-width="3" stroke-dasharray="10 10"/>' + ground("#d9cfb3"); break;
       case "party": h = '<rect width="800" height="450" fill="#fdeef3"/>';
         for (var g = 0; g < 16; g++) h += '<path d="M' + (g * 50) + ' 30 L' + (g * 50 + 50) + ' 30 L' + (g * 50 + 25) + ' 62Z" fill="' + ["#f7a8c4", "#ffd23f", "#8fb3ff", "#9fe0b4"][g % 4] + '"/>';
         h += '<path d="M0 30 L800 30" stroke="' + C.ink + '" stroke-width="2"/>' + ground("#e9cfda") + '<rect x="300" y="300" width="200" height="12" rx="3" fill="#fff" stroke="' + C.ink + '" stroke-width="2"/><rect x="310" y="312" width="8" height="78" fill="#fff"/><rect x="482" y="312" width="8" height="78" fill="#fff"/>'; break;
-      case "fair": h = '<rect width="800" height="450" fill="#eef1f8"/>';
+      case "fair": h = '<rect width="800" height="450" fill="#efe7d3"/>';
         for (var f = 0; f < 4; f++) h += '<rect x="' + (20 + f * 200) + '" y="90" width="170" height="40" fill="' + ["#2f56c8", "#e4572e", "#2e9d62", "#9b5de5"][f] + '"/><rect x="' + (20 + f * 200) + '" y="130" width="170" height="10" fill="#fff" opacity=".6"/>';
-        h += txt(400, 60, "MÖBELMESSE", 22, C.ink, 800) + ground("#d6dbea"); break;
-      case "stairs": h = '<rect width="800" height="450" fill="#ece8f3"/>';
-        for (var st = 0; st < 7; st++) h += '<rect x="' + (440 + st * 50) + '" y="' + (390 - (st + 1) * 34) + '" width="' + (360 - st * 50) + '" height="34" fill="#cfc6e0" stroke="#a99fc4" stroke-width="2"/>';
-        h += ground("#cfc6e0"); break;
-      case "lab": h = '<rect width="800" height="450" fill="#e8f3f3"/><rect x="40" y="260" width="300" height="12" fill="#7d879f"/><rect x="60" y="210" width="30" height="50" rx="4" fill="#9fe0d8" stroke="' + C.ink + '"/><rect x="110" y="190" width="24" height="70" rx="4" fill="#ffd8a8" stroke="' + C.ink + '"/>' + ground("#cde3e3"); break;
+        h += txt(400, 60, "MÖBELMESSE", 22, C.ink, 800) + ground("#d9cdb0"); break;
+      case "stairs": h = '<rect width="800" height="450" fill="#eee5d2"/>';
+        for (var st = 0; st < 7; st++) h += '<rect x="' + (440 + st * 50) + '" y="' + (390 - (st + 1) * 34) + '" width="' + (360 - st * 50) + '" height="34" fill="#d8c9a6" stroke="#b9a77f" stroke-width="2"/>';
+        h += ground("#d8c9a6"); break;
+      case "lab": h = '<rect width="800" height="450" fill="#ebe6d6"/><rect x="40" y="260" width="300" height="12" fill="#7d879f"/><rect x="60" y="210" width="30" height="50" rx="4" fill="#9fe0d8" stroke="' + C.ink + '"/><rect x="110" y="190" width="24" height="70" rx="4" fill="#ffd8a8" stroke="' + C.ink + '"/>' + ground("#d8d0b8"); break;
       default: h = '<rect width="800" height="450" fill="url(#fSky)"/>';
-        for (var dx = 0; dx < 800; dx += 40) for (var dy = 20; dy < 390; dy += 40) h += '<circle cx="' + dx + '" cy="' + dy + '" r="1.4" fill="#9fb0d4" opacity=".5"/>';
-        h += ground("#d7deee");
+        for (var dx = 0; dx < 800; dx += 40) for (var dy = 20; dy < 390; dy += 40) h += '<circle cx="' + dx + '" cy="' + dy + '" r="1.4" fill="#c4ab73" opacity=".55"/>';
+        h += ground("#dccca5");
     }
     return h;
   }
 
-  var DEFS = '<defs><linearGradient id="fSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd3ff"/><stop offset="1" stop-color="#eef3ff"/></linearGradient>' +
+  var DEFS = '<defs><linearGradient id="fSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0dcae"/><stop offset="1" stop-color="#f8f0dc"/></linearGradient>' +
     '<marker id="fArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="context-stroke"/></marker></defs>';
 
   /* ───────── Laufzeit ───────── */
@@ -240,14 +242,15 @@
     var svg = this.svg, sc = this.sc, self = this;
     svg.innerHTML = DEFS + bg(sc.bg);
     if (SKY[sc.bg] || !sc.bg) this.clouds();
-    this.L = { actors: el("g", {}), fx: el("g", {}), ui: el("g", {}) };
-    svg.appendChild(this.L.actors); svg.appendChild(this.L.fx); svg.appendChild(this.L.ui);
+    /* Ebenen von unten nach oben: Figuren · Pfeile/Marken · Namensschilder · Sprechblasen · Einblendungen */
+    this.L = { actors: el("g", {}), fx: el("g", {}), tags: el("g", {}), talk: el("g", {}), ui: el("g", {}) };
+    ["actors", "fx", "tags", "talk", "ui"].forEach(function (k) { svg.appendChild(self.L[k]); });
     this.A = {};
     Object.keys(sc.actors).forEach(function (id, n) {
       var o = sc.actors[id], r = art(o);
       var g = el("g", { "class": "fa" }), inner = el("g", {}), body = el("g", {}, r.svg);
       var sw = o.k === "person" ? (o.kid ? 23 : 31) : Math.min(80, Math.max(16, (o.w || ({ car: 150, truck: 180, house: 140, building: 130, bike: 90, boat: 180, crowd: 170, scales: 70, block: 140 }[o.k] || 50)) / 2));
-      if (o.y >= 380 && o.k !== "flag" && o.k !== "sign" && o.k !== "light") g.appendChild(el("ellipse", { cx: 0, cy: 3, rx: sw, ry: 6, fill: "#1b2440", opacity: 0.14 }));
+      if (o.y >= 380 && o.k !== "flag" && o.k !== "sign" && o.k !== "light") g.appendChild(el("ellipse", { cx: 0, cy: 3, rx: sw, ry: 6, fill: C.ink, opacity: 0.16 }));
       inner.appendChild(body); g.appendChild(inner);
       var lab = null;
       if (o.name) { lab = el("text", { x: 0, y: 24, "font-size": 15, "font-weight": 800, fill: C.ink, "text-anchor": "middle", stroke: "#fff", "stroke-width": 5, "paint-order": "stroke", "stroke-linejoin": "round" }); lab.textContent = o.name; g.appendChild(lab); }
@@ -277,8 +280,17 @@
   };
   Film.prototype.titleCard = function () {
     var i = this.info, card = el("g", {}), self = this, t = wrap(this.sc.h, 30);
-    var hh = 70 + t.length * 34;
-    card.innerHTML = '<rect width="800" height="450" fill="#0e1526" opacity=".72"/><g transform="translate(400,' + (225 - hh / 2) + ')"><rect x="-260" y="0" width="520" height="' + hh + '" rx="18" fill="#fffdf6" stroke="#1b2440" stroke-width="3"/><rect x="-74" y="-16" width="148" height="32" rx="16" fill="' + C.yellow + '" stroke="#1b2440" stroke-width="2"/>' + txt(0, 6, "SZENE " + (i.i + 1) + " / " + i.n, 15, C.ink, 800, "middle", ' letter-spacing="1.5"') + lines(0, 58, t, 30, C.navy, 800, 34) + "</g>";
+    var hh = 84 + t.length * 34, pad = function (n) { return (n < 10 ? "0" : "") + n; };
+    var mono = ' font-family="Share Tech Mono, ui-monospace, monospace" font-weight="400" letter-spacing="1.6"';
+    var mk = function (x, y, dx, dy) { return '<path d="M' + x + ' ' + (y + dy * 14) + ' L' + x + ' ' + y + ' L' + (x + dx * 14) + ' ' + y + '" stroke="#141413" stroke-width="2" fill="none"/>'; };
+    card.innerHTML = '<rect width="800" height="450" fill="#141413" opacity=".8"/><g transform="translate(400,' + (225 - hh / 2) + ')">' +
+      '<rect x="-280" y="0" width="560" height="' + hh + '" fill="' + C.sig + '"/>' +
+      mk(-268, 12, 1, 1) + mk(268, 12, -1, 1) + mk(-268, hh - 12, 1, -1) + mk(268, hh - 12, -1, -1) +
+      '<text x="-246" y="34" font-size="13" fill="#141413" text-anchor="start"' + mono + '>SZENE ' + pad(i.i + 1) + ' / ' + pad(i.n) + '</text>' +
+      '<rect x="-4" y="25" width="8" height="8" fill="#141413"/>' +
+      '<text x="246" y="34" font-size="13" fill="#141413" text-anchor="end"' + mono + '>STATUS: LÄUFT</text>' +
+      '<path d="M-280 46 H280" stroke="#141413" stroke-width="1" stroke-dasharray="5 5" opacity=".55"/>' +
+      lines(0, 78, t, 30, "#141413", 800, 34) + "</g>";
     this.L.ui.appendChild(card);
     card._tr = "";
     this.anim(card, [{ opacity: 0 }, { opacity: 1 }], 0.3);
@@ -311,7 +323,7 @@
   Film.prototype.top = function (A) { return A.y - A.h; };
   Film.prototype.pill = function (x, y, s, bgc, fg, fs) {
     fs = fs || 13; var w = tw(s, fs) + 20, g = el("g", {});
-    g.innerHTML = '<rect x="' + (-w / 2) + '" y="' + (-fs - 4) + '" width="' + w + '" height="' + (fs + 12) + '" rx="' + ((fs + 12) / 2) + '" fill="' + bgc + '" stroke="' + C.ink + '" stroke-width="1.5"/>' + txt(0, 0, s, fs, fg || "#fff", 800);
+    g.innerHTML = '<rect x="' + (-w / 2) + '" y="' + (-fs - 4) + '" width="' + w + '" height="' + (fs + 12) + '" rx="3" fill="' + bgc + '" stroke="' + C.ink + '" stroke-width="1.5"/>' + txt(0, 0, s, fs, fg || "#fff", 800);
     g._tr = tr(Math.max(w / 2 + 6, Math.min(800 - w / 2 - 6, x)), y);
     g.style.transform = g._tr;
     return g;
@@ -346,16 +358,35 @@
         var fsz = 17, ls = wrap(g[1], 22), w = Math.min(330, Math.max(76, Math.max.apply(null, ls.map(function (l) { return tw(l, fsz); })) + 30)), hh = ls.length * 21 + 18;
         var ntag = Object.keys(A.tags).length;
         var ax = A.x, ay = this.top(A) - 6 - ntag * 30, bx = Math.max(8, Math.min(792 - w, ax - w / 2)), by = Math.max(6, ay - hh - 16);
+        /* dieselbe Figur spricht erneut: alte Blase sofort weg */
+        if (A.bub && A.bub.g.isConnected) A.bub.g.remove();
+        this.bubs = (this.bubs || []).filter(function (o) { return o.g.isConnected; });
+        /* andere sichtbare Blasen nicht überdecken: zur Seite, sonst nach oben ausweichen */
+        var hitB = function (x, y) { return self.bubs.filter(function (o) { return x < o.x + o.w + 8 && x + w + 8 > o.x && y < o.y + o.h + 8 && y + hh + 8 > o.y; })[0]; };
+        for (var tries = 0, hb; tries < 4 && (hb = hitB(bx, by)); tries++) {
+          /* Ausweichmöglichkeiten: links, rechts, oben – die mit dem kürzesten Weg gewinnt */
+          var opts = [[hb.x - 10 - w, by], [hb.x + hb.w + 10, by], [bx, hb.y - hh - 10]].filter(function (c) { return c[0] >= 8 && c[0] + w <= 792 && c[1] >= 6; });
+          var free = opts.filter(function (c) { return !hitB(c[0], c[1]); });
+          var pick = (free.length ? free : opts).sort(function (m, n) { return (Math.abs(m[0] - bx) + Math.abs(m[1] - by)) - (Math.abs(n[0] - bx) + Math.abs(n[1] - by)); })[0];
+          if (!pick) break;
+          bx = pick[0]; by = pick[1];
+        }
         var tx = Math.max(bx + 16, Math.min(bx + w - 16, ax));
-        var b = el("g", {}, '<rect x="' + (bx + 3) + '" y="' + (by + 4) + '" width="' + w + '" height="' + hh + '" rx="14" fill="#1b2440" opacity=".18"/><path d="M' + (tx - 9) + " " + (by + hh - 1) + " L" + ax + " " + (ay) + " L" + (tx + 9) + " " + (by + hh - 1) + 'Z" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4" stroke-linejoin="round"/><rect x="' + bx + '" y="' + by + '" width="' + w + '" height="' + hh + '" rx="14" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4"/><rect x="' + (tx - 8) + '" y="' + (by + hh - 3) + '" width="16" height="6" fill="#fff"/>' + lines(bx + w / 2, by + 24, ls, fsz, C.ink, 700, 21));
+        /* ein Stempel, der die neue Blase verdecken würde, tritt ab */
+        this.stamps = (this.stamps || []).filter(function (o) { return o.g.isConnected; });
+        this.stamps.forEach(function (o) {
+          if (bx < o.x + o.w && bx + w > o.x && by < o.y + o.h && by + hh > o.y) { self.anim(o.g, [{ opacity: 1 }, { opacity: 0 }], 0.3); self.later(0.32, function () { o.g.remove(); }); o.g.setAttribute("data-gone", "1"); }
+        });
+        var b = el("g", {}, '<rect x="' + (bx + 3) + '" y="' + (by + 4) + '" width="' + w + '" height="' + hh + '" rx="14" fill="' + C.ink + '" opacity=".18"/><path d="M' + (tx - 9) + " " + (by + hh - 1) + " L" + ax + " " + (ay) + " L" + (tx + 9) + " " + (by + hh - 1) + 'Z" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4" stroke-linejoin="round"/><rect x="' + bx + '" y="' + by + '" width="' + w + '" height="' + hh + '" rx="14" fill="#fff" stroke="' + C.ink + '" stroke-width="2.4"/><rect x="' + (tx - 8) + '" y="' + (by + hh - 3) + '" width="16" height="6" fill="#fff"/>' + lines(bx + w / 2, by + 24, ls, fsz, C.ink, 700, 21));
         b.style.transformOrigin = ax + "px " + ay + "px";
-        this.L.fx.appendChild(b); this.pop(b, 0.35);
+        var bw = el("g", {}); bw.appendChild(b); this.L.talk.appendChild(bw); this.pop(b, 0.35);
+        var bub = A.bub = { g: bw, n: ntag, dy: 0, x: bx, y: by, w: w, h: hh }; this.bubs.push(bub);
         var dur = g[2] || 2.6;
         var mo = A.body.querySelector(".mouth");
         if (mo) this.anim(mo, [{ transform: "scaleY(1)" }, { transform: "scaleY(0.3)" }, { transform: "scaleY(1.4)" }, { transform: "scaleY(1)" }], 0.32, { it: Math.max(1, Math.round(Math.min(dur, ls.join(" ").length / 12) / 0.32)), ease: "linear" });
         var arR = A.body.querySelector(".arm-r");
         if (arR && !A.carry.length) { this.anim(arR, [{ transform: "rotate(0deg)" }, { transform: "rotate(-50deg)", offset: 0.2 }, { transform: "rotate(-38deg)", offset: 0.5 }, { transform: "rotate(-50deg)", offset: 0.75 }, { transform: "rotate(0deg)" }], Math.min(dur, 2.2), { ease: "ease-in-out" }); }
-        this.later(dur, function () { self.anim(b, [{ opacity: 1 }, { opacity: 0 }], 0.25); self.later(0.3, function () { b.remove(); }); });
+        this.later(dur, function () { self.anim(b, [{ opacity: 1 }, { opacity: 0 }], 0.25); self.later(0.3, function () { bw.remove(); if (A.bub === bub) A.bub = null; }); });
         break;
       }
       case "give": {
@@ -374,6 +405,11 @@
         var st = el("g", {}, '<g transform="rotate(-7)"><rect x="' + (-sw / 2) + '" y="' + (-fs - 6) + '" width="' + sw + '" height="' + (fs + 26) + '" rx="10" fill="#fff" fill-opacity=".9" stroke="' + col + '" stroke-width="5"/>' + txt(0, 4, s, fs, col, 800, "middle", ' letter-spacing="1"') + "</g>");
         st.style.transform = tr(stx, sty);
         var wrapG = el("g", {}); wrapG.appendChild(st); this.L.ui.appendChild(wrapG);
+        var sr = { g: wrapG, x: stx - sw / 2 - 8, y: sty - fs - 16, w: sw + 16, h: fs + 40 };
+        this.stamps = (this.stamps || []).concat(sr);
+        (this.bubs || []).forEach(function (o) {
+          if (o.g.isConnected && o.x < sr.x + sr.w && o.x + o.w > sr.x && o.y < sr.y + sr.h && o.y + o.h > sr.y) { self.later(0.3, function () { self.anim(o.g, [{ opacity: 1 }, { opacity: 0 }], 0.3); self.later(0.32, function () { o.g.remove(); }); }); }
+        });
         this.anim(st, [{ transform: tr(stx, sty) + " scale(2.4)", opacity: 0 }, { transform: tr(stx, sty) + " scale(1)", opacity: 1 }], 0.38, { ease: "cubic-bezier(.5,0,.8,.4)" });
         this.later(0.36, function () { self.quake(4); });
         this.later(g[4] || 99, function () { wrapG.remove(); });
@@ -381,8 +417,8 @@
       }
       case "unstamp": while (this.L.ui.lastChild && this.L.ui.lastChild.getAttribute("class") !== "law") { this.L.ui.lastChild.remove(); } break;
       case "law": {
-        var lt = /^\d/.test(g[0]) ? "§ " + g[0] : g[0], p = this.pill(0, 0, lt, C.navy, C.yellow, 14);
-        var w2 = tw(lt, 14) + 20, lx = 14 + w2 / 2, ly = 30 + this.lawN * 34; this.lawN++;
+        var lt = /^\d/.test(g[0]) ? "§ " + g[0] : g[0], p = this.pill(0, 0, lt, C.navy, C.sig, 14);
+        var w2 = tw(lt, 14) + 20, lx = 30 + w2 / 2, ly = 38 + this.lawN * 34; this.lawN++;
         p.setAttribute("class", "law"); p.style.transform = tr(lx, ly); this.L.ui.appendChild(p);
         this.anim(p, [{ transform: tr(-w2, ly) }, { transform: tr(lx, ly) }], 0.6);
         break;
@@ -398,10 +434,13 @@
         var L2 = path.getTotalLength ? path.getTotalLength() : 400;
         if (!g[4]) { path.style.strokeDasharray = L2; this.anim(path, [{ strokeDashoffset: L2 }, { strokeDashoffset: 0 }], 0.8); }
         else this.anim(path, [{ opacity: 0 }, { opacity: 1 }], 0.6);
-        if (g[2]) { var px = (x1 + 2 * mx + x2) / 4, py = (y1 + 2 * my + y2) / 4; var lp = this.pill(px, py + 5, g[2], "#fff", c2, 13); this.L.fx.appendChild(lp); this.later(0.5, function () { self.pop(lp, 0.35); }); lp.style.opacity = 0; this.later(0.5, function () { lp.style.opacity = 1; }); }
+        if (g[2]) { var pw = tw(g[2], 13) + 20, px = Math.max(pw / 2 + 6, Math.min(794 - pw / 2, (x1 + 2 * mx + x2) / 4)), py = (y1 + 2 * my + y2) / 4;
+          /* Pfeil-Beschriftungen stapeln, statt sich zu überdecken */
+          this.lbls = (this.lbls || []).filter(function (o) { return o.g.isConnected; });
+          for (var lt2 = 0; lt2 < 4 && this.lbls.some(function (o) { return px - pw / 2 < o.x + o.w + 6 && px + pw / 2 + 6 > o.x && py - 13 < o.y + 26 && py + 13 > o.y; }); lt2++) py -= 30; var lp = this.pill(px, py + 5, g[2], "#fff", c2, 13); this.L.tags.appendChild(lp); this.lbls.push({ g: lp, x: px - pw / 2, y: py - 13, w: pw }); this.later(0.5, function () { self.pop(lp, 0.35); }); lp.style.opacity = 0; this.later(0.5, function () { lp.style.opacity = 1; }); }
         break;
       }
-      case "clearfx": this.L.fx.innerHTML = ""; break;
+      case "clearfx": this.L.fx.innerHTML = ""; this.L.talk.innerHTML = ""; this.L.tags.innerHTML = ""; Object.keys(this.A).forEach(function (k) { self.A[k].tags = {}; }); break;
       case "pulse": this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.16)" }, { transform: "scale(1)" }], 0.5); break;
       case "shake": this.anim(A.inner, [{ transform: "translateX(0)" }, { transform: "translateX(-7px)" }, { transform: "translateX(7px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }], 0.5); break;
       case "face": var fc = A.body.querySelector(".face"); if (fc) { fc.innerHTML = face(g[1]); this.blink(A, 1); } this.anim(A.inner, [{ transform: "scale(1)" }, { transform: "scale(1.06)" }, { transform: "scale(1)" }], 0.3); break;
@@ -429,9 +468,14 @@
       case "tag": {
         var slot = g[3] || "t", old = A.tags[slot]; if (old) old.remove();
         var yy = this.top(A) - 12 - (slot === "t2" ? 30 : 0);
-        var tg = this.pill(A.x, yy, g[1], COL[g[2]] || C.navy, "#fff", 13);
+        var tgw = tw(g[1], 13) + 20, tgx = Math.max(tgw / 2 + 6, Math.min(794 - tgw / 2, A.x));
+        var tg = this.pill(tgx, yy, g[1], COL[g[2]] || C.navy, "#fff", 13);
         var mm = /translate\(([-\d.]+)px,([-\d.]+)px\)/.exec(tg._tr); tg._x = +mm[1]; tg._y = +mm[2];
-        this.L.fx.appendChild(tg); A.tags[slot] = tg; this.pop(tg, 0.4);
+        this.L.tags.appendChild(tg); A.tags[slot] = tg; this.pop(tg, 0.4);
+        if (A.bub && A.bub.g.isConnected) {
+          var need = Object.keys(A.tags).length - A.bub.n, ndy = -Math.max(0, need) * 30;
+          if (ndy !== A.bub.dy) { this.anim(A.bub.g, [{ transform: "translateY(" + A.bub.dy + "px)" }, { transform: "translateY(" + ndy + "px)" }], 0.3); A.bub.y += ndy - A.bub.dy; A.bub.dy = ndy; }
+        }
         break;
       }
       case "untag": Object.keys(A.tags).forEach(function (k) { A.tags[k].remove(); }); A.tags = {}; break;
@@ -490,7 +534,9 @@
   /* Standbild: alle Schritte sofort ausführen (für Vorschau ohne Bewegung) */
   Film.prototype.still = function (upto) {
     this.rate = 1000; this.playing = true;
-    this.t = upto; while (this.qi < this.q.length && this.q[this.qi].t <= upto) this.exec(this.q[this.qi++]);
+    /* Zeit Schritt für Schritt vorrücken, damit verzögerte Aktionen (Ausblenden, Entfernen) wie beim Abspielen greifen */
+    while (this.qi < this.q.length && this.q[this.qi].t <= upto) { var it = this.q[this.qi++]; this.t = it.t; this.exec(it); }
+    this.t = upto;
     this.anims.slice().forEach(function (a) { try { a.finish(); } catch (e) {} });
     this.playing = false; this.rate = 1;
   };
